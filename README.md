@@ -6,19 +6,19 @@ Setiap proyek di repositori ini dilengkapi dengan deskripsi singkat, teknologi y
 
 ## 🚀 Proyek Unggulan
 
-* ### **[Nama Proyek 1]**
-    * **Deskripsi:** [Jelaskan proyek ini secara singkat, misal: "Aplikasi manajemen tugas berbasis web dengan fitur real-time collaboration."]
-    * **Teknologi:** `[React]` `[Node.js]` `[MongoDB]` `[Socket.io]`
+* ### **Website E-commerce Hijab**
+    * **Deskripsi:** E-commerce hijab dengan fitur lengkap dan desain responsif.
+    * **Teknologi:** `[Html` `[Css]` `[Java]`
     * **Lihat:** https://dilcuyy.github.io/Portfolio-Abdila/#projects 🔗
 
-* ### **[Nama Proyek 2]**
-    * **Deskripsi:** [Jelaskan proyek ini secara singkat, misal: "Analisis sentimen dari data Twitter menggunakan Python dan machine learning."]
-    * **Teknologi:** `[Python]` `[Pandas]` `[Scikit-learn]` `[Jupyter Notebook]`
+* ### **Aplikasi Pemesanan Tiket Bus Online**
+    * **Deskripsi:** Aplikasi pemesanan bus dengan tampilan ramah pengguna dengan menampilkan rute yang tersedia.
+    * **Teknologi:** `[Html]` `[Css]` `[Java]` `[Php]`
     * **Lihat:** https://dilcuyy.github.io/Portfolio-Abdila/#projects 🔗
 
-* ### **[Nama Proyek 3]**
-    * **Deskripsi:** [Jelaskan proyek ini secara singkat, misal: "Desain prototype aplikasi mobile untuk pemesanan makanan."]
-    * **Teknologi:** `[Figma]` `[Adobe Illustrator]`
+* ### **Aplikasi Pemesanan Tiket Bioskop Online**
+    * **Deskripsi:** Aplikasi pemesanan tiket bioskop dengan fitur yang lengkap dan informatif bagi pengguna baru.
+    * **Teknologi:** `[Html]` `[Css]` `[Java]` `[Php]`
     * **Lihat:** https://dilcuyy.github.io/Portfolio-Abdila/#projects 🔗
 
 ---
@@ -27,8 +27,8 @@ Setiap proyek di repositori ini dilengkapi dengan deskripsi singkat, teknologi y
 
 Saya terbuka untuk kolaborasi dan diskusi. Jangan ragu untuk menghubungi saya:
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]([Tautan profil LinkedIn Anda])
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]([[Tautan profil LinkedIn Anda]](https://www.linkedin.com/in/abdila-asy-syafiq))
 [![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto: abdilaasy00@gmail.com)
-[![Website](https://img.shields.io/badge/Website-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)]([Tautan website atau blog pribadi Anda, jika ada])
+[![Website](https://img.shields.io/badge/Website-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)]([[Tautan website atau blog pribadi Anda, jika ada]](https://dilcuyy.github.io/Portfolio-Abdila/))
 
 Terima kasih sudah berkunjung! 🙏
