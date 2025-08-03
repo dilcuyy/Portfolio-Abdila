@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portofolio Saya - Abdila Asy</title>
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+  <header>
+    <nav>
+      <a href="#home" class="logo">PORTFOLIO</a>
+      <ul>
+        <li><a href="#home" class="nav-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#certificates" class="nav-link">Certificates</a></li>
+        <li><a href="#services" class="nav-link">Services</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    
+    <section id="home" class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title"><span class="typing-text"></span></h1>
+        <p class="hero-subtitle">Menjelajahi ide, mewujudkan solusi, dan menciptakan pengalaman digital yang tak terlupakan.</p>
+        <a href="#projects" class="cta-button">Lihat Karya Saya <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </section>
+
+    <section id="about" class="about animate-section">
+      <h2 class="section-title">Tentang Saya</h2>
+      <div class="flip-card-container">
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <div class="profile-pic">
+              <img src="assets/images/profile.jpg" alt="Foto Profil">
+            </div>
+            <div class="about-text">
+              <p>Halo! Nama saya Abdila Asy, seorang mahasiswa semester 5 yang sangat tertarik pada dunia <strong>pengembangan web</strong>. Saya percaya, di era digital ini, perpaduan antara desain dan teknologi bisa menciptakan solusi yang cerdas dan bermanfaat.</p>
+              <button class="flip-button">Lihat Selengkapnya <i class="fas fa-arrow-right"></i></button>
+            </div>
+          </div>
+          <div class="flip-card-back">
+            <div class="resume-text">
+              <h3>Riwayat Hidup Singkat</h3>
+              <div class="resume-details">
+                <p><i class="fas fa-user-circle resume-icon"></i> Nama: Abdila Asy Syafiq</p>
+                <p><i class="fas fa-map-marker-alt resume-icon"></i> Domisili: Bekasi, Jawa Barat - Indonesia</p>
+                <p><i class="fas fa-graduation-cap resume-icon"></i> Pendidikan: Mahasiswa Semester 5, Universitas Bani Saleh</p>
+              </div>
+              <h4><i class="fas fa-tools resume-icon"></i> Keahlian:</h4>
+              <ul class="skills-list">
+                <li>Web Development (HTML, CSS, JavaScript)</li>
+                <li>UI/UX Design</li>
+                <li>Penggunaan Database (phpMyAdmin)</li>
+              </ul>
+              <button class="flip-button"><i class="fas fa-arrow-left"></i> Kembali</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="projects animate-section">
+      <h2 class="section-title">Proyek Pilihan</h2>
+      <div class="projects-grid">
+        <div class="project-card" data-project-id="1">
+          <img src="assets/images/project1-thumb.png" alt="Website E-commerce Hijab">
+          <div class="project-info">
+            <h3>Website E-commerce Hijab</h3>
+            <p>E-commerce hijab dengan fitur lengkap dan desain responsif.</p>
+          </div>
+        </div>
+        <div class="project-card" data-project-id="2">
+          <img src="assets/images/project2-thumb.png" alt="Aplikasi Pemesanan Tiket Bus Online">
+          <div class="project-info">
+            <h3>Aplikasi Pemesanan Tiket Bus Online</h3>
+            <p>Aplikasi pemesanan bus dengan tampilan ramah pengguna dengan menampilkan rute yang tersedia.</p>
+          </div>
+        </div>
+        <div class="project-card" data-project-id="3">
+          <img src="assets/images/project3-thumb.png" alt="Aplikasi Pemesanan Tiket Bioskop Online">
+          <div class="project-info">
+            <h3>Aplikasi Pemesanan Tiket Bioskop Online</h3>
+            <p>Aplikasi pemesanan tiket bioskop dengan fitur yang lengkap dan informatif bagi pengguna baru.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="certificates" class="certificates animate-section">
+      <h2 class="section-title">Sertifikat</h2>
+      <div class="certificates-grid">
+        <div class="certificate-card">
+          <img src="assets/images/certificate1.jpg" alt="Sertifikat 1">
+          <div class="certificate-info">
+            <h3>CERTIFICATE AS A PARTICIPANT</h3>
+            <p>Kuliah Umum dengan tema "Digital Competency Challenge and Thriving in the Digital Era: Leveraging Communities to Shape The Future"</p>
+          </div>
+        </div>
+        <div class="certificate-card">
+          <img src="assets/images/certificate2.jpg" alt="Sertifikat 2">
+          <div class="certificate-info">
+            <h3>Seminar Literasi Digital</h3>
+            <p>Seminar Literasi Digital Sektor Pendidikan SMK Bina Prestasi Bertema Generasi Cerdas Cakap Digital.</p>
+          </div>
+        </div>
+        <div class="certificate-card">
+          <img src="assets/images/certificate3.jpg" alt="Sertifikat 3">
+          <div class="certificate-info">
+            <h3>IT ESSENTIALS</h3>
+            <p>Completing IT Essentials course.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <div id="project-modal" class="modal">
+      <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h3 id="modal-title"></h3>
+        <div class="modal-slideshow">
+          <button class="prev-button">&lt;</button>
+          <img id="modal-image" src="" alt="">
+          <button class="next-button">&gt;</button>
+        </div>
+        <p id="modal-description"></p>
+      </div>
+    </div>
+    
+    <section id="services" class="services animate-section">
+      <h2 class="section-title">Apa yang Saya Tawarkan</h2>
+      <div class="services-list">
+        <div class="service-item">
+          <i class="fas fa-drafting-compass service-icon"></i>
+          <h3>Web Design</h3>
+          <p>Menciptakan desain antarmuka yang menarik, intuitif, dan sesuai dengan identitas brand.</p>
+        </div>
+        <div class="service-item">
+          <i class="fas fa-code service-icon"></i>
+          <h3>Frontend Dev</h3>
+          <p>Membangun website interaktif dan responsif dengan teknologi terkini.</p>
+        </div>
+        <div class="service-item">
+          <i class="fas fa-mobile-alt service-icon"></i>
+          <h3>UI/UX</h3>
+          <p>Menciptakan pengalaman pengguna yang lancar dan mudah diakses di berbagai perangkat.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <p>&copy; 2025 Abdila Asy. All rights reserved.</p>
+      <div class="social-links">
+        <a href="https://www.linkedin.com/in/abdila-asy-syafiq" target="_blank"><i class="fab fa-linkedin"></i></a>
+        <a href="https://github.com/dilcuyy" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/a.dilasy/" target="_blank"><i class="fab fa-instagram"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
