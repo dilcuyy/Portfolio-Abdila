@@ -36,8 +36,6 @@ Berikut adalah beberapa teknologi dan alat yang saya kuasai:
 Berikut adalah beberapa proyek pilihan yang telah saya kerjakan.
 
 ### 1. Website E-commerce Hijab
-*Ganti dengan gambar atau GIF demo proyek Anda*
-![Pratinjau Proyek E-commerce](https://user-images.githubusercontent.com/20684618/144983942-5a3372b8-f625-477d-8178-5a81669c5e32.gif)
 
 > Sebuah platform e-commerce yang dirancang khusus untuk penjualan hijab, dibangun dengan fokus pada pengalaman pengguna yang mulus dan desain yang responsif di semua perangkat.
 
@@ -48,14 +46,12 @@ Berikut adalah beberapa proyek pilihan yang telah saya kerjakan.
     <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
 * **Tautan:**
-    * **[Live Demo]**([Ganti dengan tautan demo langsung proyek Anda]) 🔗
-    * **[Kode Sumber]**([Ganti dengan tautan ke repositori GitHub proyek ini]) 📂
+    * **[Live Demo]**(https://dilcuyy.github.io/Portfolio-Abdila/#projects) 🔗
 
 ---
 
 ### 2. Aplikasi Pemesanan Tiket Bus Online
 *Ganti dengan gambar atau GIF demo proyek Anda*
-![Pratinjau Proyek Tiket Bus](https://user-images.githubusercontent.com/20684618/144983942-5a3372b8-f625-477d-8178-5a81669c5e32.gif)
 
 > Aplikasi berbasis web untuk memesan tiket bus secara online. Pengguna dapat dengan mudah mencari rute yang tersedia, memilih kursi, dan melakukan pembayaran.
 
@@ -67,14 +63,12 @@ Berikut adalah beberapa proyek pilihan yang telah saya kerjakan.
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
     <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
 * **Tautan:**
-    * **[Live Demo]**([Ganti dengan tautan demo langsung proyek Anda]) 🔗
-    * **[Kode Sumber]**([Ganti dengan tautan ke repositori GitHub proyek ini]) 📂
+    * **[Live Demo]**(https://dilcuyy.github.io/Portfolio-Abdila/#projects) 🔗
 
 ---
 
 ### 3. Aplikasi Pemesanan Tiket Bioskop Online
 *Ganti dengan gambar atau GIF demo proyek Anda*
-![Pratinjau Proyek Tiket Bioskop](https://user-images.githubusercontent.com/20684618/144983942-5a3372b8-f625-477d-8178-5a81669c5e32.gif)
 
 > Sebuah aplikasi yang memungkinkan pengguna untuk melihat film yang sedang tayang, membaca sinopsis, dan memesan tiket bioskop secara langsung dengan fitur yang lengkap dan informatif.
 
@@ -86,8 +80,7 @@ Berikut adalah beberapa proyek pilihan yang telah saya kerjakan.
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
     <img src="https://img.shields.io/badge/PHP-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP">
 * **Tautan:**
-    * **[Live Demo]**([Ganti dengan tautan demo langsung proyek Anda]) 🔗
-    * **[Kode Sumber]**([Ganti dengan tautan ke repositori GitHub proyek ini]) 📂
+    * **[Live Demo]**(https://dilcuyy.github.io/Portfolio-Abdila/#projects) 🔗
 
 ---
 
