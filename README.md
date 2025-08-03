@@ -28,7 +28,7 @@ Setiap proyek di repositori ini dilengkapi dengan deskripsi singkat, teknologi y
 Saya terbuka untuk kolaborasi dan diskusi. Jangan ragu untuk menghubungi saya:
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)]([Tautan profil LinkedIn Anda])
-[![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:[Alamat email Anda])
+[![Email](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto: abdilaasy00@gmail.com)
 [![Website](https://img.shields.io/badge/Website-4285F4?style=for-the-badge&logo=googlechrome&logoColor=white)]([Tautan website atau blog pribadi Anda, jika ada])
 
 Terima kasih sudah berkunjung! 🙏
