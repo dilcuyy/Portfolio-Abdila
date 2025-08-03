@@ -1,6 +1,6 @@
-# Portfolio Abdila 👨‍💻
+# Portfolio
 
-Selamat datang di portofolio saya! Di sini Anda akan menemukan koleksi proyek-proyek yang telah saya kerjakan yang mencerminkan minat dan keahlian saya di bidang **[Sebutkan bidang Anda, misal: Pengembangan Web, Analisis Data, Desain UI/UX]**.
+Selamat datang di portofolio saya! Di sini Anda akan menemukan koleksi proyek-proyek yang telah saya kerjakan yang mencerminkan minat dan keahlian saya di bidang **Pengembangan Web, Analisis Data, Desain UI/UX**.
 
 Setiap proyek di repositori ini dilengkapi dengan deskripsi singkat, teknologi yang digunakan, serta tautan menuju demonstrasi atau kode sumbernya. Silakan jelajahi setiap folder untuk melihat detail lebih lanjut!
 
@@ -9,17 +9,17 @@ Setiap proyek di repositori ini dilengkapi dengan deskripsi singkat, teknologi y
 * ### **[Nama Proyek 1]**
     * **Deskripsi:** [Jelaskan proyek ini secara singkat, misal: "Aplikasi manajemen tugas berbasis web dengan fitur real-time collaboration."]
     * **Teknologi:** `[React]` `[Node.js]` `[MongoDB]` `[Socket.io]`
-    * **Lihat:** [Link Demo/Link Repository] 🔗
+    * **Lihat:** https://dilcuyy.github.io/Portfolio-Abdila/#projects 🔗
 
 * ### **[Nama Proyek 2]**
     * **Deskripsi:** [Jelaskan proyek ini secara singkat, misal: "Analisis sentimen dari data Twitter menggunakan Python dan machine learning."]
     * **Teknologi:** `[Python]` `[Pandas]` `[Scikit-learn]` `[Jupyter Notebook]`
-    * **Lihat:** [Link Demo/Link Repository] 🔗
+    * **Lihat:** https://dilcuyy.github.io/Portfolio-Abdila/#projects 🔗
 
 * ### **[Nama Proyek 3]**
     * **Deskripsi:** [Jelaskan proyek ini secara singkat, misal: "Desain prototype aplikasi mobile untuk pemesanan makanan."]
     * **Teknologi:** `[Figma]` `[Adobe Illustrator]`
-    * **Lihat:** [Link Prototype/Link Behance] 🔗
+    * **Lihat:** https://dilcuyy.github.io/Portfolio-Abdila/#projects 🔗
 
 ---
 
