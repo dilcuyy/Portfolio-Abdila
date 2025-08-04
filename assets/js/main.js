@@ -11,7 +11,7 @@ const projectsData = [
   {
     id: 2,
     title: 'Aplikasi Pemesanan Tiket Bus Online',
-    description: 'Aplikasi mobile untuk pemesanan tiket bus secara online. Memiliki antarmuka yang ramah pengguna (UI/UX) untuk memudahkan pengguna mencari jadwal, memilih kursi, dan melakukan pembayaran. Dikembangkan menggunakan React Native.',
+    description: 'Aplikasi mobile untuk pemesanan tiket bus secara online. Memiliki antarmuka yang ramah pengguna (UI/UX) untuk memudahkan pengguna mencari jadwal, memilih kursi, dan melakukan pembayaran. Dikembangkan menggunakan Php untuk frontend nya dan juga phpMyAdmin untuk backend nya.',
     images: ['assets/images/project2-img1.png', 'assets/images/project2-img2.png'],
   },
   {
@@ -195,4 +195,5 @@ document.addEventListener('DOMContentLoaded', () => {
   sectionsToAnimate.forEach(section => {
     observer.observe(section);
   });
+
 });
