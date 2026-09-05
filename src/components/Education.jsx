@@ -108,7 +108,7 @@ export default function Education() {
                 CUMULATIVE GPA / IPK
               </span>
               <p className="text-5xl sm:text-6xl font-mono font-bold text-[#F2EEE5] tracking-tight">
-                3.85
+                3.62
               </p>
               <p className="text-xs font-mono text-[#D8D0BF] uppercase tracking-wider pt-1">
                 SCALE 4.00 — ACTIVE UNDERGRADUATE STUDENT

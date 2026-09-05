@@ -106,9 +106,8 @@ export default function Internship() {
     if (diff < -total / 2) diff += total;
 
     const absDiff = Math.abs(diff);
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
 
-    // Non-clipping 3D Cylinder geometry:
-    // translateX pushes side cards sideways; translateZ pushes them deep into negative Z space so near edges never penetrate the front card!
     let translateX = 0;
     let translateZ = 0;
     let rotateY = 0;
@@ -125,16 +124,16 @@ export default function Internship() {
       zIndex = 50;
     } else if (absDiff === 1) {
       const dir = diff > 0 ? 1 : -1;
-      translateX = dir * 320; // Sideways displacement
-      translateZ = -260;     // Deep negative Z push to prevent near-edge 3D clipping
-      rotateY = dir * 26;    // Subtle outward curve
+      translateX = dir * (isMobile ? 200 : 320); // Responsive displacement to prevent viewport clipping on mobile
+      translateZ = isMobile ? -180 : -260;
+      rotateY = dir * 26;
       scale = 0.84;
       opacity = 0.7;
       zIndex = 20;
     } else if (absDiff === 2) {
       const dir = diff > 0 ? 1 : -1;
-      translateX = dir * 540;
-      translateZ = -460;
+      translateX = dir * (isMobile ? 360 : 540);
+      translateZ = isMobile ? -320 : -460;
       rotateY = dir * 45;
       scale = 0.68;
       opacity = 0.3;
@@ -247,7 +246,7 @@ export default function Internship() {
             </div>
 
             <div
-              className="relative w-full max-w-[400px] sm:max-w-[440px] md:max-w-[460px] h-[500px] sm:h-[540px] flex items-center justify-center"
+              className="relative w-full max-w-[310px] sm:max-w-[440px] md:max-w-[460px] h-[500px] sm:h-[540px] flex items-center justify-center"
               style={{ transformStyle: 'preserve-3d' }}
             >
               {portfolioData.certificates.map((cert, idx) => {

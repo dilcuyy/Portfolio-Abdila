@@ -15,7 +15,7 @@ export const portfolioData = {
     degree: "Sarjana Sistem Informasi (S.Kom)",
     university: "Universitas Bani Saleh",
     period: "2023 — 2027",
-    gpa: "3.85 / 4.00",
+    gpa: "3.62 / 4.00",
     status: "Active Undergraduate Student",
     description: "Focused on Enterprise Information Systems, Software Architecture, User Experience Engineering, and Relational Database Design. Completing academic coursework in web development and data analytics.",
     skillsLearned: [
@@ -199,7 +199,7 @@ export const portfolioData = {
     subhead: "Have a project, collaboration opportunity, or just want to say hello? Drop a message below.",
     email: "abdilaasy00@gmail.com",
     phone: "+62 895 1793 9138",
-    web3formsKey: "YOUR_ACCESS_KEY_HERE",
+    web3formsKey: "22f2b422-cafa-46ce-80f9-0c590e6348d8",
     socials: [
       { name: "LinkedIn", url: "https://www.linkedin.com/in/abdila-asy-syafiq", handle: "abdila-asy-syafiq" },
       { name: "GitHub", url: "https://github.com/dilcuyy", handle: "@dilcuyy" },

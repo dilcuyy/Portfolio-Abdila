@@ -130,17 +130,17 @@ export default function Contact() {
             </p>
 
             {/* Quick Email Pill */}
-            <div className="pt-2 flex items-center space-x-4">
+            <div className="pt-2 flex flex-wrap items-center gap-3">
               <button
                 onClick={handleCopyEmail}
-                className="flex items-center space-x-3 px-6 py-3.5 rounded-full border border-[#2B2A26] bg-[#12120F] hover:border-[#D8D0BF] text-sm font-mono text-[#F2EEE5] transition-all group cursor-pointer"
+                className="flex items-center space-x-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full border border-[#2B2A26] bg-[#12120F] hover:border-[#D8D0BF] text-xs sm:text-sm font-mono text-[#F2EEE5] transition-all group cursor-pointer max-w-full truncate"
               >
-                <Mail size={16} className="text-[#D8D0BF]" />
-                <span>{portfolioData.contact.email}</span>
+                <Mail size={16} className="text-[#D8D0BF] flex-shrink-0" />
+                <span className="truncate">{portfolioData.contact.email}</span>
                 {copied ? (
-                  <Check size={16} className="text-emerald-400" />
+                  <Check size={16} className="text-emerald-400 flex-shrink-0" />
                 ) : (
-                  <span className="text-xs text-[#A7A39A] group-hover:text-[#F2EEE5] transition-colors">
+                  <span className="text-xs text-[#A7A39A] group-hover:text-[#F2EEE5] transition-colors flex-shrink-0">
                     (COPY)
                   </span>
                 )}
@@ -170,12 +170,12 @@ export default function Contact() {
 
           {/* Right Column - Contact Form with Web3Forms & Mail Fallback */}
           <div className="contact-reveal lg:col-span-6">
-            <div className="bg-[#12120F] border border-[#2B2A26] p-8 sm:p-10 rounded-3xl space-y-6 relative">
-              <div className="flex items-center justify-between">
+            <div className="bg-[#12120F] border border-[#2B2A26] p-6 sm:p-10 rounded-2xl sm:rounded-3xl space-y-6 relative">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
                 <span className="text-xs font-mono text-[#D8D0BF] uppercase tracking-widest block">
                   DIRECT INQUIRY
                 </span>
-                <span className="inline-flex items-center space-x-2 text-[10px] font-mono uppercase tracking-widest text-[#A7A39A] bg-[#0B0B09] px-2.5 py-1 rounded-full border border-[#2B2A26]">
+                <span className="inline-flex items-center space-x-2 text-[10px] font-mono uppercase tracking-widest text-[#A7A39A] bg-[#0B0B09] px-2.5 py-1 rounded-full border border-[#2B2A26] w-fit">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span>WEB3FORMS / DIRECT MAIL</span>
                 </span>

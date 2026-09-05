@@ -60,7 +60,7 @@ export default function Skills() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           {/* Column 1: Soft Skills (Col-span-6 with right border divider) */}
           <div className="skills-reveal lg:col-span-6 space-y-6 lg:border-r border-[#2B2A26] lg:pr-12">
-            <div className="flex items-end justify-between pb-4 border-b border-[#2B2A26]">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-4 border-b border-[#2B2A26] gap-1 sm:gap-0">
               <h3 className="text-3xl sm:text-4xl font-bebas text-[#F2EEE5] uppercase tracking-wider">
                 SOFT SKILLS
               </h3>
@@ -93,7 +93,7 @@ export default function Skills() {
 
           {/* Column 2: Hard Skills (Col-span-6) */}
           <div className="skills-reveal lg:col-span-6 space-y-6">
-            <div className="flex items-end justify-between pb-4 border-b border-[#2B2A26]">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-4 border-b border-[#2B2A26] gap-1 sm:gap-0">
               <h3 className="text-3xl sm:text-4xl font-bebas text-[#F2EEE5] uppercase tracking-wider">
                 HARD SKILLS
               </h3>

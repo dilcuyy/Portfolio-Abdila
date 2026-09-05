@@ -99,7 +99,7 @@ export default function Hero() {
                 CUMULATIVE GPA
               </span>
               <span className="text-sm md:text-base font-mono text-[#D8D0BF] font-semibold block mt-1">
-                3.85 / 4.00
+                {portfolioData.education.gpa}
               </span>
             </div>
           </div>
@@ -107,9 +107,9 @@ export default function Hero() {
 
         {/* Bottom Banner Details */}
         <div className="hero-sub-meta pt-6 border-t border-[#2B2A26] flex flex-col md:flex-row justify-between items-start md:items-center text-xs font-mono text-[#A7A39A] gap-4">
-          <div className="flex items-center space-x-3">
-            <span className="inline-block w-2 h-2 rounded-full bg-[#D8D0BF] animate-pulse" />
-            <span className="uppercase tracking-widest text-[#F2EEE5] whitespace-nowrap">
+          <div className="flex items-center space-x-3 min-w-0">
+            <span className="inline-block w-2 h-2 rounded-full bg-[#D8D0BF] animate-pulse flex-shrink-0" />
+            <span className="uppercase tracking-wider text-[#F2EEE5] leading-snug">
               AVAILABLE FOR FULL-TIME, INTERNSHIP & FREELANCE OPPORTUNITIES
             </span>
           </div>

@@ -52,7 +52,7 @@ export default function Navbar({ activeSection }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 max-h-[80px] ${
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
         isScrolled
           ? 'bg-[#0B0B09]/90 backdrop-blur-md border-b border-[#2B2A26]/50 py-3 sm:py-4'
           : 'bg-transparent py-5 md:py-6'
@@ -63,7 +63,7 @@ export default function Navbar({ activeSection }) {
         <a
           href="#home"
           onClick={(e) => handleNavClick(e, '#home')}
-          className="text-xs sm:text-sm font-medium tracking-wider text-[#F2EEE5] uppercase hover:text-[#D8D0BF] transition-colors whitespace-nowrap"
+          className="text-xs sm:text-sm font-medium tracking-wider text-[#F2EEE5] uppercase hover:text-[#D8D0BF] transition-colors truncate max-w-[220px] sm:max-w-none"
         >
           {portfolioData.personal.subRole}
         </a>
@@ -98,31 +98,37 @@ export default function Navbar({ activeSection }) {
 
       {/* Mobile Drawer Overlay */}
       {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-0 left-0 w-full min-h-[100dvh] bg-[#0B0B09] z-50 flex flex-col justify-between px-8 py-8 lg:hidden animate-fadeIn">
-          <div className="flex justify-between items-center w-full">
-            <span className="text-xs font-mono text-[#A7A39A] uppercase">
-              {portfolioData.personal.subRole}
+        <div className="fixed inset-0 top-0 left-0 w-full min-h-[100dvh] bg-[#0B0B09] z-50 flex flex-col justify-between px-6 py-6 lg:hidden animate-fadeIn">
+          <div className="flex justify-between items-center w-full border-b border-[#2B2A26] pb-4">
+            <span className="text-xs font-mono text-[#D8D0BF] uppercase tracking-wider">
+              NAVIGATION MENU
             </span>
             <button
               onClick={() => setIsMobileMenuOpen(false)}
-              className="text-[#F2EEE5] p-2"
+              className="text-[#F2EEE5] p-2 hover:text-[#D8D0BF] transition-colors"
               aria-label="Close menu"
             >
-              <X size={28} />
+              <X size={26} />
             </button>
           </div>
 
-          <div className="flex flex-col space-y-4 my-auto overflow-y-auto max-h-[70vh]">
-            {navLinks.map((link, idx) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className="text-3xl sm:text-4xl font-bebas tracking-wide text-[#F2EEE5] hover:text-[#D8D0BF] uppercase transition-colors"
-              >
-                0{idx + 1}. {link.name}
-              </a>
-            ))}
+          <div className="flex flex-col space-y-3 my-auto overflow-y-auto py-4">
+            {navLinks.map((link, idx) => {
+              const isActive = activeSection === link.href.substring(1);
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`text-2xl sm:text-3xl font-bebas tracking-wide uppercase transition-colors flex items-center justify-between py-1 border-b border-[#2B2A26]/40 ${
+                    isActive ? 'text-[#D8D0BF]' : 'text-[#F2EEE5] hover:text-[#D8D0BF]'
+                  }`}
+                >
+                  <span>0{idx + 1}. {link.name}</span>
+                  {isActive && <span className="text-xs font-mono text-[#D8D0BF]">● ACTIVE</span>}
+                </a>
+              );
+            })}
           </div>
 
           <div className="pt-4 border-t border-[#2B2A26] flex justify-between text-xs text-[#A7A39A] uppercase font-mono">
