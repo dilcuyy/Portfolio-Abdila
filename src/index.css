@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg: #0B0B09;
+    --bg-card: #12120F;
+    --text: #F2EEE5;
+    --muted: #A7A39A;
+    --line: #2B2A26;
+    --accent: #D8D0BF;
+  }
+
+  body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-bebas {
+    font-family: 'Bebas Neue', display, sans-serif;
+    letter-spacing: -0.02em;
+    line-height: 0.88;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0B0B09;
+}
+::-webkit-scrollbar-thumb {
+  background: #2B2A26;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #55534C;
+}
+
+/* Noise overlay */
+.editorial-grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Responsive Editorial Typography Clamps */
+.text-hero-giant {
+  font-size: clamp(64px, 11vw, 190px);
+}
+
+.text-section-heading {
+  font-size: clamp(48px, 8vw, 130px);
+}
+
+.text-display-medium {
+  font-size: clamp(36px, 5vw, 84px);
+}
+
+/* Link underline animation from left to right */
+.link-editorial {
+  position: relative;
+  display: inline-block;
+}
+
+.link-editorial::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  transform: scaleX(0);
+  height: 1px;
+  bottom: -2px;
+  left: 0;
+  background-color: var(--text);
+  transform-origin: bottom right;
+  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.link-editorial:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+}
+
+/* Hairline dividers */
+.border-editorial {
+  border-color: var(--line);
+}
+
+/* Hide default cursor on desktop when custom cursor active */
+@media (min-width: 1024px) {
+  body.custom-cursor-active,
+  body.custom-cursor-active a,
+  body.custom-cursor-active button {
+    cursor: none !important;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
