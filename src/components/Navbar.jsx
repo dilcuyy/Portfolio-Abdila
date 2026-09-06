@@ -1,38 +1,46 @@
-import React, { useState, useEffect } from 'react';
-import { Menu, X } from './Icons';
-import { portfolioData } from '../data/portfolio';
+import React, { useState, useEffect, useRef } from 'react';
+import { Menu, X, Github } from './Icons';
 
 export default function Navbar({ activeSection }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const menuRef = useRef(null);
 
-  // Nav links matching the exact top-to-bottom section sequence on the page
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About', href: '#about' },
     { name: 'Education', href: '#education' },
     { name: 'Skills', href: '#skills' },
-    { name: 'Certificates', href: '#certificates' },
     { name: 'Projects', href: '#projects' },
     { name: 'Contact', href: '#contact' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 30);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Handle ESC key for mobile drawer
+  // Handle ESC key and click outside for mobile dropdown
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === 'Escape') setIsMobileMenuOpen(false);
     };
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   const handleNavClick = (e, href) => {
@@ -40,7 +48,7 @@ export default function Navbar({ activeSection }) {
     setIsMobileMenuOpen(false);
     const element = document.querySelector(href);
     if (element) {
-      const topOffset = 80;
+      const topOffset = 90;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - topOffset;
       window.scrollTo({
@@ -52,91 +60,105 @@ export default function Navbar({ activeSection }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-        isScrolled
-          ? 'bg-[#0B0B09]/90 backdrop-blur-md border-b border-[#2B2A26]/50 py-3 sm:py-4'
-          : 'bg-transparent py-5 md:py-6'
-      }`}
+      ref={menuRef}
+      className="fixed top-0 left-0 w-full z-50 pointer-events-none py-4 sm:py-6 px-4 sm:px-8"
     >
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 flex items-center justify-between">
-        {/* Left branding */}
+      <div className="max-w-[1440px] mx-auto flex items-center justify-between pointer-events-auto relative">
+        {/* Left Floating Brand Pill Capsule */}
         <a
           href="#home"
           onClick={(e) => handleNavClick(e, '#home')}
-          className="text-xs sm:text-sm font-medium tracking-wider text-[#F2EEE5] uppercase hover:text-[#D8D0BF] transition-colors truncate max-w-[220px] sm:max-w-none"
+          className="flex items-center space-x-2.5 px-4 py-2 rounded-full bg-[#161612]/90 backdrop-blur-md border border-[#2B2A26] shadow-lg hover:border-[#D8D0BF]/60 transition-colors group"
         >
-          {portfolioData.personal.subRole}
+          <div className="w-6 h-6 rounded-full bg-[#F2EEE5] text-[#0B0B09] flex items-center justify-center font-bebas text-sm font-bold">
+            A
+          </div>
+          <span className="text-xs font-mono font-medium text-[#F2EEE5] tracking-wider uppercase group-hover:text-[#D8D0BF] transition-colors">
+            Abdila Asy Syafiq
+          </span>
         </a>
 
-        {/* Desktop Nav Links (Enforcing single-line layout & exact section sequence) */}
-        <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className={`link-editorial text-[11px] xl:text-xs font-mono uppercase tracking-wider transition-opacity whitespace-nowrap ${
-                activeSection === link.href.substring(1)
-                  ? 'text-[#F2EEE5] opacity-100 font-bold'
-                  : 'text-[#A7A39A] opacity-80 hover:opacity-100 hover:text-[#F2EEE5]'
-              }`}
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-
-        {/* Mobile Hamburger Button */}
-        <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden text-[#F2EEE5] p-2 focus:outline-none focus:ring-1 focus:ring-[#D8D0BF]"
-          aria-label="Toggle Navigation Menu"
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-
-      {/* Mobile Drawer Overlay */}
-      {isMobileMenuOpen && (
-        <div className="fixed inset-0 top-0 left-0 w-full min-h-[100dvh] bg-[#0B0B09] z-50 flex flex-col justify-between px-6 py-6 lg:hidden animate-fadeIn">
-          <div className="flex justify-between items-center w-full border-b border-[#2B2A26] pb-4">
-            <span className="text-xs font-mono text-[#D8D0BF] uppercase tracking-wider">
-              NAVIGATION MENU
-            </span>
-            <button
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="text-[#F2EEE5] p-2 hover:text-[#D8D0BF] transition-colors"
-              aria-label="Close menu"
-            >
-              <X size={26} />
-            </button>
-          </div>
-
-          <div className="flex flex-col space-y-3 my-auto overflow-y-auto py-4">
-            {navLinks.map((link, idx) => {
+        {/* Right Floating Nav Pill Capsule (Desktop) */}
+        <div className="hidden lg:flex items-center space-x-1.5 p-1.5 rounded-full bg-[#161612]/90 backdrop-blur-md border border-[#2B2A26] shadow-lg">
+          <nav className="flex items-center space-x-1 px-2">
+            {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
               return (
                 <a
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`text-2xl sm:text-3xl font-bebas tracking-wide uppercase transition-colors flex items-center justify-between py-1 border-b border-[#2B2A26]/40 ${
-                    isActive ? 'text-[#D8D0BF]' : 'text-[#F2EEE5] hover:text-[#D8D0BF]'
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap ${
+                    isActive
+                      ? 'bg-[#2B2A26] text-[#F2EEE5] font-semibold'
+                      : 'text-[#A7A39A] hover:text-[#F2EEE5] hover:bg-[#2B2A26]/50'
                   }`}
                 >
-                  <span>0{idx + 1}. {link.name}</span>
-                  {isActive && <span className="text-xs font-mono text-[#D8D0BF]">● ACTIVE</span>}
+                  {link.name}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* GitHub Pill Button */}
+          <a
+            href="https://github.com/dilcuyy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#0B0B09] text-[#F2EEE5] text-xs font-mono uppercase tracking-wider border border-[#2B2A26] hover:border-[#D8D0BF] hover:text-[#D8D0BF] transition-colors"
+          >
+            <Github size={14} />
+            <span className="font-semibold">GitHub</span>
+            <span className="text-[10px] text-[#D8D0BF]">★</span>
+          </a>
+        </div>
+
+        {/* Mobile Pill Capsule (GitHub Badge + Toggle Button in One Capsule) */}
+        <div className="flex lg:hidden items-center p-1 rounded-full bg-[#161612]/90 backdrop-blur-md border border-[#2B2A26] shadow-lg space-x-1">
+          <a
+            href="https://github.com/dilcuyy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-[#0B0B09] text-[#F2EEE5] text-xs font-mono uppercase tracking-wider border border-[#2B2A26]"
+          >
+            <Github size={13} />
+            <span className="text-[11px] font-semibold">GitHub</span>
+            <span className="text-[10px] text-[#D8D0BF]">★</span>
+          </a>
+
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="p-1.5 rounded-full text-[#F2EEE5] hover:text-[#D8D0BF] hover:bg-[#2B2A26] transition-colors focus:outline-none"
+            aria-label="Toggle Navigation Menu"
+          >
+            {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+          </button>
+        </div>
+
+        {/* Mobile Dropdown Popover Card (Matching tasteskill.dev Reference) */}
+        {isMobileMenuOpen && (
+          <div className="absolute top-14 right-0 w-48 rounded-2xl bg-[#161612]/95 backdrop-blur-2xl border border-[#2B2A26] shadow-2xl p-2 z-50 flex flex-col space-y-1 animate-fadeIn lg:hidden">
+            {navLinks.map((link) => {
+              const isActive = activeSection === link.href.substring(1);
+              return (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`px-3.5 py-2 rounded-xl text-xs font-mono uppercase tracking-wider transition-all flex items-center justify-between ${
+                    isActive
+                      ? 'bg-[#2B2A26] text-[#F2EEE5] font-bold'
+                      : 'text-[#A7A39A] hover:text-[#F2EEE5] hover:bg-[#2B2A26]/40'
+                  }`}
+                >
+                  <span>{link.name}</span>
+                  {isActive && <span className="text-[10px] text-[#D8D0BF]">●</span>}
                 </a>
               );
             })}
           </div>
-
-          <div className="pt-4 border-t border-[#2B2A26] flex justify-between text-xs text-[#A7A39A] uppercase font-mono">
-            <span>BEKASI, INDONESIA</span>
-            <span>2026 PORTFOLIO</span>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </header>
   );
 }

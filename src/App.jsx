@@ -3,6 +3,7 @@ import Preloader from './components/Preloader';
 import CustomCursor from './components/CustomCursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
+import Manifesto from './components/Manifesto';
 import About from './components/About';
 import Education from './components/Education';
 import Skills from './components/Skills';
@@ -65,6 +66,7 @@ export default function App() {
         {/* Main Content Sections */}
         <main>
           <Hero />
+          <Manifesto />
           <About />
           <Education />
           <Skills />
