@@ -5,8 +5,26 @@ import { portfolioData } from '../data/portfolio';
 
 gsap.registerPlugin(ScrollTrigger);
 
+const TECH_ITEMS = [
+  { id: 'js', name: 'JavaScript', iconSrc: '/icons/javascript.svg' },
+  { id: 'react', name: 'React.js', iconSrc: '/icons/react.svg' },
+  { id: 'laravel', name: 'Laravel', iconSrc: '/icons/laravel.svg' },
+  { id: 'ci4', name: 'CodeIgniter 4', iconSrc: '/icons/codeigniter.svg' },
+  { id: 'flutter', name: 'Flutter', iconSrc: '/icons/flutter.svg' },
+  { id: 'mysql', name: 'MySQL', iconSrc: '/icons/mysql.svg' },
+  { id: 'tailwind', name: 'Tailwind CSS', iconSrc: '/icons/tailwind.svg' },
+  { id: 'figma', name: 'Figma', iconSrc: '/icons/figma.svg' },
+  { id: 'claude', name: 'Claude AI', iconSrc: '/icons/claude.svg' },
+  { id: 'chatgpt', name: 'ChatGPT', iconSrc: '/icons/chatgpt.svg' },
+  { id: 'gemini', name: 'Google Gemini', iconSrc: '/icons/gemini.svg' },
+];
+
 export default function About() {
   const sectionRef = useRef(null);
+  const containerRef = useRef(null);
+  const cardRefs = useRef([]);
+  const progressRef = useRef(0);
+  const reqIdRef = useRef(null);
 
   useEffect(() => {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -31,14 +49,86 @@ export default function About() {
       );
     }, sectionRef);
 
-    return () => ctx.revert();
+    // True arc-length equidistant motion (Spacious gaps, deep sweeping rightward arc)
+    const speed = 0.00035;
+    const total = TECH_ITEMS.length;
+
+    // Create virtual SVG path for precise constant-speed arc-length calculation
+    const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    
+    const updatePath = () => {
+      const isMobile = window.innerWidth < 1024;
+      // Mobile: Shifted inwards to the left to prevent edge clipping
+      // Desktop: Deep sweeping rightward arc with long runway for generous spacing
+      const d = isMobile
+        ? 'M 5 -160 Q 140 200, 15 840'
+        : 'M 20 -220 Q 580 260, 180 1020';
+      pathEl.setAttribute('d', d);
+      return pathEl.getTotalLength();
+    };
+
+    let totalLength = updatePath();
+    const handleResize = () => {
+      totalLength = updatePath();
+    };
+    window.addEventListener('resize', handleResize);
+
+    const animate = () => {
+      progressRef.current = (progressRef.current + speed) % 1;
+      const pBase = progressRef.current;
+
+      cardRefs.current.forEach((el, index) => {
+        if (!el) return;
+
+        // Strictly equidistant phase offset across constant arc length
+        const p = (pBase + index / total) % 1;
+        const dist = p * totalLength;
+        const pt = pathEl.getPointAtLength(dist);
+
+        // Smooth tangent angle derived directly from the curve
+        const nextDist = Math.min(dist + 3, totalLength);
+        const ptAhead = pathEl.getPointAtLength(nextDist);
+        const angleDeg = Math.atan2(ptAhead.y - pt.y, ptAhead.x - pt.x) * (180 / Math.PI);
+        const rotation = (angleDeg - 65) * 0.35;
+
+        // Smooth fade and scale envelopes at boundaries
+        let opacity = 1;
+        let scale = 1;
+
+        if (p < 0.08) {
+          const fadeIn = p / 0.08;
+          opacity = fadeIn;
+          scale = 0.75 + 0.25 * fadeIn;
+        } else if (p > 0.92) {
+          const fadeOut = (1 - p) / 0.08;
+          opacity = fadeOut;
+          scale = 0.75 + 0.25 * fadeOut;
+        } else {
+          const midDist = 1 - Math.abs(p - 0.5) * 2;
+          scale = 1 + midDist * 0.05;
+        }
+
+        el.style.transform = `translate3d(${pt.x.toFixed(1)}px, ${pt.y.toFixed(1)}px, 0) rotate(${rotation.toFixed(1)}deg) scale(${scale.toFixed(2)})`;
+        el.style.opacity = opacity.toFixed(3);
+      });
+
+      reqIdRef.current = requestAnimationFrame(animate);
+    };
+
+    reqIdRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      ctx.revert();
+      window.removeEventListener('resize', handleResize);
+      if (reqIdRef.current) cancelAnimationFrame(reqIdRef.current);
+    };
   }, []);
 
   return (
     <section
       id="about"
       ref={sectionRef}
-      className="py-24 md:py-32 border-b border-[#2B2A26] bg-[#0B0B09] relative"
+      className="py-24 md:py-32 border-b border-[#2B2A26] bg-[#0B0B09] relative overflow-hidden"
     >
       <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 space-y-16">
         {/* Section Eyebrow (1 per 3 sections) */}
@@ -51,42 +141,50 @@ export default function About() {
           </span>
         </div>
 
-        {/* Minimalist 2-Column Focus Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+        {/* 2-Column Layout on Desktop / Top-Right Flank Stream on Mobile */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           {/* Left Column: Short Punchy Summary */}
-          <div className="about-el lg:col-span-5 space-y-4">
-            <h2 className="text-section-heading font-bebas text-[#F2EEE5] uppercase tracking-tight leading-none">
-              PROFILE
-            </h2>
+          <div className="about-el relative z-10 lg:col-span-6 space-y-6">
+            <div className="space-y-2">
+              <span className="text-xs font-mono text-[#D8D0BF] uppercase tracking-widest block">
+                PROFILE & FOUNDATIONS
+              </span>
+              <h2 className="text-section-heading font-bebas text-[#F2EEE5] uppercase tracking-tight leading-none">
+                ABOUT ME
+              </h2>
+            </div>
+
             <p className="text-xl sm:text-2xl font-light text-[#F2EEE5] leading-snug">
-              Information Systems undergraduate at Universitas Bani Saleh specializing in full-stack web development, database architecture, and clean UI engineering.
+              Information Systems undergraduate at Universitas Bani Saleh specializing in full-stack web development, cross-platform mobile apps with Flutter, and modern AI-augmented workflows.
+            </p>
+
+            <p className="text-sm sm:text-base text-[#A7A39A] font-light leading-relaxed">
+              Bridging robust backend architectures (Laravel, CodeIgniter 4), responsive user interfaces (React.js, Tailwind, Figma), and relational database modeling (MySQL)—integrated with advanced prompt engineering across Claude, ChatGPT, and Gemini.
             </p>
           </div>
 
-          {/* Right Column: 3 Scannable Capabilities (Zero Wall of Text) */}
-          <div className="about-el lg:col-span-7 border-t border-b border-[#2B2A26] divide-y divide-[#2B2A26] font-mono text-xs">
-            <div className="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <span className="text-[#D8D0BF] font-semibold text-sm uppercase block">01 / FULL-STACK WEB DEVELOPMENT</span>
-                <span className="text-[#A7A39A] text-xs">CodeIgniter 4, React.js, Tailwind CSS, RESTful APIs</span>
-              </div>
-              <span className="text-[#F2EEE5] text-[11px] uppercase tracking-wider font-medium">MODULAR & RESPONSIVE</span>
-            </div>
-
-            <div className="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <span className="text-[#D8D0BF] font-semibold text-sm uppercase block">02 / DATABASE & SYSTEM DESIGN</span>
-                <span className="text-[#A7A39A] text-xs">MySQL, Relational ERD Modeling, Schema Optimization</span>
-              </div>
-              <span className="text-[#F2EEE5] text-[11px] uppercase tracking-wider font-medium">DATA INTEGRITY</span>
-            </div>
-
-            <div className="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-              <div>
-                <span className="text-[#D8D0BF] font-semibold text-sm uppercase block">03 / UI/UX & DATA ANALYTICS</span>
-                <span className="text-[#A7A39A] text-xs">Figma Prototyping, WCAG AA Accessibility, Sales Analytics</span>
-              </div>
-              <span className="text-[#F2EEE5] text-[11px] uppercase tracking-wider font-medium">HIGH-CONTRAST UX</span>
+          {/* Right Column on Desktop / Top-Right Empty Space Stream on Mobile */}
+          <div className="about-el absolute -top-8 right-2 sm:right-6 w-[200px] sm:w-[260px] h-[calc(100%+32px)] lg:static lg:right-auto lg:w-full lg:max-w-[500px] lg:h-auto lg:col-span-6 flex items-start lg:items-center justify-end lg:justify-center pointer-events-none lg:pointer-events-auto z-0 lg:z-auto overflow-hidden">
+            <div
+              ref={containerRef}
+              className="relative w-full h-full lg:h-[520px] min-h-[440px] overflow-hidden select-none"
+            >
+              {/* 1-by-1 Floating Icon Badges Using Official Local Vector Icons */}
+              {TECH_ITEMS.map((item, index) => (
+                <div
+                  key={item.id}
+                  ref={(el) => { cardRefs.current[index] = el; }}
+                  className="absolute top-0 left-0 w-16 h-16 sm:w-18 sm:h-18 lg:w-22 lg:h-22 rounded-2xl glass-tech-card shadow-2xl flex items-center justify-center cursor-pointer group will-change-transform p-3.5 lg:p-4.5"
+                  title={item.name}
+                >
+                  <img
+                    src={item.iconSrc}
+                    alt={item.name}
+                    className="w-full h-full object-contain pointer-events-none drop-shadow-sm"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
             </div>
           </div>
         </div>

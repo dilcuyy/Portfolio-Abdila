@@ -110,4 +110,23 @@ body::-webkit-scrollbar,
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  .animate-arc-card {
+    animation: none !important;
+  }
+}
+
+/* Glassmorphism card subtle edge refraction */
+.glass-tech-card {
+  background: rgba(18, 18, 15, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(216, 208, 191, 0.15);
+  box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.45);
+  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-tech-card:hover {
+  border-color: rgba(216, 208, 191, 0.6);
+  background: rgba(24, 24, 20, 0.96);
+  box-shadow: 0 16px 44px 0 rgba(216, 208, 191, 0.12);
 }

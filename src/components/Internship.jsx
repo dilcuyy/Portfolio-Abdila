@@ -11,10 +11,10 @@ export default function Internship() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [selectedPdf, setSelectedPdf] = useState(null);
   const [isReducedMotion, setIsReducedMotion] = useState(false);
-  const [isDraggingState, setIsDraggingState] = useState(false);
 
   const isDragging = useRef(false);
   const startX = useRef(0);
+  const startY = useRef(0);
   const dragDistance = useRef(0);
 
   const total = portfolioData.certificates.length;
@@ -63,29 +63,36 @@ export default function Internship() {
     setActiveIndex((prev) => (prev === total - 1 ? 0 : prev + 1));
   };
 
-  // Unified Mouse & Touch Drag Handlers
-  const handleDragStart = (clientX) => {
+  // High-performance touch & drag handlers (Zero unnecessary state re-renders)
+  const handleDragStart = (clientX, clientY = 0) => {
     isDragging.current = true;
     startX.current = clientX;
+    startY.current = clientY;
     dragDistance.current = 0;
-    setIsDraggingState(true);
   };
 
-  const handleDragMove = (clientX) => {
+  const handleDragMove = (clientX, clientY = 0) => {
     if (!isDragging.current) return;
-    dragDistance.current = clientX - startX.current;
+    const deltaX = clientX - startX.current;
+    const deltaY = clientY - startY.current;
+    
+    // If vertical movement is dominant, do not treat as horizontal card swipe
+    if (Math.abs(deltaY) > Math.abs(deltaX) * 1.5 && Math.abs(deltaX) < 20) {
+      return;
+    }
+    dragDistance.current = deltaX;
   };
 
   const handleDragEnd = () => {
     if (!isDragging.current) return;
     isDragging.current = false;
-    setIsDraggingState(false);
 
-    if (dragDistance.current < -35) {
+    if (dragDistance.current < -30) {
       handleNext(); // Dragged left -> show next card
-    } else if (dragDistance.current > 35) {
+    } else if (dragDistance.current > 30) {
       handlePrev(); // Dragged right -> show prev card
     }
+    dragDistance.current = 0;
   };
 
   const handleCardClick = (idx, diff) => {
@@ -99,7 +106,7 @@ export default function Internship() {
     }
   };
 
-  // Calculate Non-Clipping 3D Cylinder Drum Geometry
+  // Hardware-Accelerated 3D Cylinder Geometry
   const getCardStyle = (idx) => {
     let diff = idx - activeIndex;
     if (diff > total / 2) diff -= total;
@@ -114,6 +121,7 @@ export default function Internship() {
     let scale = 1;
     let opacity = 0;
     let zIndex = 0;
+    let visibility = 'visible';
 
     if (absDiff === 0) {
       translateX = 0;
@@ -124,16 +132,16 @@ export default function Internship() {
       zIndex = 50;
     } else if (absDiff === 1) {
       const dir = diff > 0 ? 1 : -1;
-      translateX = dir * (isMobile ? 200 : 320); // Responsive displacement to prevent viewport clipping on mobile
-      translateZ = isMobile ? -180 : -260;
-      rotateY = dir * 26;
-      scale = 0.84;
-      opacity = 0.7;
+      translateX = dir * (isMobile ? 180 : 320);
+      translateZ = isMobile ? -140 : -260;
+      rotateY = dir * (isMobile ? 18 : 26);
+      scale = isMobile ? 0.88 : 0.84;
+      opacity = isMobile ? 0.6 : 0.7;
       zIndex = 20;
-    } else if (absDiff === 2) {
+    } else if (absDiff === 2 && !isMobile) {
       const dir = diff > 0 ? 1 : -1;
-      translateX = dir * (isMobile ? 360 : 540);
-      translateZ = isMobile ? -320 : -460;
+      translateX = dir * 540;
+      translateZ = -460;
       rotateY = dir * 45;
       scale = 0.68;
       opacity = 0.3;
@@ -141,6 +149,7 @@ export default function Internship() {
     } else {
       opacity = 0;
       zIndex = 0;
+      visibility = 'hidden';
     }
 
     const pointerEvents = absDiff <= 1 ? 'auto' : 'none';
@@ -151,6 +160,11 @@ export default function Internship() {
         opacity,
         zIndex,
         pointerEvents,
+        visibility,
+        willChange: 'transform, opacity',
+        backfaceVisibility: 'hidden',
+        WebkitBackfaceVisibility: 'hidden',
+        transition: 'transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease',
       },
       diff,
     };
@@ -192,14 +206,14 @@ export default function Internship() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={handlePrev}
-                className="px-4 py-2 rounded-xl border border-[#2B2A26] bg-[#12120F] hover:border-[#D8D0BF] text-xs font-mono text-[#F2EEE5] uppercase tracking-wider transition-all"
+                className="px-4 py-2 rounded-xl border border-[#2B2A26] bg-[#12120F] hover:border-[#D8D0BF] text-xs font-mono text-[#F2EEE5] uppercase tracking-wider transition-all active:scale-95"
                 aria-label="Previous Certificate"
               >
                 ← PREV
               </button>
               <button
                 onClick={handleNext}
-                className="px-4 py-2 rounded-xl border border-[#2B2A26] bg-[#12120F] hover:border-[#D8D0BF] text-xs font-mono text-[#F2EEE5] uppercase tracking-wider transition-all"
+                className="px-4 py-2 rounded-xl border border-[#2B2A26] bg-[#12120F] hover:border-[#D8D0BF] text-xs font-mono text-[#F2EEE5] uppercase tracking-wider transition-all active:scale-95"
                 aria-label="Next Certificate"
               >
                 NEXT →
@@ -211,16 +225,14 @@ export default function Internship() {
         {/* 3D Cylindrical Rotating Carousel Container */}
         {!isReducedMotion ? (
           <div
-            className={`relative w-full h-[540px] sm:h-[580px] md:h-[600px] flex items-center justify-center my-6 ${
-              isDraggingState ? 'cursor-grabbing' : 'cursor-grab'
-            }`}
+            className="relative w-full h-[540px] sm:h-[580px] md:h-[600px] flex items-center justify-center my-6 cursor-grab active:cursor-grabbing touch-pan-y"
             style={{ perspective: '1400px', perspectiveOrigin: '50% 50%' }}
-            onMouseDown={(e) => handleDragStart(e.clientX)}
-            onMouseMove={(e) => handleDragMove(e.clientX)}
+            onMouseDown={(e) => handleDragStart(e.clientX, e.clientY)}
+            onMouseMove={(e) => handleDragMove(e.clientX, e.clientY)}
             onMouseUp={handleDragEnd}
             onMouseLeave={handleDragEnd}
-            onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
-            onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
+            onTouchStart={(e) => handleDragStart(e.touches[0].clientX, e.touches[0].clientY)}
+            onTouchMove={(e) => handleDragMove(e.touches[0].clientX, e.touches[0].clientY)}
             onTouchEnd={handleDragEnd}
           >
             {/* Clickable Left Side Region */}
@@ -258,7 +270,7 @@ export default function Internship() {
                     key={cert.id}
                     onClick={() => handleCardClick(idx, diff)}
                     style={cardStyle}
-                    className={`absolute inset-0 bg-[#12120F] border rounded-3xl overflow-hidden flex flex-col justify-between shadow-2xl transition-all duration-700 ease-out ${
+                    className={`absolute inset-0 bg-[#12120F] border rounded-3xl overflow-hidden flex flex-col justify-between shadow-2xl ${
                       isActive
                         ? 'border-[#D8D0BF] ring-1 ring-[#D8D0BF]/30 cursor-default'
                         : 'border-[#2B2A26] hover:border-[#D8D0BF]/60 cursor-pointer'
@@ -269,7 +281,7 @@ export default function Internship() {
                       <img
                         src={cert.image}
                         alt={cert.title}
-                        className="w-full h-full object-cover object-top filter grayscale contrast-105 group-hover:grayscale-0 transition-all duration-500 ease-out"
+                        className="w-full h-full object-cover object-top"
                         loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#12120F] via-transparent to-transparent opacity-60" />
