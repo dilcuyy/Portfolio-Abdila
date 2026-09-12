@@ -242,28 +242,82 @@ export default function Education() {
               </div>
             </div>
 
-            {/* Mobile / Tablet 7-Column Node Bar */}
-            <div className="lg:hidden grid grid-cols-7 gap-1 sm:gap-2 w-full py-2">
-              {semesters.map((item, idx) => {
-                const isActive = idx === activeSmtIndex;
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setActiveSmtIndex(idx)}
-                    className={`py-2 px-1 rounded-xl text-xs font-mono flex flex-col items-center justify-center transition-all ${
-                      isActive
-                        ? 'bg-[#D8D0BF] text-[#0B0B09] border border-[#D8D0BF] font-bold shadow-md'
-                        : 'bg-[#161612] text-[#A7A39A] border border-[#2B2A26] hover:text-[#F2EEE5]'
-                    }`}
-                  >
-                    <span className="text-xs">0{item.smt}</span>
-                    <span className="text-[8px] sm:text-[9px] opacity-80 uppercase tracking-tighter truncate max-w-full">
-                      Smt {item.smt}
-                    </span>
-                  </button>
-                );
-              })}
+            {/* Mobile / Tablet Premium Timeline Scrubber */}
+            <div className="lg:hidden space-y-4 p-4 sm:p-5 bg-[#141411] border border-[#2B2A26] rounded-2xl shadow-xl">
+              {/* Header Stepper Navigation with Prev/Next Controls */}
+              <div className="flex items-center justify-between text-xs font-mono text-[#A7A39A]">
+                <button
+                  type="button"
+                  onClick={() => setActiveSmtIndex((prev) => Math.max(0, prev - 1))}
+                  disabled={activeSmtIndex === 0}
+                  className={`p-2 rounded-full border transition-all ${
+                    activeSmtIndex === 0
+                      ? 'opacity-30 border-transparent text-[#A7A39A] cursor-not-allowed'
+                      : 'border-[#2B2A26] bg-[#161612] text-[#F2EEE5] hover:border-[#D8D0BF] active:scale-95 cursor-pointer'
+                  }`}
+                  aria-label="Previous Semester"
+                >
+                  <span className="font-bold text-sm">←</span>
+                </button>
+
+                <div className="flex flex-col items-center text-center">
+                  <span className="text-[#D8D0BF] font-mono text-xs font-bold uppercase tracking-wider">
+                    SEMESTER 0{activeSmt.smt} • {activeSmt.period}
+                  </span>
+                  <span className="text-[10px] font-mono text-[#A7A39A]">
+                    {activeSmt.sksSmt} SKS TAKEN
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => setActiveSmtIndex((prev) => Math.min(semesters.length - 1, prev + 1))}
+                  disabled={activeSmtIndex === semesters.length - 1}
+                  className={`p-2 rounded-full border transition-all ${
+                    activeSmtIndex === semesters.length - 1
+                      ? 'opacity-30 border-transparent text-[#A7A39A] cursor-not-allowed'
+                      : 'border-[#2B2A26] bg-[#161612] text-[#F2EEE5] hover:border-[#D8D0BF] active:scale-95 cursor-pointer'
+                  }`}
+                  aria-label="Next Semester"
+                >
+                  <span className="font-bold text-sm">→</span>
+                </button>
+              </div>
+
+              {/* Interactive Progress Line Track with Nodes 01-07 */}
+              <div className="relative pt-2 pb-1 px-1">
+                {/* Horizontal Track Line */}
+                <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-[#2B2A26] -translate-y-1/2 rounded-full" />
+                {/* Filled Progress Line */}
+                <div
+                  className="absolute top-1/2 left-4 h-0.5 bg-[#D8D0BF] -translate-y-1/2 rounded-full transition-all duration-300 ease-out"
+                  style={{
+                    width: `calc(${verticalProgressPercent}% * 0.88)`,
+                  }}
+                />
+
+                {/* Nodes 01 - 07 Row */}
+                <div className="relative z-10 flex justify-between items-center">
+                  {semesters.map((item, idx) => {
+                    const isActive = idx === activeSmtIndex;
+                    return (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => setActiveSmtIndex(idx)}
+                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xs font-mono transition-all duration-300 cursor-pointer ${
+                          isActive
+                            ? 'bg-[#D8D0BF] text-[#0B0B09] font-bold shadow-lg shadow-[#D8D0BF]/20 ring-4 ring-[#D8D0BF]/20 scale-105'
+                            : 'bg-[#161612] text-[#A7A39A] border border-[#2B2A26] hover:border-[#D8D0BF]/60'
+                        }`}
+                        aria-label={`Select Semester ${item.smt}`}
+                      >
+                        0{item.smt}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
 
