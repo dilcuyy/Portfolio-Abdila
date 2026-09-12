@@ -23,11 +23,11 @@ export default function ResumeModal({ isOpen, onClose }) {
       {/* Backdrop Overlay Click */}
       <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
 
-      {/* Modal Lightbox Box */}
-      <div className="relative z-10 w-full max-w-4xl h-[90vh] max-h-[90vh] bg-[#141411] border border-[#2B2A26] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+      {/* Modal Lightbox Box (iOS 17 Sheet Presentation) */}
+      <div className="relative z-10 w-full max-w-4xl h-[90vh] max-h-[90vh] ios-glass-card rounded-3xl shadow-2xl flex flex-col overflow-hidden">
         {/* Modal Header */}
-        <div className="px-3.5 py-3 sm:px-5 sm:py-4 border-b border-[#2B2A26] flex items-center justify-between bg-[#161612] shrink-0 gap-2">
-          <div className="flex items-center space-x-2 sm:space-x-3 text-xs font-mono text-[#D8D0BF] min-w-0">
+        <div className="px-4 py-3.5 sm:px-6 sm:py-4 border-b border-white/[0.08] flex items-center justify-between bg-white/[0.03] backdrop-blur-xl shrink-0 gap-2">
+          <div className="flex items-center space-x-2.5 sm:space-x-3 text-xs font-mono text-[#D8D0BF] min-w-0">
             <FileText size={18} className="shrink-0" />
             <span className="font-semibold uppercase tracking-wider whitespace-nowrap overflow-hidden text-ellipsis">
               <span className="hidden sm:inline">RESUME • ABDILA ASY SYAFIQ</span>
@@ -39,14 +39,14 @@ export default function ResumeModal({ isOpen, onClose }) {
             <a
               href="/resume.pdf"
               download="ABDILA ASY SYAFIQ-resume.pdf"
-              className="px-3 py-1.5 sm:px-3.5 sm:py-1.5 rounded-full bg-[#D8D0BF] text-[#0B0B09] text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#F2EEE5] transition-colors flex items-center space-x-1.5 whitespace-nowrap shrink-0"
+              className="px-3.5 py-1.5 rounded-full bg-[#D8D0BF] text-[#0B0B09] text-xs font-mono font-bold uppercase tracking-wider hover:bg-[#F2EEE5] transition-all flex items-center space-x-1.5 whitespace-nowrap shrink-0 ios-press shadow-sm"
             >
               <span>Download PDF</span>
             </a>
             <button
               type="button"
               onClick={onClose}
-              className="p-1.5 sm:p-2 rounded-full text-[#A7A39A] hover:text-[#F2EEE5] hover:bg-[#2B2A26] transition-colors shrink-0"
+              className="p-2 rounded-full text-[#A7A39A] hover:text-[#F2EEE5] hover:bg-white/[0.08] transition-colors shrink-0 ios-press cursor-pointer"
               aria-label="Close Resume Preview"
             >
               <X size={18} />

@@ -68,9 +68,9 @@ export default function Navbar({ activeSection }) {
         <a
           href="#home"
           onClick={(e) => handleNavClick(e, '#home')}
-          className="flex items-center space-x-2.5 px-4 py-2 rounded-full bg-[#161612]/90 backdrop-blur-md border border-[#2B2A26] shadow-lg hover:border-[#D8D0BF]/60 transition-colors group"
+          className="flex items-center space-x-2.5 px-4 py-2 rounded-full ios-glass ios-press hover:border-[#D8D0BF]/60 transition-colors group"
         >
-          <div className="w-6 h-6 rounded-full bg-[#F2EEE5] text-[#0B0B09] flex items-center justify-center font-bebas text-sm font-bold">
+          <div className="w-6 h-6 rounded-full bg-[#F2EEE5] text-[#0B0B09] flex items-center justify-center font-bebas text-sm font-bold shadow-sm">
             A
           </div>
           <span className="text-xs font-mono font-medium text-[#F2EEE5] tracking-wider uppercase group-hover:text-[#D8D0BF] transition-colors">
@@ -79,7 +79,7 @@ export default function Navbar({ activeSection }) {
         </a>
 
         {/* Right Floating Nav Pill Capsule (Desktop) */}
-        <div className="hidden lg:flex items-center space-x-1.5 p-1.5 rounded-full bg-[#161612]/90 backdrop-blur-md border border-[#2B2A26] shadow-lg">
+        <div className="hidden lg:flex items-center space-x-1.5 p-1.5 rounded-full ios-glass">
           <nav className="flex items-center space-x-1 px-2">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
@@ -88,10 +88,10 @@ export default function Navbar({ activeSection }) {
                   key={link.name}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap ${
+                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider transition-all whitespace-nowrap ios-press ${
                     isActive
-                      ? 'bg-[#2B2A26] text-[#F2EEE5] font-semibold'
-                      : 'text-[#A7A39A] hover:text-[#F2EEE5] hover:bg-[#2B2A26]/50'
+                      ? 'bg-white/[0.12] text-[#F2EEE5] font-semibold shadow-inner border border-white/[0.08]'
+                      : 'text-[#A7A39A] hover:text-[#F2EEE5] hover:bg-white/[0.05]'
                   }`}
                 >
                   {link.name}
@@ -105,7 +105,7 @@ export default function Navbar({ activeSection }) {
             href="https://github.com/dilcuyy"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#0B0B09] text-[#F2EEE5] text-xs font-mono uppercase tracking-wider border border-[#2B2A26] hover:border-[#D8D0BF] hover:text-[#D8D0BF] transition-colors"
+            className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#0B0B09]/80 text-[#F2EEE5] text-xs font-mono uppercase tracking-wider border border-white/[0.1] hover:border-[#D8D0BF] hover:text-[#D8D0BF] transition-all ios-press"
           >
             <Github size={14} />
             <span className="font-semibold">GITHUB</span>
@@ -113,12 +113,12 @@ export default function Navbar({ activeSection }) {
         </div>
 
         {/* Mobile Pill Capsule (GitHub Link + Toggle Button in One Capsule) */}
-        <div className="flex lg:hidden items-center p-1 rounded-full bg-[#161612]/90 backdrop-blur-md border border-[#2B2A26] shadow-lg space-x-1">
+        <div className="flex lg:hidden items-center p-1 rounded-full ios-glass space-x-1">
           <a
             href="https://github.com/dilcuyy"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-[#0B0B09] text-[#F2EEE5] text-xs font-mono uppercase tracking-wider border border-[#2B2A26]"
+            className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-[#0B0B09]/80 text-[#F2EEE5] text-xs font-mono uppercase tracking-wider border border-white/[0.08] ios-press"
           >
             <Github size={13} />
             <span className="text-[11px] font-semibold">GITHUB</span>
@@ -126,7 +126,7 @@ export default function Navbar({ activeSection }) {
 
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="p-1.5 rounded-full text-[#F2EEE5] hover:text-[#D8D0BF] hover:bg-[#2B2A26] transition-colors focus:outline-none"
+            className="p-1.5 rounded-full text-[#F2EEE5] hover:text-[#D8D0BF] hover:bg-white/[0.08] transition-colors focus:outline-none ios-press"
             aria-label="Toggle Navigation Menu"
           >
             {isMobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -135,7 +135,7 @@ export default function Navbar({ activeSection }) {
 
         {/* Mobile Dropdown Popover Card (Matching tasteskill.dev Reference) */}
         {isMobileMenuOpen && (
-          <div className="absolute top-14 right-0 w-48 rounded-2xl bg-[#161612]/95 backdrop-blur-2xl border border-[#2B2A26] shadow-2xl p-2 z-50 flex flex-col space-y-1 animate-fadeIn lg:hidden">
+          <div className="absolute top-14 right-0 w-48 rounded-2xl ios-glass-card p-2 z-50 flex flex-col space-y-1 animate-fadeIn lg:hidden">
             {navLinks.map((link) => {
               const isActive = activeSection === link.href.substring(1);
               return (

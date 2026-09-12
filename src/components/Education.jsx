@@ -198,9 +198,9 @@ export default function Education() {
                       {/* Node Button Circle */}
                       <button
                         type="button"
-                        className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-mono transition-all duration-300 cursor-pointer ${
+                        className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-mono transition-all duration-300 cursor-pointer ios-press ${
                           isActive
-                            ? 'bg-[#D8D0BF] text-[#0B0B09] font-bold shadow-lg shadow-[#D8D0BF]/20 ring-4 ring-[#D8D0BF]/20 scale-105'
+                            ? 'bg-[#D8D0BF] text-[#0B0B09] font-bold shadow-[0_0_20px_rgba(216,208,191,0.35)] ring-4 ring-[#D8D0BF]/25 scale-105'
                             : 'bg-[#161612] text-[#A7A39A] border border-[#2B2A26] hover:border-[#D8D0BF]/60 hover:text-[#F2EEE5]'
                         }`}
                         aria-label={`Select Semester ${item.smt}`}
@@ -222,8 +222,8 @@ export default function Education() {
 
                       {/* Tooltip Card on Hover */}
                       {isHovered && (
-                        <div className="absolute left-[148px] top-1/2 -translate-y-1/2 z-50 w-56 p-3 bg-[#161612]/95 backdrop-blur-xl border border-[#2B2A26] rounded-xl shadow-2xl text-left pointer-events-none animate-fadeIn">
-                          <div className="flex items-center justify-between text-[11px] font-mono text-[#D8D0BF] font-semibold border-b border-[#2B2A26] pb-1.5 mb-2">
+                        <div className="absolute left-[148px] top-1/2 -translate-y-1/2 z-50 w-56 p-3.5 ios-glass rounded-2xl shadow-2xl text-left pointer-events-none animate-fadeIn">
+                          <div className="flex items-center justify-between text-[11px] font-mono text-[#D8D0BF] font-semibold border-b border-white/[0.08] pb-1.5 mb-2">
                             <span>SEMESTER 0{item.smt}</span>
                             <span className="text-[#F2EEE5]">{item.sksSmt} SKS</span>
                           </div>
@@ -245,18 +245,18 @@ export default function Education() {
               </div>
             </div>
 
-            {/* Mobile / Tablet Premium Timeline Scrubber */}
-            <div className="lg:hidden space-y-4 p-4 sm:p-5 bg-[#141411] border border-[#2B2A26] rounded-2xl shadow-xl">
+            {/* Mobile / Tablet Premium Timeline Scrubber (iOS 17 Tactile Slider Card) */}
+            <div className="lg:hidden space-y-4 p-4 sm:p-5 ios-glass-card rounded-3xl shadow-2xl">
               {/* Header Stepper Navigation with Prev/Next Controls */}
               <div className="flex items-center justify-between text-xs font-mono text-[#A7A39A]">
                 <button
                   type="button"
                   onClick={() => setActiveSmtIndex((prev) => Math.max(0, prev - 1))}
                   disabled={activeSmtIndex === 0}
-                  className={`p-2 rounded-full border transition-all ${
+                  className={`p-2 rounded-full border transition-all ios-press ${
                     activeSmtIndex === 0
                       ? 'opacity-30 border-transparent text-[#A7A39A] cursor-not-allowed'
-                      : 'border-[#2B2A26] bg-[#161612] text-[#F2EEE5] hover:border-[#D8D0BF] active:scale-95 cursor-pointer'
+                      : 'border-white/[0.1] bg-white/[0.05] text-[#F2EEE5] hover:border-[#D8D0BF] cursor-pointer'
                   }`}
                   aria-label="Previous Semester"
                 >
@@ -276,10 +276,10 @@ export default function Education() {
                   type="button"
                   onClick={() => setActiveSmtIndex((prev) => Math.min(semesters.length - 1, prev + 1))}
                   disabled={activeSmtIndex === semesters.length - 1}
-                  className={`p-2 rounded-full border transition-all ${
+                  className={`p-2 rounded-full border transition-all ios-press ${
                     activeSmtIndex === semesters.length - 1
                       ? 'opacity-30 border-transparent text-[#A7A39A] cursor-not-allowed'
-                      : 'border-[#2B2A26] bg-[#161612] text-[#F2EEE5] hover:border-[#D8D0BF] active:scale-95 cursor-pointer'
+                      : 'border-white/[0.1] bg-white/[0.05] text-[#F2EEE5] hover:border-[#D8D0BF] cursor-pointer'
                   }`}
                   aria-label="Next Semester"
                 >
@@ -290,7 +290,7 @@ export default function Education() {
               {/* Interactive Progress Line Track with Nodes 01-07 */}
               <div className="relative pt-2 pb-1 px-1">
                 {/* Horizontal Track Line */}
-                <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-[#2B2A26] -translate-y-1/2 rounded-full" />
+                <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-white/[0.1] -translate-y-1/2 rounded-full" />
                 {/* Filled Progress Line */}
                 <div
                   className="absolute top-1/2 left-4 h-0.5 bg-[#D8D0BF] -translate-y-1/2 rounded-full transition-all duration-300 ease-out"
@@ -308,10 +308,10 @@ export default function Education() {
                         key={item.id}
                         type="button"
                         onClick={() => setActiveSmtIndex(idx)}
-                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xs font-mono transition-all duration-300 cursor-pointer ${
+                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xs font-mono transition-all duration-300 cursor-pointer ios-press ${
                           isActive
-                            ? 'bg-[#D8D0BF] text-[#0B0B09] font-bold shadow-lg shadow-[#D8D0BF]/20 ring-4 ring-[#D8D0BF]/20 scale-105'
-                            : 'bg-[#161612] text-[#A7A39A] border border-[#2B2A26] hover:border-[#D8D0BF]/60'
+                            ? 'bg-[#D8D0BF] text-[#0B0B09] font-bold shadow-[0_0_16px_rgba(216,208,191,0.4)] ring-4 ring-[#D8D0BF]/25 scale-105'
+                            : 'bg-[#161612] text-[#A7A39A] border border-white/[0.08] hover:border-[#D8D0BF]/60'
                         }`}
                         aria-label={`Select Semester ${item.smt}`}
                       >
@@ -324,17 +324,18 @@ export default function Education() {
             </div>
           </div>
 
-          {/* Middle Column: Active Semester Performance Stats (Count-Up & Radial IPK Ring) */}
-          <div className="edu-el lg:col-span-5 space-y-6 bg-[#141411] border border-[#2B2A26] rounded-2xl p-6 sm:p-8 relative min-h-[380px] flex flex-col justify-between shadow-2xl">
+          {/* Middle Column: Active Semester Performance Stats (iOS 17 Widget Card) */}
+          <div className="edu-el lg:col-span-5 space-y-6 ios-glass-card rounded-3xl p-6 sm:p-8 relative min-h-[380px] flex flex-col justify-between shadow-2xl">
             {/* Header info of active semester */}
             <div key={activeSmt.id} className="space-y-4 animate-fadeIn">
-              <div className="flex items-center justify-between gap-2 border-b border-[#2B2A26] pb-3 text-xs font-mono">
+              <div className="flex items-center justify-between gap-2 border-b border-white/[0.08] pb-3 text-xs font-mono">
                 <span className="text-[#D8D0BF] uppercase tracking-wider font-bold text-[11px] sm:text-xs truncate">
                   SEMESTER 0{activeSmt.smt} OVERVIEW
                 </span>
-                <span className="px-2.5 py-0.5 sm:py-1 rounded-full bg-[#161612] border border-[#2B2A26] text-[#F2EEE5] text-[10px] sm:text-[11px] font-medium shrink-0 whitespace-nowrap">
-                  {activeSmt.status}
-                </span>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.1] backdrop-blur-md shadow-inner text-[#F2EEE5] text-[10px] sm:text-[11px] font-mono font-medium shrink-0 whitespace-nowrap">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#D8D0BF] animate-pulse" />
+                  <span>{activeSmt.status}</span>
+                </div>
               </div>
 
               {/* Main IPS Metric Display */}
@@ -362,7 +363,7 @@ export default function Education() {
             </div>
 
             {/* Radial Progress Ring & Cumulative IPK Box */}
-            <div className="pt-6 border-t border-[#2B2A26] flex items-center justify-between gap-4">
+            <div className="pt-6 border-t border-white/[0.08] flex items-center justify-between gap-4">
               <div className="space-y-1">
                 <span className="text-[11px] font-mono text-[#A7A39A] uppercase tracking-widest block">
                   CUMULATIVE IPK
@@ -378,7 +379,7 @@ export default function Education() {
                 </p>
               </div>
 
-              {/* SVG Radial Progress Ring */}
+              {/* SVG Radial Progress Ring (iOS Activity Ring Aesthetic) */}
               <div className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 flex items-center justify-center">
                 <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
                   {/* Background Track Circle */}
@@ -386,7 +387,7 @@ export default function Education() {
                     cx="50"
                     cy="50"
                     r={radius}
-                    className="stroke-[#2B2A26]"
+                    className="stroke-white/[0.08]"
                     strokeWidth="8"
                     fill="transparent"
                   />
@@ -395,7 +396,7 @@ export default function Education() {
                     cx="50"
                     cy="50"
                     r={radius}
-                    className="stroke-[#D8D0BF] transition-all duration-700 ease-out"
+                    className="stroke-[#D8D0BF] transition-all duration-700 ease-out drop-shadow-[0_0_10px_rgba(216,208,191,0.3)]"
                     strokeWidth="8"
                     strokeDasharray={circumference}
                     strokeDashoffset={strokeDashoffset}
@@ -414,7 +415,7 @@ export default function Education() {
 
             {/* Featured Subjects Chips for Selected Semester */}
             {activeSmt.featuredSubjects && (
-              <div className="pt-4 border-t border-[#2B2A26] space-y-2">
+              <div className="pt-4 border-t border-white/[0.08] space-y-2">
                 <span className="text-[10px] font-mono text-[#A7A39A] uppercase tracking-widest block">
                   SEMESTER FOCUS SUBJECTS
                 </span>
@@ -422,7 +423,7 @@ export default function Education() {
                   {activeSmt.featuredSubjects.map((sub, idx) => (
                     <span
                       key={idx}
-                      className="px-3 py-1 rounded-full bg-[#161612] border border-[#2B2A26] text-xs font-mono text-[#F2EEE5]"
+                      className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-[#F2EEE5] backdrop-blur-sm"
                     >
                       {sub}
                     </span>
@@ -436,7 +437,7 @@ export default function Education() {
           <div className="edu-el lg:col-span-4 w-full">
             <div
               ref={photoCardRef}
-              className="relative min-h-[380px] lg:min-h-[460px] h-full rounded-2xl overflow-hidden border border-[#2B2A26] bg-[#141411]/80 backdrop-blur-xl shadow-2xl group flex flex-col justify-end transition-transform duration-300 ease-out"
+              className="relative min-h-[380px] lg:min-h-[460px] h-full rounded-3xl overflow-hidden border border-white/[0.08] bg-[#141411]/80 backdrop-blur-2xl shadow-2xl group flex flex-col justify-end transition-transform duration-300 ease-out"
             >
               <img
                 src={portfolioData.education.image}
@@ -445,8 +446,8 @@ export default function Education() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B09] via-[#0B0B09]/30 to-transparent" />
               
-              {/* Glassmorphism Info Overlay Footer */}
-              <div className="relative z-10 p-6 space-y-1.5 m-4 rounded-xl bg-[#161612]/80 backdrop-blur-md border border-[#2B2A26]">
+              {/* Glassmorphism Info Overlay Footer (iOS 17 Frosted Widget) */}
+              <div className="relative z-10 p-6 space-y-1.5 m-4 rounded-2xl ios-glass">
                 <span className="text-[10px] font-mono text-[#D8D0BF] uppercase tracking-widest block font-semibold">
                   ACADEMIC PORTRAIT • BEKASI
                 </span>
