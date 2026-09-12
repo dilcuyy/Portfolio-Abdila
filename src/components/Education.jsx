@@ -220,7 +220,7 @@ export default function Education() {
 
                       {/* Tooltip Card on Hover */}
                       {isHovered && (
-                        <div className="absolute left-full ml-4 top-1/2 -translate-y-1/2 z-50 w-60 p-3.5 bg-[#161612]/95 backdrop-blur-xl border border-[#2B2A26] rounded-xl shadow-2xl text-left pointer-events-none animate-fadeIn">
+                        <div className="absolute left-[108px] top-1/2 -translate-y-1/2 z-50 w-56 p-3 bg-[#161612]/95 backdrop-blur-xl border border-[#2B2A26] rounded-xl shadow-2xl text-left pointer-events-none animate-fadeIn">
                           <div className="flex items-center justify-between text-[11px] font-mono text-[#D8D0BF] font-semibold border-b border-[#2B2A26] pb-1.5 mb-2">
                             <span>SEMESTER 0{item.smt}</span>
                             <span className="text-[#F2EEE5]">{item.sksSmt} SKS</span>
