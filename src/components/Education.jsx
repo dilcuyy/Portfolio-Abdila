@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { portfolioData } from '../data/portfolio';
@@ -52,7 +52,10 @@ export default function Education() {
   const [hoveredSmtIndex, setHoveredSmtIndex] = useState(null);
   const [isInView, setIsInView] = useState(false);
 
-  const activeSmt = semesters[activeSmtIndex] || semesters[semesters.length - 1];
+  const activeSmt = useMemo(
+    () => semesters[activeSmtIndex] || semesters[semesters.length - 1],
+    [semesters, activeSmtIndex]
+  );
 
   // Animated Count-Up Values
   const animatedIps = useCountUp(activeSmt.ips, isInView);
@@ -325,11 +328,11 @@ export default function Education() {
           <div className="edu-el lg:col-span-5 space-y-6 bg-[#141411] border border-[#2B2A26] rounded-2xl p-6 sm:p-8 relative min-h-[380px] flex flex-col justify-between shadow-2xl">
             {/* Header info of active semester */}
             <div key={activeSmt.id} className="space-y-4 animate-fadeIn">
-              <div className="flex items-center justify-between border-b border-[#2B2A26] pb-3 text-xs font-mono">
-                <span className="text-[#D8D0BF] uppercase tracking-widest font-bold">
+              <div className="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2 border-b border-[#2B2A26] pb-3 text-xs font-mono">
+                <span className="text-[#D8D0BF] uppercase tracking-widest font-bold truncate">
                   SEMESTER 0{activeSmt.smt} OVERVIEW
                 </span>
-                <span className="px-2.5 py-1 rounded-full bg-[#161612] border border-[#2B2A26] text-[#F2EEE5]">
+                <span className="px-2.5 py-1 rounded-full bg-[#161612] border border-[#2B2A26] text-[#F2EEE5] text-[11px] font-medium shrink-0">
                   {activeSmt.status}
                 </span>
               </div>
