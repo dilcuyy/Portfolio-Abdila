@@ -130,3 +130,18 @@ body::-webkit-scrollbar,
   background: rgba(24, 24, 20, 0.96);
   box-shadow: 0 16px 44px 0 rgba(216, 208, 191, 0.12);
 }
+
+/* Kinetic Typographic Odometer Y-Roll (No Fade) */
+@keyframes odometerRoll {
+  0% {
+    transform: translateY(70%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.animate-odometer-roll {
+  animation: odometerRoll 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+

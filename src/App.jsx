@@ -11,10 +11,12 @@ import Internship from './components/Internship';
 import Gallery from './components/Gallery';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import ResumeModal from './components/ResumeModal';
 
 export default function App() {
   const [loading, setLoading] = useState(true);
   const [activeSection, setActiveSection] = useState('home');
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   useEffect(() => {
     if (loading) return;
@@ -65,7 +67,7 @@ export default function App() {
 
         {/* Main Content Sections */}
         <main>
-          <Hero />
+          <Hero onOpenResume={() => setIsResumeOpen(true)} />
           <Manifesto />
           <About />
           <Education />
@@ -77,6 +79,9 @@ export default function App() {
 
         {/* Footer */}
         <Footer />
+
+        {/* Resume Lightbox Modal */}
+        <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
       </div>
     </>
   );

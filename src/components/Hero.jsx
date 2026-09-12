@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { Github } from './Icons';
+import { FileText } from './Icons';
 import { portfolioData } from '../data/portfolio';
 
-export default function Hero() {
+export default function Hero({ onOpenResume }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -71,16 +71,14 @@ export default function Hero() {
               <span className="text-base group-hover:translate-x-1 transition-transform">→</span>
             </a>
 
-            <a
-              href="https://github.com/dilcuyy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 rounded-full bg-[#F2EEE5] text-[#0B0B09] font-bebas text-lg tracking-wider uppercase hover:bg-[#D8D0BF] transition-all shadow-xl inline-flex items-center space-x-2.5 whitespace-nowrap"
+            <button
+              type="button"
+              onClick={onOpenResume}
+              className="px-8 py-4 rounded-full bg-[#F2EEE5] text-[#0B0B09] font-bebas text-lg tracking-wider uppercase hover:bg-[#D8D0BF] transition-all shadow-xl inline-flex items-center space-x-2.5 whitespace-nowrap cursor-pointer"
             >
-              <Github size={18} />
-              <span>GitHub Profile</span>
-              <span className="text-base">↗</span>
-            </a>
+              <FileText size={18} />
+              <span>Resume</span>
+            </button>
           </div>
         </div>
 

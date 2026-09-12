@@ -49,20 +49,20 @@ export default function About() {
       );
     }, sectionRef);
 
-    // True arc-length equidistant motion (Spacious gaps, deep sweeping rightward arc)
-    const speed = 0.00035;
+    // Staggered sequential entrance & true arc-length motion (Balanced 50px-60px gaps, 3-4 visible items)
+    const speed = 0.00045;
     const total = TECH_ITEMS.length;
+    let isRunning = false;
 
     // Create virtual SVG path for precise constant-speed arc-length calculation
     const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     
     const updatePath = () => {
       const isMobile = window.innerWidth < 1024;
-      // Mobile: Shifted inwards to the left to prevent edge clipping
-      // Desktop: Deep sweeping rightward arc with long runway for generous spacing
+      // Dramatic wide rightward parabolic curve: Apex centered vertically (Y~250) for visible deep C-arc
       const d = isMobile
-        ? 'M 5 -160 Q 140 200, 15 840'
-        : 'M 20 -220 Q 580 260, 180 1020';
+        ? 'M 10 -25 Q 260 210, 15 950'
+        : 'M 20 -40 Q 820 260, 40 1200';
       pathEl.setAttribute('d', d);
       return pathEl.getTotalLength();
     };
@@ -73,15 +73,47 @@ export default function About() {
     };
     window.addEventListener('resize', handleResize);
 
+    // Trigger sequential start when About section is entered
+    ScrollTrigger.create({
+      trigger: sectionRef.current,
+      start: 'top 85%',
+      onEnter: () => {
+        isRunning = true;
+      },
+      onEnterBack: () => {
+        isRunning = true;
+      },
+    });
+
+    // Check if section is already visible on initial mount
+    if (sectionRef.current) {
+      const rect = sectionRef.current.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        isRunning = true;
+      }
+    }
+
     const animate = () => {
-      progressRef.current = (progressRef.current + speed) % 1;
-      const pBase = progressRef.current;
+      if (isRunning) {
+        progressRef.current += speed;
+      }
+      const elapsed = progressRef.current;
 
       cardRefs.current.forEach((el, index) => {
         if (!el) return;
 
-        // Strictly equidistant phase offset across constant arc length
-        const p = (pBase + index / total) % 1;
+        // Sequential 1-by-1 entrance: Card spawns only when elapsed >= index / total
+        const rawProgress = elapsed - index / total;
+
+        if (rawProgress < 0) {
+          // Not yet spawned
+          el.style.opacity = '0';
+          el.style.pointerEvents = 'none';
+          return;
+        }
+
+        // Seamless infinite normalized progress along the curve (0 to 1)
+        const p = rawProgress % 1;
         const dist = p * totalLength;
         const pt = pathEl.getPointAtLength(dist);
 
@@ -95,14 +127,14 @@ export default function About() {
         let opacity = 1;
         let scale = 1;
 
-        if (p < 0.08) {
-          const fadeIn = p / 0.08;
+        if (p < 0.04) {
+          const fadeIn = p / 0.04;
           opacity = fadeIn;
-          scale = 0.75 + 0.25 * fadeIn;
-        } else if (p > 0.92) {
-          const fadeOut = (1 - p) / 0.08;
+          scale = 0.8 + 0.2 * fadeIn;
+        } else if (p > 0.94) {
+          const fadeOut = (1 - p) / 0.06;
           opacity = fadeOut;
-          scale = 0.75 + 0.25 * fadeOut;
+          scale = 0.8 + 0.2 * fadeOut;
         } else {
           const midDist = 1 - Math.abs(p - 0.5) * 2;
           scale = 1 + midDist * 0.05;
@@ -110,6 +142,7 @@ export default function About() {
 
         el.style.transform = `translate3d(${pt.x.toFixed(1)}px, ${pt.y.toFixed(1)}px, 0) rotate(${rotation.toFixed(1)}deg) scale(${scale.toFixed(2)})`;
         el.style.opacity = opacity.toFixed(3);
+        el.style.pointerEvents = 'auto';
       });
 
       reqIdRef.current = requestAnimationFrame(animate);
@@ -155,16 +188,16 @@ export default function About() {
             </div>
 
             <p className="text-xl sm:text-2xl font-light text-[#F2EEE5] leading-snug">
-              Information Systems undergraduate at Universitas Bani Saleh specializing in full-stack web development, cross-platform mobile apps with Flutter, and modern AI-augmented workflows.
+              Information Systems undergraduate at Universitas Bani Saleh engineering modern full-stack web architectures, cross-platform mobile solutions with Flutter, and intelligent AI-augmented workflows.
             </p>
 
             <p className="text-sm sm:text-base text-[#A7A39A] font-light leading-relaxed">
-              Bridging robust backend architectures (Laravel, CodeIgniter 4), responsive user interfaces (React.js, Tailwind, Figma), and relational database modeling (MySQL)—integrated with advanced prompt engineering across Claude, ChatGPT, and Gemini.
+              Dedicated to building scalable backend systems (Laravel, CodeIgniter 4) paired with high-performance, responsive interfaces (React.js, Tailwind CSS, Figma). Driving reliable relational data modeling with MySQL and leveraging cutting-edge generative AI capabilities—Claude, ChatGPT, and Gemini—to accelerate development and deliver refined digital experiences.
             </p>
           </div>
 
           {/* Right Column on Desktop / Top-Right Empty Space Stream on Mobile */}
-          <div className="about-el absolute -top-8 right-2 sm:right-6 w-[200px] sm:w-[260px] h-[calc(100%+32px)] lg:static lg:right-auto lg:w-full lg:max-w-[500px] lg:h-auto lg:col-span-6 flex items-start lg:items-center justify-end lg:justify-center pointer-events-none lg:pointer-events-auto z-0 lg:z-auto overflow-hidden">
+          <div className="about-el absolute -top-8 right-2 sm:right-6 w-[200px] sm:w-[260px] h-[calc(100%+32px)] lg:static lg:right-auto lg:w-full lg:max-w-[560px] lg:h-auto lg:col-span-6 flex items-start lg:items-center justify-end lg:justify-center pointer-events-none lg:pointer-events-auto z-0 lg:z-auto overflow-hidden">
             <div
               ref={containerRef}
               className="relative w-full h-full lg:h-[520px] min-h-[440px] overflow-hidden select-none"

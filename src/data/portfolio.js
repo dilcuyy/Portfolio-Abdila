@@ -15,9 +15,18 @@ export const portfolioData = {
     degree: "Sarjana Sistem Informasi (S.Kom)",
     university: "Universitas Bani Saleh",
     period: "2023 — 2027",
-    gpa: "3.62 / 4.00",
+    gpa: "3.62",
     status: "Active Undergraduate Student",
     description: "Focused on Enterprise Information Systems, Software Architecture, User Experience Engineering, and Relational Database Design. Completing academic coursework in web development and data analytics.",
+    semesters: [
+      { id: "smt-1", smt: 1, label: "Smt 1", period: "2023 Ganjil", ips: "3.45", ipk: "3.45", sksSmt: 19, totalSks: 19, status: "Lulus" },
+      { id: "smt-2", smt: 2, label: "Smt 2", period: "2023 Genap", ips: "3.76", ipk: "3.61", sksSmt: 19, totalSks: 38, status: "Lulus" },
+      { id: "smt-3", smt: 3, label: "Smt 3", period: "2024 Ganjil", ips: "3.79", ipk: "3.67", sksSmt: 18, totalSks: 56, status: "Lulus" },
+      { id: "smt-4", smt: 4, label: "Smt 4", period: "2024 Genap", ips: "3.33", ipk: "3.58", sksSmt: 18, totalSks: 74, status: "Lulus" },
+      { id: "smt-5", smt: 5, label: "Smt 5", period: "2025 Ganjil", ips: "3.54", ipk: "3.58", sksSmt: 18, totalSks: 92, status: "Lulus" },
+      { id: "smt-6", smt: 6, label: "Smt 6", period: "2025 Genap", ips: "3.83", ipk: "3.62", sksSmt: 18, totalSks: 110, status: "Lulus" },
+      { id: "smt-7", smt: 7, label: "Smt 7", period: "2026 Ganjil", ips: "Ongoing", ipk: "3.62", sksSmt: 22, totalSks: 110, status: "Aktif Berjalan" }
+    ],
     skillsLearned: [
       "Web Development",
       "Database Systems",

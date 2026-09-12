@@ -100,7 +100,7 @@ export default function Navbar({ activeSection }) {
             })}
           </nav>
 
-          {/* GitHub Pill Button */}
+          {/* GitHub Pill Button (Desktop) */}
           <a
             href="https://github.com/dilcuyy"
             target="_blank"
@@ -108,12 +108,11 @@ export default function Navbar({ activeSection }) {
             className="flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#0B0B09] text-[#F2EEE5] text-xs font-mono uppercase tracking-wider border border-[#2B2A26] hover:border-[#D8D0BF] hover:text-[#D8D0BF] transition-colors"
           >
             <Github size={14} />
-            <span className="font-semibold">GitHub</span>
-            <span className="text-[10px] text-[#D8D0BF]">★</span>
+            <span className="font-semibold">GITHUB</span>
           </a>
         </div>
 
-        {/* Mobile Pill Capsule (GitHub Badge + Toggle Button in One Capsule) */}
+        {/* Mobile Pill Capsule (GitHub Link + Toggle Button in One Capsule) */}
         <div className="flex lg:hidden items-center p-1 rounded-full bg-[#161612]/90 backdrop-blur-md border border-[#2B2A26] shadow-lg space-x-1">
           <a
             href="https://github.com/dilcuyy"
@@ -122,8 +121,7 @@ export default function Navbar({ activeSection }) {
             className="flex items-center space-x-1.5 px-3 py-1.5 rounded-full bg-[#0B0B09] text-[#F2EEE5] text-xs font-mono uppercase tracking-wider border border-[#2B2A26]"
           >
             <Github size={13} />
-            <span className="text-[11px] font-semibold">GitHub</span>
-            <span className="text-[10px] text-[#D8D0BF]">★</span>
+            <span className="text-[11px] font-semibold">GITHUB</span>
           </a>
 
           <button
