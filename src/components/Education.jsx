@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { portfolioData } from '../data/portfolio';
-import { CodeIcon, DatabaseIcon, LayersIcon } from './Icons';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -404,51 +403,6 @@ export default function Education() {
             </div>
           </div>
 
-        </div>
-
-        {/* 3-Column Disciplines with Micro SVG Icons */}
-        <div className="edu-el space-y-4 pt-4 border-t border-[#2B2A26]">
-          <span className="text-xs font-mono text-[#A7A39A] uppercase tracking-widest block">
-            CORE DISCIPLINES
-          </span>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 font-mono text-xs">
-            <div className="p-6 rounded-xl border border-[#2B2A26] bg-[#141411] space-y-2 hover:border-[#D8D0BF]/40 transition-colors duration-300">
-              <div className="flex items-center justify-between text-[#D8D0BF]">
-                <span className="font-semibold text-sm uppercase">
-                  01 / SOFTWARE ARCHITECTURE
-                </span>
-                <CodeIcon size={18} className="text-[#D8D0BF] shrink-0" />
-              </div>
-              <p className="text-[#A7A39A] text-xs leading-relaxed">
-                MVC frameworks, CodeIgniter 4, React.js components, and RESTful API endpoints.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-[#2B2A26] bg-[#141411] space-y-2 hover:border-[#D8D0BF]/40 transition-colors duration-300">
-              <div className="flex items-center justify-between text-[#D8D0BF]">
-                <span className="font-semibold text-sm uppercase">
-                  02 / DATABASE SYSTEMS
-                </span>
-                <DatabaseIcon size={18} className="text-[#D8D0BF] shrink-0" />
-              </div>
-              <p className="text-[#A7A39A] text-xs leading-relaxed">
-                Relational schema design, MySQL ERD modeling, and system data optimization.
-              </p>
-            </div>
-
-            <div className="p-6 rounded-xl border border-[#2B2A26] bg-[#141411] space-y-2 hover:border-[#D8D0BF]/40 transition-colors duration-300">
-              <div className="flex items-center justify-between text-[#D8D0BF]">
-                <span className="font-semibold text-sm uppercase">
-                  03 / UX & ANALYTICS
-                </span>
-                <LayersIcon size={18} className="text-[#D8D0BF] shrink-0" />
-              </div>
-              <p className="text-[#A7A39A] text-xs leading-relaxed">
-                Figma UI prototyping, WCAG AA accessibility, and sales prediction analytics.
-              </p>
-            </div>
-          </div>
         </div>
 
       </div>
