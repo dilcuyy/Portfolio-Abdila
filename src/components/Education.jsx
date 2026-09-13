@@ -45,26 +45,26 @@ function useCountUp(targetVal, isVisible) {
 
 // Lightweight Animated Anime Wind & Flame Aura Trail (Living Motion & Behind-Knob Tracking)
 function AnimeAuraTrail({ direction, active }) {
-  if (!active && direction === 'none') return null;
+  if (!active || direction === 'none') return null;
 
   const isMovingLeft = direction === 'left';
 
-  // When moving left, aura trails behind on the right (left: 14px, flipped rightward).
-  // When moving right, aura trails behind on the left (right: 14px, facing leftward).
+  // When moving left: knob goes left -> aura must trail on the RIGHT (+20px from knob center)
+  // When moving right: knob goes right -> aura must trail on the LEFT (-20px from knob center)
   const positionStyle = isMovingLeft
     ? {
-        left: '14px',
+        left: '20px',
         top: '50%',
         transform: 'translateY(-50%) scaleX(-1)',
-        transformOrigin: 'left center',
+        transformOrigin: 'center center',
         width: '118px',
         height: '42px',
       }
     : {
-        right: '14px',
+        right: '20px',
         top: '50%',
         transform: 'translateY(-50%)',
-        transformOrigin: 'right center',
+        transformOrigin: 'center center',
         width: '118px',
         height: '42px',
       };
@@ -257,6 +257,17 @@ export default function Education() {
     isDragging.current = true;
     lastTouchX.current = clientX;
     setIsSliding(true);
+
+    if (sliderTrackRef.current) {
+      const rect = sliderTrackRef.current.getBoundingClientRect();
+      const currentKnobX = rect.left + 16 + (currentSliderPercent / 100) * (rect.width - 32);
+      if (clientX < currentKnobX - 1) {
+        setDragDirection('left');
+      } else if (clientX > currentKnobX + 1) {
+        setDragDirection('right');
+      }
+    }
+
     updateSliderPosition(clientX);
   };
 
@@ -264,9 +275,9 @@ export default function Education() {
     if (!isDragging.current || !sliderTrackRef.current) return;
 
     const delta = clientX - lastTouchX.current;
-    if (delta > 0.3) {
+    if (delta > 0.2) {
       setDragDirection('right');
-    } else if (delta < -0.3) {
+    } else if (delta < -0.2) {
       setDragDirection('left');
     }
     lastTouchX.current = clientX;
