@@ -620,14 +620,17 @@ export default function Education() {
             </div>
 
             {/* Vertical Timeline Track & Nodes */}
-            <div className="relative py-2 px-1 flex-1 flex flex-col justify-between">
-              {/* Vertical Track Rail */}
-              <div className="absolute left-[19px] top-3 bottom-3 w-0.5 bg-white/[0.08] rounded-full" />
-              {/* Vertical Progress Fill */}
-              <div
-                className="absolute left-[19px] top-3 w-0.5 bg-[#D8D0BF] rounded-full transition-all duration-300 ease-out"
-                style={{ height: `calc(${verticalProgressPercent}% * 0.94)` }}
-              />
+            <div className="relative py-2 px-2 flex-1 flex flex-col justify-between">
+              {/* Vertical Track Rail Container (Runs strictly behind nodes) */}
+              <div className="absolute left-[26px] top-4 bottom-4 w-0.5 -translate-x-1/2 pointer-events-none z-0">
+                {/* Base Rail */}
+                <div className="w-full h-full bg-white/[0.08] rounded-full" />
+                {/* Active Progress Fill */}
+                <div
+                  className="absolute top-0 left-0 w-full bg-[#D8D0BF] rounded-full transition-all duration-300 ease-out"
+                  style={{ height: `${(activeSmtIndex / (semesters.length - 1)) * 100}%` }}
+                />
+              </div>
 
               {/* Stacked Vertical Semester Nodes */}
               <div className="flex flex-col justify-between h-full relative z-10">
@@ -640,13 +643,13 @@ export default function Education() {
                       className="relative flex items-center space-x-3.5 group cursor-pointer"
                       onClick={() => setActiveSmtIndex(idx)}
                     >
-                      {/* Node Circle Button */}
+                      {/* Node Circle Button (Opaque Solid Background - Zero Line Overlap) */}
                       <button
                         type="button"
-                        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-mono transition-all duration-200 cursor-pointer ${
+                        className={`relative z-10 w-9 h-9 rounded-full flex items-center justify-center text-xs font-mono transition-all duration-200 cursor-pointer shrink-0 ${
                           isActive
-                            ? 'bg-[#F2EEE5] text-[#0B0B09] font-bold shadow-[0_0_16px_rgba(242,238,229,0.4)] ring-2 ring-white scale-105'
-                            : 'bg-white/[0.03] text-[#A7A39A] border border-white/[0.08] hover:border-[#D8D0BF]/60 hover:text-[#F2EEE5]'
+                            ? 'bg-[#F2EEE5] text-[#0B0B09] font-bold shadow-[0_0_16px_rgba(242,238,229,0.4)] ring-4 ring-[#141411] scale-105'
+                            : 'bg-[#181814] text-[#A7A39A] border border-white/[0.12] ring-4 ring-[#141411] hover:border-[#D8D0BF] hover:text-[#F2EEE5]'
                         }`}
                         aria-label={`Select Semester ${item.smt}`}
                       >
