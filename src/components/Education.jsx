@@ -43,101 +43,124 @@ function useCountUp(targetVal, isVisible) {
   return displayVal;
 }
 
-// Stylized Anime Flame & Wind Aura Trail (White-Grey Palette, Zero Lag)
+// Lightweight Animated Anime Wind & Flame Aura Trail (Living Motion & Behind-Knob Tracking)
 function AnimeAuraTrail({ direction, active }) {
   if (!active && direction === 'none') return null;
 
-  const isLeft = direction === 'left';
+  const isMovingLeft = direction === 'left';
+
+  // When moving left, aura trails behind on the right (left: 14px, flipped rightward).
+  // When moving right, aura trails behind on the left (right: 14px, facing leftward).
+  const positionStyle = isMovingLeft
+    ? {
+        left: '14px',
+        top: '50%',
+        transform: 'translateY(-50%) scaleX(-1)',
+        transformOrigin: 'left center',
+        width: '118px',
+        height: '42px',
+      }
+    : {
+        right: '14px',
+        top: '50%',
+        transform: 'translateY(-50%)',
+        transformOrigin: 'right center',
+        width: '118px',
+        height: '42px',
+      };
 
   return (
     <div
-      className={`absolute top-1/2 -translate-y-1/2 pointer-events-none transition-opacity duration-200 ${
-        isLeft
-          ? 'left-1/2 origin-left -translate-x-3 scale-x-[-1]'
-          : 'right-1/2 origin-right translate-x-3'
-      } ${active ? 'opacity-100' : 'opacity-0'}`}
-      style={{ width: '135px', height: '46px' }}
+      className={`absolute pointer-events-none transition-opacity duration-200 z-0 ${
+        active ? 'opacity-100' : 'opacity-0'
+      }`}
+      style={positionStyle}
     >
       <svg
-        viewBox="0 0 160 56"
-        className="w-full h-full overflow-visible drop-shadow-[0_0_10px_rgba(255,255,255,0.45)]"
+        viewBox="0 0 140 44"
+        className="w-full h-full overflow-visible drop-shadow-[0_0_8px_rgba(255,255,255,0.4)]"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          <linearGradient id="animeOuterGrey" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%" stopColor="#7A756D" stopOpacity="0.95" />
-            <stop offset="50%" stopColor="#504D46" stopOpacity="0.85" />
-            <stop offset="100%" stopColor="#252420" stopOpacity="0.2" />
+          <linearGradient id="lightWindOuter" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.45" />
+            <stop offset="50%" stopColor="#D8D0BF" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="#8E8A80" stopOpacity="0" />
           </linearGradient>
-          <linearGradient id="animeMidGrey" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%" stopColor="#F2EEE5" />
-            <stop offset="35%" stopColor="#D8D0BF" />
-            <stop offset="75%" stopColor="#9C978C" />
-            <stop offset="100%" stopColor="#504D46" />
+          <linearGradient id="lightWindMid" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.8" />
+            <stop offset="40%" stopColor="#F2EEE5" stopOpacity="0.6" />
+            <stop offset="85%" stopColor="#D8D0BF" stopOpacity="0.2" />
+            <stop offset="100%" stopColor="#A7A39A" stopOpacity="0" />
           </linearGradient>
-          <linearGradient id="animeInnerWhite" x1="100%" y1="0%" x2="0%" y2="0%">
-            <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0.98" />
-            <stop offset="80%" stopColor="#F2EEE5" stopOpacity="0.8" />
-            <stop offset="100%" stopColor="#D8D0BF" stopOpacity="0.1" />
+          <linearGradient id="lightWindCore" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.95" />
+            <stop offset="50%" stopColor="#FFFFFF" stopOpacity="0.75" />
+            <stop offset="100%" stopColor="#F2EEE5" stopOpacity="0" />
           </linearGradient>
         </defs>
 
-        {/* 1. Outer Anime Flame Contour & Swooping Horns */}
-        <path
-          d="M 154 21 C 138 11, 118 5, 96 8 C 104 14, 107 18, 98 20 C 80 12, 60 10, 34 15 C 47 20, 58 22, 52 25 C 30 24, 12 28, 0 35 C 18 39, 40 39, 58 36 C 50 42, 44 46, 52 48 C 72 44, 94 47, 120 43 C 138 40, 149 34, 154 27 Z"
-          fill="url(#animeOuterGrey)"
-        />
+        {/* Dynamic Fluttering Anime Flame & Wind Body */}
+        <g className="animate-aura-flutter" style={{ transformOrigin: '136px 22px' }}>
+          {/* 1. Translucent Outer Airflow / Flame Horns */}
+          <path
+            d="M 136 17 C 122 8, 104 4, 86 6 C 93 11, 95 14, 88 16 C 72 9, 54 8, 30 12 C 42 16, 52 17, 46 20 C 26 19, 10 22, 0 28 C 16 31, 35 31, 51 29 C 44 34, 39 37, 46 39 C 64 35, 84 38, 106 35 C 122 32, 132 27, 136 22 Z"
+            fill="url(#lightWindOuter)"
+          />
 
-        {/* 2. Mid Cel-Shaded Grey Body */}
-        <path
-          d="M 152 22 C 134 14, 114 10, 94 13 C 100 17, 101 20, 94 22 C 76 16, 56 15, 36 19 C 46 23, 55 24, 49 27 C 31 28, 17 31, 6 36 C 22 38, 40 38, 56 36 C 50 40, 45 44, 52 45 C 70 42, 89 44, 114 40 C 130 37, 142 31, 152 25 Z"
-          fill="url(#animeMidGrey)"
-        />
+          {/* 2. Luminous Mid Cel-Shaded Body */}
+          <path
+            d="M 134 18 C 118 11, 100 8, 84 10 C 89 13, 90 16, 84 17 C 68 12, 50 12, 32 15 C 41 18, 49 19, 44 21 C 28 22, 15 24, 5 28 C 19 30, 35 30, 49 29 C 44 32, 40 35, 46 36 C 62 34, 79 35, 101 32 C 115 30, 126 25, 134 20 Z"
+            fill="url(#lightWindMid)"
+          />
 
-        {/* 3. Inner Luminous White/Silver Flame Body */}
-        <path
-          d="M 150 23 C 130 18, 108 16, 84 20 C 92 23, 93 25, 86 26 C 70 23, 52 24, 34 28 C 47 30, 55 32, 50 34 C 36 34, 24 35, 16 37 C 30 38, 47 37, 62 35 C 58 38, 55 40, 62 41 C 76 39, 94 40, 116 36 C 130 33, 140 29, 150 25 Z"
-          fill="url(#animeInnerWhite)"
-        />
+          {/* 3. Core High-Energy Radiant Wind Streak */}
+          <path
+            d="M 132 19 C 116 14, 98 13, 76 16 C 83 18, 84 20, 78 21 C 64 18, 48 19, 32 22 C 43 24, 50 25, 46 27 C 33 27, 22 28, 14 30 C 27 30, 42 30, 55 28 C 51 31, 48 32, 54 33 C 67 31, 83 32, 102 29 C 115 27, 124 23, 132 20 Z"
+            fill="url(#lightWindCore)"
+          />
 
-        {/* 4. Intense Pure White Kinetic Core */}
-        <path
-          d="M 148 24 C 130 21, 112 20, 92 23 C 98 25, 100 27, 93 28 C 78 26, 63 27, 48 30 C 58 32, 66 33, 60 35 C 76 34, 92 35, 112 32 C 128 30, 140 27, 148 25 Z"
-          fill="#FFFFFF"
-        />
+          {/* 4. Streamlined Dynamic Wind Streaks */}
+          <path
+            d="M 130 20 C 105 17, 75 18, 42 22 C 28 23, 14 26, 6 28"
+            stroke="rgba(255,255,255,0.75)"
+            strokeWidth="1.2"
+            strokeLinecap="round"
+            className="animate-wind-flow"
+          />
+          <path
+            d="M 125 24 C 100 23, 70 24, 48 26 C 35 27, 24 28, 16 30"
+            stroke="rgba(216,208,191,0.6)"
+            strokeWidth="0.9"
+            strokeLinecap="round"
+          />
+        </g>
 
-        {/* 5. Detached Floating Anime Embers & Sparks */}
+        {/* 5. Living Detached Embers (Floating & Pulsing in Wake) */}
         {/* Ember 1: Top Wake */}
-        <path
-          d="M 76 6 C 70 4, 61 7, 57 11 C 63 10, 68 11, 70 13 C 73 11, 75 8, 76 6 Z"
-          fill="#504D46"
-        />
-        <path
-          d="M 74 7 C 69 6, 63 8, 60 11 C 64 10, 67 11, 69 12 Z"
-          fill="#FFFFFF"
-        />
+        <g className="animate-ember-1">
+          <path
+            d="M 68 5 C 63 3, 55 6, 51 9 C 56 8, 61 9, 63 11 C 65 9, 67 7, 68 5 Z"
+            fill="rgba(255,255,255,0.85)"
+          />
+        </g>
 
-        {/* Ember 2: Far Tail Spark */}
-        <path
-          d="M 24 18 C 18 16, 11 19, 7 23 C 13 22, 17 23, 19 25 C 22 23, 23 20, 24 18 Z"
-          fill="#504D46"
-        />
-        <path
-          d="M 22 19 C 17 18, 13 20, 10 23 C 14 22, 17 23, 18 24 Z"
-          fill="#FFFFFF"
-        />
+        {/* Ember 2: Mid-Tail Spark */}
+        <g className="animate-ember-2">
+          <path
+            d="M 22 14 C 17 12, 10 15, 6 18 C 11 17, 15 18, 17 20 C 20 18, 21 16, 22 14 Z"
+            fill="rgba(255,255,255,0.7)"
+          />
+        </g>
 
-        {/* Ember 3: Lower Drift Droplet */}
-        <path
-          d="M 38 46 C 32 44, 24 47, 19 51 C 25 50, 30 51, 32 53 C 35 51, 37 48, 38 46 Z"
-          fill="#504D46"
-        />
-        <path
-          d="M 36 47 C 31 46, 25 48, 22 50 C 26 50, 30 51, 31 52 Z"
-          fill="#D8D0BF"
-        />
+        {/* Ember 3: Lower Floating Spark */}
+        <g className="animate-ember-1" style={{ animationDelay: '0.15s' }}>
+          <path
+            d="M 34 37 C 29 35, 22 37, 17 41 C 23 40, 27 41, 29 42 C 31 41, 33 38, 34 37 Z"
+            fill="rgba(216,208,191,0.8)"
+          />
+        </g>
       </svg>
     </div>
   );
@@ -241,9 +264,9 @@ export default function Education() {
     if (!isDragging.current || !sliderTrackRef.current) return;
 
     const delta = clientX - lastTouchX.current;
-    if (delta > 0.5) {
+    if (delta > 0.3) {
       setDragDirection('right');
-    } else if (delta < -0.5) {
+    } else if (delta < -0.3) {
       setDragDirection('left');
     }
     lastTouchX.current = clientX;
