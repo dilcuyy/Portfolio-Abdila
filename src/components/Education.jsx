@@ -43,6 +43,106 @@ function useCountUp(targetVal, isVisible) {
   return displayVal;
 }
 
+// Stylized Anime Flame & Wind Aura Trail (White-Grey Palette, Zero Lag)
+function AnimeAuraTrail({ direction, active }) {
+  if (!active && direction === 'none') return null;
+
+  const isLeft = direction === 'left';
+
+  return (
+    <div
+      className={`absolute top-1/2 -translate-y-1/2 pointer-events-none transition-opacity duration-200 ${
+        isLeft
+          ? 'left-1/2 origin-left -translate-x-3 scale-x-[-1]'
+          : 'right-1/2 origin-right translate-x-3'
+      } ${active ? 'opacity-100' : 'opacity-0'}`}
+      style={{ width: '135px', height: '46px' }}
+    >
+      <svg
+        viewBox="0 0 160 56"
+        className="w-full h-full overflow-visible drop-shadow-[0_0_10px_rgba(255,255,255,0.45)]"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="animeOuterGrey" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stopColor="#7A756D" stopOpacity="0.95" />
+            <stop offset="50%" stopColor="#504D46" stopOpacity="0.85" />
+            <stop offset="100%" stopColor="#252420" stopOpacity="0.2" />
+          </linearGradient>
+          <linearGradient id="animeMidGrey" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stopColor="#F2EEE5" />
+            <stop offset="35%" stopColor="#D8D0BF" />
+            <stop offset="75%" stopColor="#9C978C" />
+            <stop offset="100%" stopColor="#504D46" />
+          </linearGradient>
+          <linearGradient id="animeInnerWhite" x1="100%" y1="0%" x2="0%" y2="0%">
+            <stop offset="0%" stopColor="#FFFFFF" />
+            <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0.98" />
+            <stop offset="80%" stopColor="#F2EEE5" stopOpacity="0.8" />
+            <stop offset="100%" stopColor="#D8D0BF" stopOpacity="0.1" />
+          </linearGradient>
+        </defs>
+
+        {/* 1. Outer Anime Flame Contour & Swooping Horns */}
+        <path
+          d="M 154 21 C 138 11, 118 5, 96 8 C 104 14, 107 18, 98 20 C 80 12, 60 10, 34 15 C 47 20, 58 22, 52 25 C 30 24, 12 28, 0 35 C 18 39, 40 39, 58 36 C 50 42, 44 46, 52 48 C 72 44, 94 47, 120 43 C 138 40, 149 34, 154 27 Z"
+          fill="url(#animeOuterGrey)"
+        />
+
+        {/* 2. Mid Cel-Shaded Grey Body */}
+        <path
+          d="M 152 22 C 134 14, 114 10, 94 13 C 100 17, 101 20, 94 22 C 76 16, 56 15, 36 19 C 46 23, 55 24, 49 27 C 31 28, 17 31, 6 36 C 22 38, 40 38, 56 36 C 50 40, 45 44, 52 45 C 70 42, 89 44, 114 40 C 130 37, 142 31, 152 25 Z"
+          fill="url(#animeMidGrey)"
+        />
+
+        {/* 3. Inner Luminous White/Silver Flame Body */}
+        <path
+          d="M 150 23 C 130 18, 108 16, 84 20 C 92 23, 93 25, 86 26 C 70 23, 52 24, 34 28 C 47 30, 55 32, 50 34 C 36 34, 24 35, 16 37 C 30 38, 47 37, 62 35 C 58 38, 55 40, 62 41 C 76 39, 94 40, 116 36 C 130 33, 140 29, 150 25 Z"
+          fill="url(#animeInnerWhite)"
+        />
+
+        {/* 4. Intense Pure White Kinetic Core */}
+        <path
+          d="M 148 24 C 130 21, 112 20, 92 23 C 98 25, 100 27, 93 28 C 78 26, 63 27, 48 30 C 58 32, 66 33, 60 35 C 76 34, 92 35, 112 32 C 128 30, 140 27, 148 25 Z"
+          fill="#FFFFFF"
+        />
+
+        {/* 5. Detached Floating Anime Embers & Sparks */}
+        {/* Ember 1: Top Wake */}
+        <path
+          d="M 76 6 C 70 4, 61 7, 57 11 C 63 10, 68 11, 70 13 C 73 11, 75 8, 76 6 Z"
+          fill="#504D46"
+        />
+        <path
+          d="M 74 7 C 69 6, 63 8, 60 11 C 64 10, 67 11, 69 12 Z"
+          fill="#FFFFFF"
+        />
+
+        {/* Ember 2: Far Tail Spark */}
+        <path
+          d="M 24 18 C 18 16, 11 19, 7 23 C 13 22, 17 23, 19 25 C 22 23, 23 20, 24 18 Z"
+          fill="#504D46"
+        />
+        <path
+          d="M 22 19 C 17 18, 13 20, 10 23 C 14 22, 17 23, 18 24 Z"
+          fill="#FFFFFF"
+        />
+
+        {/* Ember 3: Lower Drift Droplet */}
+        <path
+          d="M 38 46 C 32 44, 24 47, 19 51 C 25 50, 30 51, 32 53 C 35 51, 37 48, 38 46 Z"
+          fill="#504D46"
+        />
+        <path
+          d="M 36 47 C 31 46, 25 48, 22 50 C 26 50, 30 51, 31 52 Z"
+          fill="#D8D0BF"
+        />
+      </svg>
+    </div>
+  );
+}
+
 export default function Education() {
   const sectionRef = useRef(null);
   const photoCardRef = useRef(null);
@@ -141,9 +241,9 @@ export default function Education() {
     if (!isDragging.current || !sliderTrackRef.current) return;
 
     const delta = clientX - lastTouchX.current;
-    if (delta > 2) {
+    if (delta > 0.5) {
       setDragDirection('right');
-    } else if (delta < -2) {
+    } else if (delta < -0.5) {
       setDragDirection('left');
     }
     lastTouchX.current = clientX;
@@ -169,17 +269,28 @@ export default function Education() {
     isDragging.current = false;
     setIsSliding(false);
     setDragPercent(null);
-    setDragDirection('none');
+    setTimeout(() => {
+      setDragDirection('none');
+    }, 250);
   };
 
   useEffect(() => {
+    const handleGlobalMouseMove = (e) => {
+      if (isDragging.current) {
+        handleSliderMove(e.clientX);
+      }
+    };
     const handleGlobalMouseUp = () => {
       if (isDragging.current) {
         handleSliderEnd();
       }
     };
+    window.addEventListener('mousemove', handleGlobalMouseMove);
     window.addEventListener('mouseup', handleGlobalMouseUp);
-    return () => window.removeEventListener('mouseup', handleGlobalMouseUp);
+    return () => {
+      window.removeEventListener('mousemove', handleGlobalMouseMove);
+      window.removeEventListener('mouseup', handleGlobalMouseUp);
+    };
   }, []);
 
   // Radial Progress Ring calculations (IPK / 4.00)
@@ -249,14 +360,15 @@ export default function Education() {
             </div>
           </div>
 
-          {/* Mobile Smooth Slider with Trailing White Aura Effect (Visible on Mobile) */}
+          {/* Mobile Smooth Slider with Stylized Anime White-Grey Aura Trail (Visible on Mobile) */}
           <div className="lg:hidden space-y-2 pt-1 select-none">
             <div
               ref={sliderTrackRef}
-              className="relative w-full h-11 flex items-center cursor-grab active:cursor-grabbing touch-none px-1"
+              className="relative w-full h-12 flex items-center cursor-grab active:cursor-grabbing touch-none px-1 overflow-visible"
               onTouchStart={(e) => handleSliderStart(e.touches[0].clientX)}
               onTouchMove={(e) => handleSliderMove(e.touches[0].clientX)}
               onTouchEnd={handleSliderEnd}
+              onTouchCancel={handleSliderEnd}
               onMouseDown={(e) => handleSliderStart(e.clientX)}
               onMouseMove={(e) => handleSliderMove(e.clientX)}
               onMouseUp={handleSliderEnd}
@@ -269,48 +381,39 @@ export default function Education() {
                 />
               </div>
 
-              {/* Trailing White Aura Effect behind Slider Knob */}
-              {isSliding && dragDirection === 'right' && (
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 h-7 bg-gradient-to-r from-transparent via-white/20 to-white/50 blur-md rounded-full pointer-events-none transition-all"
-                  style={{
-                    left: `calc(${Math.max(0, currentSliderPercent - 26)}% + 6px)`,
-                    width: '26%',
-                  }}
-                />
-              )}
-
-              {isSliding && dragDirection === 'left' && (
-                <div
-                  className="absolute top-1/2 -translate-y-1/2 h-7 bg-gradient-to-l from-transparent via-white/20 to-white/50 blur-md rounded-full pointer-events-none transition-all"
-                  style={{
-                    left: `calc(${currentSliderPercent}% + 6px)`,
-                    width: '26%',
-                  }}
-                />
-              )}
-
-              {/* Ambient Radial Aura Glow on Knob */}
+              {/* Knob + Anime Aura Unified Anchor (Zero Lag - Instant 1:1 Tracking) */}
               <div
-                className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-14 h-14 rounded-full pointer-events-none transition-opacity duration-200 ${
-                  isSliding ? 'opacity-100' : 'opacity-40'
+                className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 pointer-events-none flex items-center justify-center ${
+                  isSliding ? 'transition-none' : 'transition-[left] duration-200 ease-out'
                 }`}
                 style={{
-                  left: `calc(12px + (${currentSliderPercent} / 100) * (100% - 24px))`,
-                  background: 'radial-gradient(circle, rgba(255,255,255,0.45) 0%, rgba(216,208,191,0.15) 50%, transparent 70%)',
-                }}
-              />
-
-              {/* The Slider Knob */}
-              <div
-                className={`absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-11 h-7 rounded-full bg-[#F2EEE5] text-[#0B0B09] font-mono text-xs font-bold flex items-center justify-center shadow-[0_2px_12px_rgba(255,255,255,0.45)] border border-white transition-transform duration-100 ${
-                  isSliding ? 'scale-110 shadow-[0_0_20px_rgba(255,255,255,0.9)]' : ''
-                }`}
-                style={{
-                  left: `calc(12px + (${currentSliderPercent} / 100) * (100% - 24px))`,
+                  left: `calc(16px + (${currentSliderPercent} / 100) * (100% - 32px))`,
                 }}
               >
-                0{activeSmt.smt}
+                {/* Anime Stylized Wind/Flame Aura Trail (White-Grey Cel Shaded) */}
+                <AnimeAuraTrail direction={dragDirection} active={isSliding} />
+
+                {/* Ambient Radial Aura Glow on Knob */}
+                <div
+                  className={`absolute w-14 h-14 rounded-full pointer-events-none transition-opacity duration-200 ${
+                    isSliding ? 'opacity-100 scale-110' : 'opacity-35 scale-100'
+                  }`}
+                  style={{
+                    background:
+                      'radial-gradient(circle, rgba(255,255,255,0.45) 0%, rgba(216,208,191,0.15) 50%, transparent 70%)',
+                  }}
+                />
+
+                {/* The Slider Knob */}
+                <div
+                  className={`relative z-10 w-11 h-7 rounded-full bg-[#F2EEE5] text-[#0B0B09] font-mono text-xs font-bold flex items-center justify-center border border-white transition-transform duration-100 pointer-events-auto ${
+                    isSliding
+                      ? 'scale-110 shadow-[0_0_20px_rgba(255,255,255,0.95)]'
+                      : 'shadow-[0_2px_12px_rgba(255,255,255,0.45)]'
+                  }`}
+                >
+                  0{activeSmt.smt}
+                </div>
               </div>
             </div>
 
