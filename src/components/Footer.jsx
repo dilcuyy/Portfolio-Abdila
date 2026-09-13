@@ -26,7 +26,7 @@ export default function Footer() {
 
           <button
             onClick={scrollToTop}
-            className="flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-[#F2EEE5] hover:text-[#D8D0BF] transition-colors border border-[#2B2A26] px-5 py-2.5 rounded-full bg-[#12120F]"
+            className="ios-glass ios-press flex items-center space-x-2 text-xs font-mono uppercase tracking-widest text-[#F2EEE5] hover:text-[#D8D0BF] transition-all border border-white/[0.08] hover:border-[#D8D0BF]/50 px-5 py-2.5 rounded-full cursor-pointer shadow-md"
           >
             <span>BACK TO TOP</span>
             <span>↑</span>

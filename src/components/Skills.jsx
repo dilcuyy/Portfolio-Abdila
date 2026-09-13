@@ -56,11 +56,11 @@ export default function Skills() {
           SKILLS
         </h2>
 
-        {/* Seamless 2-Column Editorial Grid (No Heavy Cards / No Box Containers) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Column 1: Soft Skills (Col-span-6 with right border divider) */}
-          <div className="skills-reveal lg:col-span-6 space-y-6 lg:border-r border-[#2B2A26] lg:pr-12">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-4 border-b border-[#2B2A26] gap-1 sm:gap-0">
+        {/* iOS 17 Inset Grouped Editorial Lists */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Column 1: Soft Skills (Col-span-6) */}
+          <div className="skills-reveal lg:col-span-6 ios-glass-card rounded-3xl p-6 sm:p-8 border border-white/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.4)] space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-4 border-b border-white/[0.08] gap-1 sm:gap-0">
               <h3 className="text-3xl sm:text-4xl font-bebas text-[#F2EEE5] uppercase tracking-wider">
                 SOFT SKILLS
               </h3>
@@ -69,17 +69,17 @@ export default function Skills() {
               </span>
             </div>
 
-            <div className="divide-y divide-[#2B2A26]/70">
+            <div className="divide-y divide-white/[0.06]">
               {portfolioData.skills.soft.map((item) => (
                 <div
                   key={item.id}
-                  className="py-4.5 flex items-center justify-between group cursor-default transition-all duration-300 hover:pl-2"
+                  className="py-3 px-3 -mx-1.5 rounded-2xl flex items-center justify-between group cursor-default transition-all duration-200 hover:bg-white/[0.04] ios-press"
                 >
-                  <div className="flex items-center space-x-4">
-                    <span className="text-sm font-mono text-[#D8D0BF] font-semibold w-6">
+                  <div className="flex items-center space-x-3.5">
+                    <span className="text-xs font-mono text-[#D8D0BF] font-semibold w-5">
                       {item.id}.
                     </span>
-                    <span className="text-base sm:text-lg text-[#F2EEE5] font-light group-hover:text-[#D8D0BF] transition-colors">
+                    <span className="text-sm sm:text-base text-[#F2EEE5] font-light group-hover:text-[#D8D0BF] transition-colors">
                       {item.name}
                     </span>
                   </div>
@@ -92,8 +92,8 @@ export default function Skills() {
           </div>
 
           {/* Column 2: Hard Skills (Col-span-6) */}
-          <div className="skills-reveal lg:col-span-6 space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-4 border-b border-[#2B2A26] gap-1 sm:gap-0">
+          <div className="skills-reveal lg:col-span-6 ios-glass-card rounded-3xl p-6 sm:p-8 border border-white/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.4)] space-y-6">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-4 border-b border-white/[0.08] gap-1 sm:gap-0">
               <h3 className="text-3xl sm:text-4xl font-bebas text-[#F2EEE5] uppercase tracking-wider">
                 HARD SKILLS
               </h3>
@@ -102,17 +102,17 @@ export default function Skills() {
               </span>
             </div>
 
-            <div className="divide-y divide-[#2B2A26]/70">
+            <div className="divide-y divide-white/[0.06]">
               {portfolioData.skills.hard.map((item) => (
                 <div
                   key={item.id}
-                  className="py-4.5 flex items-center justify-between group cursor-default transition-all duration-300 hover:pl-2"
+                  className="py-3 px-3 -mx-1.5 rounded-2xl flex items-center justify-between group cursor-default transition-all duration-200 hover:bg-white/[0.04] ios-press"
                 >
-                  <div className="flex items-center space-x-4">
-                    <span className="text-sm font-mono text-[#D8D0BF] font-semibold w-6">
+                  <div className="flex items-center space-x-3.5">
+                    <span className="text-xs font-mono text-[#D8D0BF] font-semibold w-5">
                       {item.id}.
                     </span>
-                    <span className="text-base sm:text-lg text-[#F2EEE5] font-light group-hover:text-[#D8D0BF] transition-colors">
+                    <span className="text-sm sm:text-base text-[#F2EEE5] font-light group-hover:text-[#D8D0BF] transition-colors">
                       {item.name}
                     </span>
                   </div>

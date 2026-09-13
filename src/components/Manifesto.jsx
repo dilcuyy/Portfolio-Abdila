@@ -46,7 +46,7 @@ export default function Manifesto() {
             <span className="text-hero-giant font-bebas text-[#F2EEE5] tracking-tight uppercase leading-none">
               HELLO, I'M
             </span>
-            <span className="inline-flex items-center space-x-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#161612] border border-[#2B2A26] text-xs sm:text-sm font-sans font-medium text-[#D8D0BF] leading-none shadow-md tracking-normal normal-case">
+            <span className="inline-flex items-center space-x-2.5 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full ios-glass border border-white/[0.09] text-xs sm:text-sm font-sans font-medium text-[#D8D0BF] leading-none shadow-md tracking-normal normal-case">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D8D0BF] animate-pulse" />
               <span>Abdila</span>
             </span>
@@ -68,7 +68,7 @@ export default function Manifesto() {
             <span className="text-hero-giant font-bebas text-[#F2EEE5] tracking-tight uppercase leading-none">
               & COLLABORATE
             </span>
-            <span className="inline-flex items-center space-x-2 px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#161612] border border-[#2B2A26] text-xs sm:text-sm font-sans font-medium text-[#D8D0BF] leading-none shadow-md tracking-normal normal-case">
+            <span className="inline-flex items-center space-x-2 px-4 sm:px-5 py-1.5 sm:py-2 rounded-full ios-glass border border-white/[0.09] text-xs sm:text-sm font-sans font-medium text-[#D8D0BF] leading-none shadow-md tracking-normal normal-case">
               <span>Web Projects</span>
             </span>
           </div>
@@ -77,7 +77,7 @@ export default function Manifesto() {
           <div className="manifesto-line">
             <a
               href="#contact"
-              className="text-hero-giant font-bebas text-[#F2EEE5] hover:text-[#D8D0BF] transition-colors tracking-tight uppercase leading-none inline-flex items-center space-x-2 group cursor-pointer"
+              className="ios-press text-hero-giant font-bebas text-[#F2EEE5] hover:text-[#D8D0BF] transition-colors tracking-tight uppercase leading-none inline-flex items-center space-x-2 group cursor-pointer"
             >
               <span>LET'S CONNECT</span>
               <span className="text-3xl sm:text-5xl group-hover:translate-x-2 transition-transform">→</span>

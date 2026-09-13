@@ -61,34 +61,34 @@ export default function Gallery() {
           </p>
         </div>
 
-        {/* Project Cards Grid / Editorial Layout */}
-        <div className="space-y-16">
+        {/* Project Cards Grid / iOS 17 Glassmorphic Widgets */}
+        <div className="space-y-10 sm:space-y-12">
           {portfolioData.projects.map((project, idx) => (
             <div
               key={project.id}
-              className="projects-reveal group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center pb-12 border-b border-[#2B2A26] last:border-b-0"
+              className="projects-reveal group grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-8 lg:p-10 rounded-3xl ios-glass-card border border-white/[0.08] shadow-[0_20px_48px_rgba(0,0,0,0.5)] hover:border-[#D8D0BF]/40 transition-colors"
             >
               {/* Image Frame (STRICT NO HOVER SCALE) */}
               <div className={`lg:col-span-7 ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
                 <div
-                  className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-[#2B2A26] bg-[#12120F] transition-colors duration-500 group-hover:border-[#D8D0BF]/60"
+                  className="relative aspect-[16/9] rounded-2xl overflow-hidden border border-white/[0.08] bg-[#12120F]"
                   data-cursor="PROJECT"
                 >
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="w-full h-full object-cover filter contrast-105 transition-all duration-500 ease-out"
+                    className="w-full h-full object-cover filter contrast-105"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B09]/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-                  <div className="absolute top-4 left-4 font-mono text-xs text-[#D8D0BF] bg-[#0B0B09]/80 backdrop-blur-md px-3 py-1 rounded-full border border-[#2B2A26]">
+                  <div className="absolute top-4 left-4 font-mono text-xs text-[#D8D0BF] ios-glass px-3.5 py-1.5 rounded-full border border-white/[0.1] shadow-md">
                     {project.subtitle}
                   </div>
                 </div>
               </div>
 
               {/* Project Meta Information */}
-              <div className={`lg:col-span-5 space-y-6 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
+              <div className={`lg:col-span-5 space-y-5 sm:space-y-6 ${idx % 2 === 1 ? 'lg:order-1' : ''}`}>
                 <span className="text-xs font-mono text-[#D8D0BF] uppercase tracking-widest block">
                   {project.category}
                 </span>
@@ -97,16 +97,16 @@ export default function Gallery() {
                   {project.title}
                 </h3>
 
-                <p className="text-base text-[#A7A39A] font-light leading-relaxed">
+                <p className="text-sm sm:text-base text-[#A7A39A] font-light leading-relaxed">
                   {project.description}
                 </p>
 
-                {/* Tech Stack Pills */}
-                <div className="flex flex-wrap gap-2 pt-2">
+                {/* Tech Stack Pills (iOS 17 Micro-Capsules) */}
+                <div className="flex flex-wrap gap-2 pt-1">
                   {project.tech.map((item, tIdx) => (
                     <span
                       key={tIdx}
-                      className="px-3 py-1 rounded-full border border-[#2B2A26] bg-[#12120F] text-xs font-mono text-[#F2EEE5]/90 uppercase tracking-wider"
+                      className="px-3.5 py-1.5 rounded-full ios-glass border border-white/[0.07] text-xs font-mono text-[#F2EEE5]/90 uppercase tracking-wider"
                     >
                       {item}
                     </span>

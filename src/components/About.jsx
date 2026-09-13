@@ -207,7 +207,7 @@ export default function About() {
                 <div
                   key={item.id}
                   ref={(el) => { cardRefs.current[index] = el; }}
-                  className="absolute top-0 left-0 w-16 h-16 sm:w-18 sm:h-18 lg:w-22 lg:h-22 rounded-2xl glass-tech-card shadow-2xl flex items-center justify-center cursor-pointer group will-change-transform p-3.5 lg:p-4.5"
+                  className="absolute top-0 left-0 w-16 h-16 sm:w-18 sm:h-18 lg:w-22 lg:h-22 rounded-2xl ios-glass-card border border-white/[0.1] hover:border-[#D8D0BF]/60 shadow-[0_12px_32px_rgba(0,0,0,0.5)] flex items-center justify-center cursor-pointer group will-change-transform p-3.5 lg:p-4.5 transition-colors"
                   title={item.name}
                 >
                   <img
@@ -222,8 +222,8 @@ export default function About() {
           </div>
         </div>
 
-        {/* Minimalist 4-Column Spec Row */}
-        <div className="about-el border-y border-[#2B2A26] grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-[#2B2A26] font-mono text-xs">
+        {/* Minimalist 4-Column iOS 17 Inset Spec Widget */}
+        <div className="about-el ios-glass-card rounded-3xl border border-white/[0.08] grid grid-cols-2 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-white/[0.08] font-mono text-xs overflow-hidden shadow-[0_16px_40px_rgba(0,0,0,0.5)]">
           <div className="p-6 md:p-8 space-y-1">
             <span className="text-[#A7A39A] uppercase tracking-widest block text-[10px]">PROGRAM</span>
             <span className="text-[#F2EEE5] text-sm sm:text-base font-bebas uppercase tracking-wide block">

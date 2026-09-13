@@ -206,14 +206,14 @@ export default function Internship() {
             <div className="flex items-center space-x-2">
               <button
                 onClick={handlePrev}
-                className="px-4 py-2 rounded-xl border border-[#2B2A26] bg-[#12120F] hover:border-[#D8D0BF] text-xs font-mono text-[#F2EEE5] uppercase tracking-wider transition-all active:scale-95"
+                className="ios-glass ios-press px-4 py-2 rounded-full border border-white/[0.08] hover:border-[#D8D0BF] text-xs font-mono text-[#F2EEE5] uppercase tracking-wider transition-all cursor-pointer"
                 aria-label="Previous Certificate"
               >
                 ← PREV
               </button>
               <button
                 onClick={handleNext}
-                className="px-4 py-2 rounded-xl border border-[#2B2A26] bg-[#12120F] hover:border-[#D8D0BF] text-xs font-mono text-[#F2EEE5] uppercase tracking-wider transition-all active:scale-95"
+                className="ios-glass ios-press px-4 py-2 rounded-full border border-white/[0.08] hover:border-[#D8D0BF] text-xs font-mono text-[#F2EEE5] uppercase tracking-wider transition-all cursor-pointer"
                 aria-label="Next Certificate"
               >
                 NEXT →
@@ -241,7 +241,7 @@ export default function Internship() {
               className="absolute left-0 top-0 w-1/4 h-full z-40 cursor-pointer group flex items-center justify-start pl-4"
               title="Rotate Left (Previous)"
             >
-              <div className="w-10 h-10 rounded-full border border-[#2B2A26] bg-[#12120F]/80 backdrop-blur-md flex items-center justify-center text-[#A7A39A] group-hover:text-[#F2EEE5] group-hover:border-[#D8D0BF] transition-all opacity-0 group-hover:opacity-100 hidden md:flex">
+              <div className="w-10 h-10 rounded-full border border-white/[0.08] ios-glass flex items-center justify-center text-[#A7A39A] group-hover:text-[#F2EEE5] group-hover:border-[#D8D0BF] transition-all opacity-0 group-hover:opacity-100 hidden md:flex ios-press">
                 ←
               </div>
             </div>
@@ -252,7 +252,7 @@ export default function Internship() {
               className="absolute right-0 top-0 w-1/4 h-full z-40 cursor-pointer group flex items-center justify-end pr-4"
               title="Rotate Right (Next)"
             >
-              <div className="w-10 h-10 rounded-full border border-[#2B2A26] bg-[#12120F]/80 backdrop-blur-md flex items-center justify-center text-[#A7A39A] group-hover:text-[#F2EEE5] group-hover:border-[#D8D0BF] transition-all opacity-0 group-hover:opacity-100 hidden md:flex">
+              <div className="w-10 h-10 rounded-full border border-white/[0.08] ios-glass flex items-center justify-center text-[#A7A39A] group-hover:text-[#F2EEE5] group-hover:border-[#D8D0BF] transition-all opacity-0 group-hover:opacity-100 hidden md:flex ios-press">
                 →
               </div>
             </div>
@@ -270,14 +270,14 @@ export default function Internship() {
                     key={cert.id}
                     onClick={() => handleCardClick(idx, diff)}
                     style={cardStyle}
-                    className={`absolute inset-0 bg-[#12120F] border rounded-3xl overflow-hidden flex flex-col justify-between shadow-2xl ${
+                    className={`absolute inset-0 ios-glass-card rounded-3xl overflow-hidden flex flex-col justify-between shadow-[0_24px_48px_rgba(0,0,0,0.6)] ${
                       isActive
-                        ? 'border-[#D8D0BF] ring-1 ring-[#D8D0BF]/30 cursor-default'
-                        : 'border-[#2B2A26] hover:border-[#D8D0BF]/60 cursor-pointer'
+                        ? 'border-[#D8D0BF] ring-1 ring-[#D8D0BF]/35 cursor-default'
+                        : 'border-white/[0.08] hover:border-[#D8D0BF]/50 cursor-pointer'
                     }`}
                   >
                     {/* Top Image Frame (STRICT NO HOVER SCALE) */}
-                    <div className="relative aspect-[1.5/1] bg-[#0B0B09] overflow-hidden border-b border-[#2B2A26]">
+                    <div className="relative aspect-[1.5/1] bg-[#0B0B09] overflow-hidden border-b border-white/[0.08]">
                       <img
                         src={cert.image}
                         alt={cert.title}
@@ -286,7 +286,7 @@ export default function Internship() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#12120F] via-transparent to-transparent opacity-60" />
 
-                      <span className="absolute top-3 left-3 text-[10px] font-mono uppercase tracking-widest text-[#D8D0BF] bg-[#0B0B09]/85 backdrop-blur-md px-2.5 py-1 rounded-md border border-[#2B2A26]">
+                      <span className="absolute top-3 left-3 text-[10px] font-mono uppercase tracking-widest text-[#D8D0BF] ios-glass px-2.5 py-1 rounded-lg border border-white/[0.1]">
                         0{idx + 1} / {cert.year}
                       </span>
                     </div>
@@ -308,12 +308,12 @@ export default function Internship() {
                       </div>
 
                       {/* Action Buttons */}
-                      <div className="pt-3 border-t border-[#2B2A26] space-y-3">
+                      <div className="pt-3 border-t border-white/[0.06] space-y-3">
                         <div className="flex flex-wrap gap-1.5">
                           {cert.tags.map((tag, tIdx) => (
                             <span
                               key={tIdx}
-                              className="px-2 py-0.5 rounded-md border border-[#2B2A26] bg-[#0B0B09] text-[10px] font-mono text-[#A7A39A] uppercase tracking-wider"
+                              className="px-2 py-0.5 rounded-md border border-white/[0.06] bg-white/[0.03] text-[10px] font-mono text-[#A7A39A] uppercase tracking-wider"
                             >
                               {tag}
                             </span>
@@ -326,7 +326,7 @@ export default function Internship() {
                               e.stopPropagation();
                               setSelectedPdf(cert);
                             }}
-                            className="flex-1 py-2.5 px-4 rounded-xl border border-[#2B2A26] bg-[#0B0B09] hover:border-[#D8D0BF] text-xs font-mono text-[#F2EEE5] uppercase tracking-wider transition-all flex items-center justify-center space-x-2 whitespace-nowrap z-50"
+                            className="ios-glass ios-press flex-1 py-2.5 px-4 rounded-xl border border-white/[0.08] hover:border-[#D8D0BF] text-xs font-mono text-[#F2EEE5] uppercase tracking-wider transition-all flex items-center justify-center space-x-2 whitespace-nowrap z-50 cursor-pointer"
                           >
                             <FileText size={14} className="text-[#D8D0BF]" />
                             <span>VIEW CERTIFICATE</span>
@@ -337,7 +337,7 @@ export default function Internship() {
                             target="_blank"
                             rel="noopener noreferrer"
                             onClick={(e) => e.stopPropagation()}
-                            className="p-2.5 rounded-xl border border-[#2B2A26] bg-[#0B0B09] hover:border-[#D8D0BF] text-[#F2EEE5] transition-all flex-shrink-0 z-50"
+                            className="ios-glass ios-press p-2.5 rounded-xl border border-white/[0.08] hover:border-[#D8D0BF] text-[#F2EEE5] transition-all flex-shrink-0 z-50 cursor-pointer"
                             title="Open PDF Document"
                           >
                             <ExternalLink size={16} />
@@ -376,12 +376,12 @@ export default function Internship() {
         )}
       </div>
 
-      {/* PDF Modal Viewer */}
+      {/* PDF Modal Viewer (iOS 17 Sheet Presentation) */}
       {selectedPdf && (
-        <div className="fixed inset-0 z-[9990] bg-[#0B0B09]/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-6 md:p-10 animate-fadeIn">
-          <div className="bg-[#12120F] border border-[#2B2A26] rounded-3xl w-full max-w-5xl h-[85vh] flex flex-col overflow-hidden shadow-2xl relative">
+        <div className="fixed inset-0 z-[9990] bg-[#0B0B09]/85 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6 md:p-10 animate-fadeIn">
+          <div className="ios-glass-card border border-white/[0.12] rounded-3xl w-full max-w-5xl h-[85vh] flex flex-col overflow-hidden shadow-[0_32px_64px_rgba(0,0,0,0.8)] relative">
             {/* Modal Header */}
-            <div className="px-6 py-4 border-b border-[#2B2A26] flex items-center justify-between bg-[#0B0B09] gap-4">
+            <div className="px-6 py-4 border-b border-white/[0.08] flex items-center justify-between ios-glass gap-4">
               <div className="flex items-center space-x-3 min-w-0 flex-1">
                 <FileText size={18} className="text-[#D8D0BF] flex-shrink-0" />
                 <span className="text-xs sm:text-sm font-mono text-[#F2EEE5] uppercase tracking-wider truncate block">
@@ -393,13 +393,13 @@ export default function Internship() {
                 <a
                   href={selectedPdf.pdf}
                   download
-                  className="px-4 py-2 rounded-lg bg-[#F2EEE5] text-[#0B0B09] text-xs font-mono font-medium uppercase tracking-wider hover:bg-[#D8D0BF] transition-colors whitespace-nowrap"
+                  className="ios-press px-4 py-2 rounded-xl bg-[#F2EEE5] text-[#0B0B09] text-xs font-mono font-medium uppercase tracking-wider hover:bg-white transition-colors whitespace-nowrap cursor-pointer shadow-sm"
                 >
                   DOWNLOAD PDF
                 </a>
                 <button
                   onClick={() => setSelectedPdf(null)}
-                  className="p-2 text-[#A7A39A] hover:text-[#F2EEE5] transition-colors flex-shrink-0"
+                  className="ios-press p-2 text-[#A7A39A] hover:text-[#F2EEE5] hover:bg-white/[0.06] rounded-full transition-colors flex-shrink-0 cursor-pointer"
                   aria-label="Close PDF Viewer"
                 >
                   <X size={20} />
@@ -408,7 +408,7 @@ export default function Internship() {
             </div>
 
             {/* Modal Body / iFrame PDF Viewer */}
-            <div className="flex-1 w-full h-full bg-[#1A1916] relative">
+            <div className="flex-1 w-full h-full bg-[#141411] relative">
               <iframe
                 src={selectedPdf.pdf}
                 title={selectedPdf.title}

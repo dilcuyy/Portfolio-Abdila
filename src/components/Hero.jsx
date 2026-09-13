@@ -34,9 +34,9 @@ export default function Hero({ onOpenResume }) {
         {/* Main Minimalist Hero */}
         <div className="my-auto py-4 sm:py-8 max-w-4xl space-y-5 sm:space-y-7">
           <div className="space-y-3 sm:space-y-4">
-            <div className="hero-content-el inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#161612] border border-[#2B2A26] text-xs font-mono text-[#D8D0BF]">
+            <div className="hero-content-el inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full ios-glass text-xs font-mono text-[#D8D0BF] border border-white/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#D8D0BF] animate-pulse" />
-              <span>SARJANA SISTEM INFORMASI (S.KOM)</span>
+              <span className="tracking-wide">SARJANA SISTEM INFORMASI (S.KOM)</span>
             </div>
 
             <h1 className="hero-content-el text-hero-giant font-bebas text-[#F2EEE5] tracking-tight uppercase leading-[0.88] select-none">
@@ -48,7 +48,7 @@ export default function Hero({ onOpenResume }) {
             Information Systems undergraduate at Universitas Bani Saleh. Crafting full-stack web applications, relational database schemas, and clean digital interfaces.
           </p>
 
-          {/* Dual Pill CTAs */}
+          {/* Dual Pill CTAs (iOS 17 Tactile Micro-Press & Frosted Glass) */}
           <div className="hero-content-el flex flex-wrap items-center gap-4 pt-2">
             <a
               href="#projects"
@@ -65,7 +65,7 @@ export default function Hero({ onOpenResume }) {
                   });
                 }
               }}
-              className="px-8 py-4 rounded-full bg-[#161612] text-[#F2EEE5] font-bebas text-lg tracking-wider uppercase border border-[#2B2A26] hover:border-[#D8D0BF] hover:bg-[#2B2A26] transition-all shadow-xl inline-flex items-center space-x-3 whitespace-nowrap group cursor-pointer"
+              className="ios-glass ios-press px-8 py-4 rounded-full text-[#F2EEE5] font-bebas text-lg tracking-wider uppercase border border-white/[0.1] hover:border-[#D8D0BF] hover:bg-white/[0.06] transition-all shadow-xl inline-flex items-center space-x-3 whitespace-nowrap group cursor-pointer"
             >
               <span>Explore Selected Work</span>
               <span className="text-base group-hover:translate-x-1 transition-transform">→</span>
@@ -74,7 +74,7 @@ export default function Hero({ onOpenResume }) {
             <button
               type="button"
               onClick={onOpenResume}
-              className="px-8 py-4 rounded-full bg-[#F2EEE5] text-[#0B0B09] font-bebas text-lg tracking-wider uppercase hover:bg-[#D8D0BF] transition-all shadow-xl inline-flex items-center space-x-2.5 whitespace-nowrap cursor-pointer"
+              className="ios-press px-8 py-4 rounded-full bg-[#F2EEE5] text-[#0B0B09] font-bebas text-lg tracking-wider uppercase hover:bg-white transition-all shadow-[0_8px_24px_rgba(242,238,229,0.15)] inline-flex items-center space-x-2.5 whitespace-nowrap cursor-pointer"
             >
               <FileText size={18} />
               <span>Resume</span>
@@ -82,7 +82,7 @@ export default function Hero({ onOpenResume }) {
           </div>
         </div>
 
-        {/* Minimalist Bottom Status Footer */}
+        {/* Minimalist iOS 17 Bottom Status Footer */}
         <div className="hero-content-el pt-6 border-t border-[#2B2A26] flex justify-between items-center text-xs font-mono text-[#A7A39A]">
           <span className="uppercase tracking-wider">BEKASI, INDONESIA</span>
           <span className="uppercase tracking-wider text-[#D8D0BF]">AVAILABLE FOR FULL-TIME & FREELANCE</span>

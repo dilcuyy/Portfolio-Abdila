@@ -133,7 +133,7 @@ export default function Contact() {
             <div className="pt-2 flex flex-wrap items-center gap-3">
               <button
                 onClick={handleCopyEmail}
-                className="flex items-center space-x-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full border border-[#2B2A26] bg-[#12120F] hover:border-[#D8D0BF] text-xs sm:text-sm font-mono text-[#F2EEE5] transition-all group cursor-pointer max-w-full truncate"
+                className="ios-glass ios-press flex items-center space-x-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full border border-white/[0.08] hover:border-[#D8D0BF] text-xs sm:text-sm font-mono text-[#F2EEE5] transition-all group cursor-pointer max-w-full truncate shadow-lg"
               >
                 <Mail size={16} className="text-[#D8D0BF] flex-shrink-0" />
                 <span className="truncate">{portfolioData.contact.email}</span>
@@ -152,14 +152,14 @@ export default function Contact() {
               <span className="text-xs font-mono uppercase tracking-widest text-[#A7A39A] block">
                 CONNECT & SOCIALS
               </span>
-              <div className="flex flex-wrap gap-4">
+              <div className="flex flex-wrap gap-3">
                 {portfolioData.contact.socials.map((social) => (
                   <a
                     key={social.name}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="link-editorial text-sm font-mono uppercase tracking-wider text-[#F2EEE5] hover:text-[#D8D0BF]"
+                    className="ios-glass ios-press px-4 py-2 rounded-full border border-white/[0.08] text-xs font-mono uppercase tracking-wider text-[#F2EEE5] hover:text-[#D8D0BF] hover:border-[#D8D0BF]/40 transition-all"
                   >
                     {social.name} ↗
                   </a>
@@ -170,12 +170,12 @@ export default function Contact() {
 
           {/* Right Column - Contact Form with Web3Forms & Mail Fallback */}
           <div className="contact-reveal lg:col-span-6">
-            <div className="bg-[#12120F] border border-[#2B2A26] p-6 sm:p-10 rounded-2xl sm:rounded-3xl space-y-6 relative">
+            <div className="ios-glass-card border border-white/[0.08] p-6 sm:p-10 rounded-3xl space-y-6 relative shadow-[0_20px_48px_rgba(0,0,0,0.5)]">
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
                 <span className="text-xs font-mono text-[#D8D0BF] uppercase tracking-widest block">
                   DIRECT INQUIRY
                 </span>
-                <span className="inline-flex items-center space-x-2 text-[10px] font-mono uppercase tracking-widest text-[#A7A39A] bg-[#0B0B09] px-2.5 py-1 rounded-full border border-[#2B2A26] w-fit">
+                <span className="inline-flex items-center space-x-2 text-[10px] font-mono uppercase tracking-widest text-[#A7A39A] ios-glass px-3 py-1 rounded-full border border-white/[0.08] w-fit">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span>WEB3FORMS / DIRECT MAIL</span>
                 </span>
@@ -183,7 +183,7 @@ export default function Contact() {
 
               {submitted ? (
                 <div className="py-12 text-center space-y-4 animate-fadeIn">
-                  <div className="w-12 h-12 rounded-full bg-[#D8D0BF]/20 text-[#D8D0BF] flex items-center justify-center mx-auto">
+                  <div className="w-12 h-12 rounded-full ios-glass text-[#D8D0BF] flex items-center justify-center mx-auto border border-white/[0.1]">
                     <Check size={24} />
                   </div>
                   <h3 className="text-2xl font-bebas text-[#F2EEE5] uppercase tracking-wide">
@@ -196,13 +196,13 @@ export default function Contact() {
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
-                    className="mt-4 px-6 py-2.5 rounded-full border border-[#2B2A26] text-xs font-mono uppercase text-[#F2EEE5] hover:border-[#D8D0BF] transition-colors cursor-pointer"
+                    className="ios-press mt-4 px-6 py-2.5 rounded-full ios-glass border border-white/[0.1] text-xs font-mono uppercase text-[#F2EEE5] hover:border-[#D8D0BF] transition-colors cursor-pointer"
                   >
                     SEND ANOTHER MESSAGE
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-5">
                   <div className="space-y-2">
                     <label className="text-xs font-mono text-[#A7A39A] uppercase tracking-wider block">
                       YOUR NAME
@@ -213,7 +213,7 @@ export default function Contact() {
                       placeholder="e.g. Alex Morgan"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-[#0B0B09] border border-[#2B2A26] rounded-xl px-4 py-3.5 text-sm text-[#F2EEE5] placeholder-[#A7A39A]/50 focus:outline-none focus:border-[#D8D0BF] transition-colors"
+                      className="w-full ios-input rounded-2xl px-4 py-3.5 text-sm text-[#F2EEE5] placeholder-[#A7A39A]/40 focus:outline-none"
                     />
                   </div>
 
@@ -227,7 +227,7 @@ export default function Contact() {
                       placeholder="e.g. alex@company.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-[#0B0B09] border border-[#2B2A26] rounded-xl px-4 py-3.5 text-sm text-[#F2EEE5] placeholder-[#A7A39A]/50 focus:outline-none focus:border-[#D8D0BF] transition-colors"
+                      className="w-full ios-input rounded-2xl px-4 py-3.5 text-sm text-[#F2EEE5] placeholder-[#A7A39A]/40 focus:outline-none"
                     />
                   </div>
 
@@ -241,14 +241,14 @@ export default function Contact() {
                       placeholder="Tell me about your project, role, or collaboration idea..."
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-[#0B0B09] border border-[#2B2A26] rounded-xl px-4 py-3.5 text-sm text-[#F2EEE5] placeholder-[#A7A39A]/50 focus:outline-none focus:border-[#D8D0BF] transition-colors resize-none"
+                      className="w-full ios-input rounded-2xl px-4 py-3.5 text-sm text-[#F2EEE5] placeholder-[#A7A39A]/40 focus:outline-none resize-none"
                     />
                   </div>
 
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full py-4 rounded-xl bg-[#F2EEE5] text-[#0B0B09] font-bebas text-xl tracking-wider uppercase hover:bg-[#D8D0BF] transition-colors flex items-center justify-center space-x-2 whitespace-nowrap cursor-pointer disabled:opacity-60"
+                    className="ios-press w-full py-4 rounded-2xl bg-[#F2EEE5] text-[#0B0B09] font-bebas text-xl tracking-wider uppercase hover:bg-white transition-all flex items-center justify-center space-x-2 whitespace-nowrap cursor-pointer disabled:opacity-60 shadow-[0_8px_24px_rgba(242,238,229,0.15)]"
                   >
                     {loading ? (
                       <>
