@@ -247,44 +247,14 @@ export default function Education() {
 
             {/* Mobile / Tablet Premium Timeline Scrubber (iOS 17 Tactile Slider Card) */}
             <div className="lg:hidden space-y-4 p-4 sm:p-5 ios-glass-card rounded-3xl shadow-2xl">
-              {/* Header Stepper Navigation with Prev/Next Controls */}
-              <div className="flex items-center justify-between text-xs font-mono text-[#A7A39A]">
-                <button
-                  type="button"
-                  onClick={() => setActiveSmtIndex((prev) => Math.max(0, prev - 1))}
-                  disabled={activeSmtIndex === 0}
-                  className={`p-2 rounded-full border transition-all ios-press ${
-                    activeSmtIndex === 0
-                      ? 'opacity-30 border-transparent text-[#A7A39A] cursor-not-allowed'
-                      : 'border-white/[0.1] bg-white/[0.05] text-[#F2EEE5] hover:border-[#D8D0BF] cursor-pointer'
-                  }`}
-                  aria-label="Previous Semester"
-                >
-                  <span className="font-bold text-sm">←</span>
-                </button>
-
-                <div className="flex flex-col items-center text-center">
-                  <span className="text-[#D8D0BF] font-mono text-xs font-bold uppercase tracking-wider">
-                    SEMESTER 0{activeSmt.smt} • {activeSmt.period}
-                  </span>
-                  <span className="text-[10px] font-mono text-[#A7A39A]">
-                    {activeSmt.sksSmt} SKS TAKEN
-                  </span>
-                </div>
-
-                <button
-                  type="button"
-                  onClick={() => setActiveSmtIndex((prev) => Math.min(semesters.length - 1, prev + 1))}
-                  disabled={activeSmtIndex === semesters.length - 1}
-                  className={`p-2 rounded-full border transition-all ios-press ${
-                    activeSmtIndex === semesters.length - 1
-                      ? 'opacity-30 border-transparent text-[#A7A39A] cursor-not-allowed'
-                      : 'border-white/[0.1] bg-white/[0.05] text-[#F2EEE5] hover:border-[#D8D0BF] cursor-pointer'
-                  }`}
-                  aria-label="Next Semester"
-                >
-                  <span className="font-bold text-sm">→</span>
-                </button>
+              {/* Header Stepper Navigation */}
+              <div className="flex items-center justify-between text-xs font-mono text-[#A7A39A] pb-1">
+                <span className="text-[#D8D0BF] font-mono text-xs font-bold uppercase tracking-wider">
+                  SEMESTER 0{activeSmt.smt} • {activeSmt.period}
+                </span>
+                <span className="text-[10px] font-mono text-[#A7A39A] uppercase tracking-wider">
+                  {activeSmt.sksSmt} SKS TAKEN
+                </span>
               </div>
 
               {/* Interactive Progress Line Track with Nodes 01-07 */}
