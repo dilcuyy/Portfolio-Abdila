@@ -472,19 +472,9 @@ export default function Education() {
             </div>
           </div>
 
-          {/* Desktop 7-Pill Semester Grid (hidden on mobile, visible on lg) */}
-          <div className="hidden lg:block space-y-3">
-            {/* Continuous Progress Bar Line */}
-            <div className="relative w-full h-0.5 bg-white/[0.08] rounded-full overflow-hidden">
-              <div
-                className="absolute top-0 left-0 h-full bg-[#D8D0BF] rounded-full transition-all duration-500 ease-out"
-                style={{
-                  width: `${horizontalProgressPercent}%`,
-                }}
-              />
-            </div>
-
-            <div className="grid grid-cols-7 gap-2 select-none">
+          {/* Desktop Minimalist Typographic Tabs (hidden on mobile, visible on lg) */}
+          <div className="hidden lg:block select-none">
+            <div className="grid grid-cols-7 border-b border-white/[0.08]">
               {semesters.map((item, idx) => {
                 const isActive = idx === activeSmtIndex;
                 const year = item.period.split(' ')[0];
@@ -493,19 +483,28 @@ export default function Education() {
                     key={item.id}
                     type="button"
                     onClick={() => setActiveSmtIndex(idx)}
-                    className={`ios-press rounded-xl py-2.5 flex flex-col items-center justify-center transition-all cursor-pointer ${
-                      isActive
-                        ? 'bg-[#F2EEE5] text-[#0B0B09] font-bold shadow-[0_4px_16px_rgba(242,238,229,0.25)] ring-1 ring-white/50'
-                        : 'bg-white/[0.03] text-[#A7A39A] hover:text-[#F2EEE5] hover:bg-white/[0.07] border border-white/[0.06]'
+                    className={`relative pb-3 pt-1 flex flex-col items-center justify-center transition-colors cursor-pointer group ${
+                      isActive ? 'text-[#F2EEE5]' : 'text-[#A7A39A] hover:text-[#D8D0BF]'
                     }`}
                     aria-label={`Semester ${item.smt}`}
                   >
-                    <span className="text-sm font-mono font-bold leading-none">
+                    <span
+                      className={`text-sm font-mono tracking-wider transition-colors ${
+                        isActive ? 'font-bold text-[#F2EEE5]' : 'group-hover:text-[#F2EEE5]'
+                      }`}
+                    >
                       0{item.smt}
                     </span>
-                    <span className="text-[10px] font-mono opacity-70 mt-1">
+                    <span className="text-[10px] font-mono opacity-60 mt-0.5">
                       {year}
                     </span>
+
+                    {/* Active Underline Indicator */}
+                    {isActive ? (
+                      <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#D8D0BF] shadow-[0_0_8px_rgba(216,208,191,0.6)]" />
+                    ) : (
+                      <span className="absolute bottom-0 left-0 right-0 h-[1px] bg-transparent group-hover:bg-white/20 transition-colors" />
+                    )}
                   </button>
                 );
               })}
