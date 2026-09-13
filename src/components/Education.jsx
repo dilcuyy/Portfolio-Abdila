@@ -352,8 +352,8 @@ export default function Education() {
               </div>
 
               {/* SVG Radial Progress Ring (iOS Activity Ring Aesthetic) */}
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 flex items-center justify-center">
-                <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+              <div className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 flex items-center justify-center bg-transparent">
+                <svg className="w-full h-full transform -rotate-90 bg-transparent overflow-visible" viewBox="0 0 100 100">
                   {/* Background Track Circle */}
                   <circle
                     cx="50"
@@ -368,7 +368,7 @@ export default function Education() {
                     cx="50"
                     cy="50"
                     r={radius}
-                    className="stroke-[#D8D0BF] transition-all duration-700 ease-out drop-shadow-[0_0_10px_rgba(216,208,191,0.3)]"
+                    className="stroke-[#D8D0BF] transition-all duration-700 ease-out"
                     strokeWidth="8"
                     strokeDasharray={circumference}
                     strokeDashoffset={strokeDashoffset}
@@ -376,7 +376,7 @@ export default function Education() {
                     fill="transparent"
                   />
                 </svg>
-                <div className="absolute flex flex-col items-center justify-center text-center">
+                <div className="absolute flex flex-col items-center justify-center text-center pointer-events-none select-none">
                   <span className="text-xs font-mono font-bold text-[#F2EEE5]">
                     {Math.round(ipkRatio * 100)}%
                   </span>
