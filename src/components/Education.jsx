@@ -410,8 +410,12 @@ export default function Education() {
               {/* Base Background Rail */}
               <div className="absolute left-1 right-1 h-1.5 bg-white/[0.08] rounded-full overflow-hidden">
                 <div
-                  className="h-full bg-[#D8D0BF] rounded-full transition-all duration-150 ease-out"
-                  style={{ width: `${currentSliderPercent}%` }}
+                  className={`h-full bg-[#D8D0BF] rounded-full ${
+                    isSliding ? 'transition-none' : 'transition-[width] duration-200 ease-out'
+                  }`}
+                  style={{
+                    width: `calc(16px + (${currentSliderPercent} / 100) * (100% - 32px))`,
+                  }}
                 />
               </div>
 
