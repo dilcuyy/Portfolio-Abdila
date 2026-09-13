@@ -105,13 +105,12 @@ export default function Education() {
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        '.edu-el',
-        { opacity: 0, y: 24 },
+        '.edu-master-card',
+        { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.8,
-          stagger: 0.1,
+          duration: 0.9,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -126,309 +125,224 @@ export default function Education() {
 
   // Radial Progress Ring calculations (IPK / 4.00)
   const ipkNum = parseFloat(activeSmt.ipk) || 0;
-  const radius = 38;
+  const radius = 36;
   const circumference = 2 * Math.PI * radius;
   const ipkRatio = Math.min(Math.max(ipkNum / 4.0, 0), 1);
   const strokeDashoffset = circumference - circumference * (isInView ? ipkRatio : 0);
 
-  const verticalProgressPercent = (activeSmtIndex / (semesters.length - 1)) * 100;
+  const horizontalProgressPercent = (activeSmtIndex / (semesters.length - 1)) * 100;
 
   return (
     <section
       id="education"
       ref={sectionRef}
-      className="py-24 md:py-32 border-b border-[#2B2A26] bg-[#0B0B09] relative overflow-hidden"
+      className="py-20 md:py-32 border-b border-[#2B2A26] bg-[#0B0B09] relative overflow-hidden"
     >
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 space-y-16">
-        {/* Hairline Divider Header */}
-        <div className="edu-el flex justify-between items-center pb-4 border-b border-[#2B2A26] text-xs font-mono text-[#A7A39A]">
+      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 space-y-8">
+        
+        {/* Section Eyebrow */}
+        <div className="flex justify-between items-center pb-4 border-b border-[#2B2A26] text-xs font-mono text-[#A7A39A]">
           <span className="uppercase tracking-widest text-[#D8D0BF]">02 — ACADEMIC JOURNEY</span>
-          <span className="uppercase tracking-widest text-[#A7A39A]">BEKASI, INDONESIA</span>
+          <span className="uppercase tracking-widest text-[#A7A39A] hidden sm:inline">UNIVERSITAS BANI SALEH</span>
         </div>
 
-        {/* Section Heading & Degree Meta */}
-        <div className="edu-el space-y-2">
-          <h2 className="text-section-heading font-bebas text-[#F2EEE5] uppercase tracking-tight leading-none">
-            EDUCATION
-          </h2>
-          <div className="flex flex-wrap items-baseline justify-between gap-4">
-            <p className="text-2xl sm:text-3xl font-bebas text-[#D8D0BF] tracking-wide uppercase">
-              {portfolioData.education.degree}
-            </p>
-            <p className="text-xs font-mono text-[#A7A39A] uppercase tracking-widest">
-              {portfolioData.education.university} • 2023 — 2027
-            </p>
-          </div>
-        </div>
-
-        {/* Main Grid: Interactive Vertical Timeline + Stats Panel + Floating Photo */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
+        {/* Master Unified Editorial Card */}
+        <div className="edu-master-card ios-glass-card rounded-3xl p-6 sm:p-8 md:p-10 border border-white/[0.08] shadow-[0_24px_50px_rgba(0,0,0,0.6)] space-y-8">
           
-          {/* Left Column: Interactive Vertical Timeline (Node 01 - 07) */}
-          <div className="edu-el lg:col-span-3 space-y-4 relative z-30 flex flex-col justify-between">
-            <div className="flex items-center justify-between text-xs font-mono text-[#A7A39A] pb-2 border-b border-[#2B2A26]">
-              <span className="uppercase tracking-widest">TIMELINE NODES</span>
-              <span className="text-[#D8D0BF] font-semibold">0{activeSmt.smt} / 07</span>
+          {/* Card Header: Title, Subtitle, and Live Activity Pill */}
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
+            <div className="space-y-1.5">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bebas text-[#F2EEE5] uppercase tracking-wide leading-none">
+                PERJALANAN PENDIDIKAN
+              </h2>
+              <p className="text-xs sm:text-sm font-mono text-[#A7A39A]">
+                {portfolioData.education.university} • {portfolioData.education.degree} • {portfolioData.education.period}
+              </p>
             </div>
 
-            {/* Desktop Vertical Timeline Bar */}
-            <div className="hidden lg:block relative py-4 px-2">
-              {/* Vertical Track Line */}
-              <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-[#2B2A26] rounded-full" />
-              {/* Vertical Progress Fill Line */}
-              <div
-                className="absolute left-6 top-6 w-0.5 bg-[#D8D0BF] rounded-full transition-all duration-500 ease-out"
-                style={{ height: `calc(${verticalProgressPercent}% * 0.85)` }}
+            {/* Live Activity Status Pill */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full ios-glass border border-white/[0.09] text-xs font-mono text-[#F2EEE5] shrink-0 self-start">
+              <span
+                className={`w-2 h-2 rounded-full ${
+                  activeSmt.status === 'Aktif Berjalan'
+                    ? 'bg-emerald-400 animate-pulse'
+                    : 'bg-[#D8D0BF]'
+                }`}
               />
-
-              {/* Stacked Vertical Semester Nodes */}
-              <div className="space-y-6 relative z-10">
-                {semesters.map((item, idx) => {
-                  const isActive = idx === activeSmtIndex;
-                  const isHovered = idx === hoveredSmtIndex;
-
-                  return (
-                    <div
-                      key={item.id}
-                      className="relative flex items-center space-x-4 group cursor-pointer"
-                      onMouseEnter={() => setHoveredSmtIndex(idx)}
-                      onMouseLeave={() => setHoveredSmtIndex(null)}
-                      onClick={() => setActiveSmtIndex(idx)}
-                    >
-                      {/* Node Button Circle */}
-                      <button
-                        type="button"
-                        className={`w-9 h-9 rounded-full flex items-center justify-center text-xs font-mono transition-all duration-300 cursor-pointer ios-press ${
-                          isActive
-                            ? 'bg-[#D8D0BF] text-[#0B0B09] font-bold shadow-[0_0_20px_rgba(216,208,191,0.35)] ring-4 ring-[#D8D0BF]/25 scale-105'
-                            : 'bg-[#161612] text-[#A7A39A] border border-[#2B2A26] hover:border-[#D8D0BF]/60 hover:text-[#F2EEE5]'
-                        }`}
-                        aria-label={`Select Semester ${item.smt}`}
-                      >
-                        0{item.smt}
-                      </button>
-
-                      {/* Node Label Info */}
-                      <div className="flex flex-col text-left">
-                        <span className={`text-xs font-mono uppercase tracking-wider transition-colors ${
-                          isActive ? 'text-[#F2EEE5] font-bold' : 'text-[#A7A39A] group-hover:text-[#F2EEE5]'
-                        }`}>
-                          {item.label}
-                        </span>
-                        <span className="text-[10px] font-mono text-[#A7A39A]/70">
-                          {item.period}
-                        </span>
-                      </div>
-
-                      {/* Tooltip Card on Hover */}
-                      {isHovered && (
-                        <div className="absolute left-[148px] top-1/2 -translate-y-1/2 z-50 w-56 p-3.5 ios-glass rounded-2xl shadow-2xl text-left pointer-events-none animate-fadeIn">
-                          <div className="flex items-center justify-between text-[11px] font-mono text-[#D8D0BF] font-semibold border-b border-white/[0.08] pb-1.5 mb-2">
-                            <span>SEMESTER 0{item.smt}</span>
-                            <span className="text-[#F2EEE5]">{item.sksSmt} SKS</span>
-                          </div>
-                          <div className="space-y-1 text-xs font-mono text-[#A7A39A]">
-                            <span className="text-[10px] uppercase text-[#D8D0BF]/80 block tracking-widest">
-                              FEATURED SUBJECTS
-                            </span>
-                            {item.featuredSubjects && item.featuredSubjects.map((sub, sIdx) => (
-                              <p key={sIdx} className="text-[#F2EEE5] text-[11px] leading-tight">
-                                • {sub}
-                              </p>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Mobile / Tablet Premium Timeline Scrubber (iOS 17 Tactile Slider Card) */}
-            <div className="lg:hidden space-y-4 p-4 sm:p-5 ios-glass-card rounded-3xl shadow-2xl">
-              {/* Header Stepper Navigation */}
-              <div className="flex items-center justify-between text-xs font-mono text-[#A7A39A] pb-1">
-                <span className="text-[#D8D0BF] font-mono text-xs font-bold uppercase tracking-wider">
-                  SEMESTER 0{activeSmt.smt} • {activeSmt.period}
-                </span>
-                <span className="text-[10px] font-mono text-[#A7A39A] uppercase tracking-wider">
-                  {activeSmt.sksSmt} SKS TAKEN
-                </span>
-              </div>
-
-              {/* Interactive Progress Line Track with Nodes 01-07 */}
-              <div className="relative pt-2 pb-1 px-1">
-                {/* Horizontal Track Line */}
-                <div className="absolute top-1/2 left-4 right-4 h-0.5 bg-white/[0.1] -translate-y-1/2 rounded-full" />
-                {/* Filled Progress Line */}
-                <div
-                  className="absolute top-1/2 left-4 h-0.5 bg-[#D8D0BF] -translate-y-1/2 rounded-full transition-all duration-300 ease-out"
-                  style={{
-                    width: `calc(${verticalProgressPercent}% * 0.88)`,
-                  }}
-                />
-
-                {/* Nodes 01 - 07 Row */}
-                <div className="relative z-10 flex justify-between items-center">
-                  {semesters.map((item, idx) => {
-                    const isActive = idx === activeSmtIndex;
-                    return (
-                      <button
-                        key={item.id}
-                        type="button"
-                        onClick={() => setActiveSmtIndex(idx)}
-                        className={`w-8 h-8 sm:w-9 sm:h-9 rounded-full flex items-center justify-center text-xs font-mono transition-all duration-300 cursor-pointer ios-press ${
-                          isActive
-                            ? 'bg-[#D8D0BF] text-[#0B0B09] font-bold shadow-[0_0_16px_rgba(216,208,191,0.4)] ring-4 ring-[#D8D0BF]/25 scale-105'
-                            : 'bg-[#161612] text-[#A7A39A] border border-white/[0.08] hover:border-[#D8D0BF]/60'
-                        }`}
-                        aria-label={`Select Semester ${item.smt}`}
-                      >
-                        0{item.smt}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              <span className="capitalize text-[11px] sm:text-xs">
+                {activeSmt.status.toLowerCase()} • semester 0{activeSmt.smt}
+              </span>
             </div>
           </div>
 
-          {/* Middle Column: Active Semester Performance Stats (iOS 17 Widget Card - Uniform Locked Height) */}
-          <div className="edu-el lg:col-span-5 ios-glass-card rounded-3xl p-6 sm:p-8 relative h-[480px] sm:h-[500px] lg:h-[520px] flex flex-col justify-between shadow-2xl overflow-hidden">
-            {/* Header info of active semester */}
-            <div key={activeSmt.id} className="space-y-4 animate-fadeIn">
-              <div className="flex items-center justify-between gap-2 border-b border-white/[0.08] pb-3 text-xs font-mono">
-                <span className="text-[#D8D0BF] uppercase tracking-wider font-bold text-[11px] sm:text-xs truncate">
-                  SEMESTER 0{activeSmt.smt} OVERVIEW
-                </span>
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.06] border border-white/[0.1] backdrop-blur-md shadow-inner text-[#F2EEE5] text-[10px] sm:text-[11px] font-mono font-medium shrink-0 whitespace-nowrap">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#D8D0BF] animate-pulse" />
-                  <span>{activeSmt.status}</span>
-                </div>
-              </div>
+          {/* Horizontal Interactive Timeline Track */}
+          <div className="space-y-3 pt-2">
+            {/* Progress Bar Line */}
+            <div className="relative w-full h-0.5 bg-white/[0.08] rounded-full overflow-hidden">
+              <div
+                className="absolute top-0 left-0 h-full bg-[#D8D0BF] rounded-full transition-all duration-500 ease-out"
+                style={{
+                  width: `${horizontalProgressPercent}%`,
+                }}
+              />
+            </div>
 
-              {/* Main IPS Metric Display (Pixel-Perfect Fixed Height Across Semesters) */}
-              <div className="space-y-1 pt-1">
+            {/* Horizontal Semester Tabs / Nodes */}
+            <div className="flex items-center gap-4 sm:gap-6 md:gap-8 overflow-x-auto scrollbar-none py-2 text-xs font-mono select-none">
+              {semesters.map((item, idx) => {
+                const isActive = idx === activeSmtIndex;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    onClick={() => setActiveSmtIndex(idx)}
+                    className={`ios-press flex items-center space-x-2 shrink-0 py-1.5 transition-all cursor-pointer ${
+                      isActive
+                        ? 'text-[#F2EEE5] font-bold border-b-2 border-[#D8D0BF]'
+                        : 'text-[#A7A39A] hover:text-[#F2EEE5] border-b-2 border-transparent'
+                    }`}
+                    aria-label={`Select Semester ${item.smt}`}
+                  >
+                    <span className={isActive ? 'text-[#D8D0BF]' : 'text-[#A7A39A]'}>
+                      0{item.smt}
+                    </span>
+                    <span className="capitalize text-[11px] sm:text-xs tracking-normal">
+                      {item.period.toLowerCase()}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Unified 2-Column Body: Left Academic Metrics + Right Integrated Portrait */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center pt-6 border-t border-white/[0.08]">
+            
+            {/* Left Column: Academic Metrics */}
+            <div className="lg:col-span-7 space-y-7">
+              
+              {/* Metric 1: Semester IPS */}
+              <div className="space-y-1.5">
                 <span className="text-[11px] font-mono text-[#A7A39A] uppercase tracking-widest block">
                   SEMESTER IPS
                 </span>
 
-                <div className="h-14 sm:h-16 flex items-center">
-                  {activeSmt.ips === 'Ongoing' || activeSmt.ips === '—' ? (
-                    <div className="flex items-center space-x-3 text-xl sm:text-2xl font-bebas text-[#D8D0BF] tracking-wide">
-                      <span className="w-2.5 h-2.5 rounded-full bg-[#D8D0BF] animate-pulse shrink-0" />
-                      <span>IN PROGRESS ({activeSmt.sksSmt} SKS TAKEN)</span>
-                    </div>
-                  ) : (
-                    <div className="flex items-baseline space-x-3">
-                      <span className="text-5xl sm:text-6xl font-mono font-bold text-[#F2EEE5] tracking-tight leading-none">
-                        {animatedIps}
-                      </span>
-                      <span className="text-xs font-mono text-[#A7A39A]">
-                        {activeSmt.sksSmt ? `${activeSmt.sksSmt} SKS TAKEN` : ''}
-                      </span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            {/* Radial Progress Ring & Cumulative IPK Box */}
-            <div className="pt-5 border-t border-white/[0.08] flex items-center justify-between gap-4">
-              <div className="space-y-1">
-                <span className="text-[11px] font-mono text-[#A7A39A] uppercase tracking-widest block">
-                  CUMULATIVE IPK
-                </span>
-                <div className="flex items-baseline space-x-2">
-                  <span className="text-3xl sm:text-4xl font-mono font-bold text-[#F2EEE5]">
-                    {animatedIpk}
-                  </span>
-                  <span className="text-xs font-mono text-[#A7A39A]">/ 4.00</span>
-                </div>
-                <p className="text-[11px] font-mono text-[#A7A39A] pt-1">
-                  Total Cumulative SKS: <span className="text-[#F2EEE5] font-semibold">{activeSmt.totalSks} SKS</span>
-                </p>
+                {activeSmt.ips === 'Ongoing' || activeSmt.ips === '—' ? (
+                  <div className="flex items-center space-x-2.5 text-lg sm:text-xl font-medium text-[#F2EEE5]">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                    <span>Sedang berjalan • {activeSmt.sksSmt} SKS diambil</span>
+                  </div>
+                ) : (
+                  <div className="flex items-baseline space-x-3">
+                    <span className="text-3xl sm:text-4xl font-mono font-bold text-[#F2EEE5] tracking-tight">
+                      {animatedIps} IPS
+                    </span>
+                    <span className="text-xs font-mono text-[#A7A39A]">
+                      • {activeSmt.sksSmt} SKS diambil
+                    </span>
+                  </div>
+                )}
               </div>
 
-              {/* SVG Radial Progress Ring (iOS Activity Ring Aesthetic) */}
-              <div className="relative w-24 h-24 sm:w-28 sm:h-28 shrink-0 flex items-center justify-center bg-transparent">
-                <svg className="w-full h-full transform -rotate-90 bg-transparent overflow-visible" viewBox="0 0 100 100">
-                  {/* Background Track Circle */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r={radius}
-                    className="stroke-white/[0.08]"
-                    strokeWidth="8"
-                    fill="transparent"
-                  />
-                  {/* Active Progress Circle */}
-                  <circle
-                    cx="50"
-                    cy="50"
-                    r={radius}
-                    className="stroke-[#D8D0BF] transition-all duration-700 ease-out"
-                    strokeWidth="8"
-                    strokeDasharray={circumference}
-                    strokeDashoffset={strokeDashoffset}
-                    strokeLinecap="round"
-                    fill="transparent"
-                  />
-                </svg>
-                <div className="absolute flex flex-col items-center justify-center text-center pointer-events-none select-none">
-                  <span className="text-xs font-mono font-bold text-[#F2EEE5]">
-                    {Math.round(ipkRatio * 100)}%
-                  </span>
-                  <span className="text-[9px] font-mono text-[#A7A39A] uppercase">SCALE</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Featured Subjects Chips for Selected Semester (Consistent Min-Height) */}
-            <div className="pt-4 border-t border-white/[0.08] space-y-2">
-              <span className="text-[10px] font-mono text-[#A7A39A] uppercase tracking-widest block">
-                SEMESTER FOCUS SUBJECTS
-              </span>
-              <div className="flex flex-wrap gap-2 min-h-[64px] sm:min-h-[68px] content-start">
-                {activeSmt.featuredSubjects && activeSmt.featuredSubjects.map((sub, idx) => (
-                  <span
-                    key={idx}
-                    className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-[#F2EEE5] backdrop-blur-sm"
+              {/* Metric 2: Cumulative IPK & Radial Ring (Side-by-Side) */}
+              <div className="flex items-center space-x-6 sm:space-x-8 pt-1">
+                {/* SVG Radial Ring (Transparent Background / No Drop-Shadow Artifacts) */}
+                <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 flex items-center justify-center bg-transparent">
+                  <svg
+                    className="w-full h-full transform -rotate-90 bg-transparent overflow-visible"
+                    viewBox="0 0 100 100"
                   >
-                    {sub}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r={radius}
+                      className="stroke-white/[0.08]"
+                      strokeWidth="8"
+                      fill="transparent"
+                    />
+                    <circle
+                      cx="50"
+                      cy="50"
+                      r={radius}
+                      className="stroke-[#D8D0BF] transition-all duration-700 ease-out"
+                      strokeWidth="8"
+                      strokeDasharray={circumference}
+                      strokeDashoffset={strokeDashoffset}
+                      strokeLinecap="round"
+                      fill="transparent"
+                    />
+                  </svg>
+                  <div className="absolute flex flex-col items-center justify-center text-center pointer-events-none select-none">
+                    <span className="text-xs sm:text-sm font-mono font-bold text-[#F2EEE5]">
+                      {Math.round(ipkRatio * 100)}%
+                    </span>
+                  </div>
+                </div>
 
-          {/* Right Column: Floating Academic Photo Card with Glassmorphism & Parallax (Equal Height) */}
-          <div className="edu-el lg:col-span-4 w-full h-full">
-            <div
-              ref={photoCardRef}
-              className="relative h-[480px] sm:h-[500px] lg:h-[520px] rounded-3xl overflow-hidden border border-white/[0.08] bg-[#141411]/80 backdrop-blur-2xl shadow-2xl group flex flex-col justify-end transition-transform duration-300 ease-out"
-            >
-              <img
-                src={portfolioData.education.image}
-                alt="Universitas Bani Saleh Academic Portrait"
-                className="absolute inset-0 w-full h-full object-cover grayscale opacity-65 contrast-110 group-hover:grayscale-0 group-hover:opacity-85 transition-all duration-700 pointer-events-none"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B09] via-[#0B0B09]/30 to-transparent" />
-              
-              {/* Glassmorphism Info Overlay Footer (iOS 17 Frosted Widget) */}
-              <div className="relative z-10 p-6 space-y-1.5 m-4 rounded-2xl ios-glass">
-                <span className="text-[10px] font-mono text-[#D8D0BF] uppercase tracking-widest block font-semibold">
-                  ACADEMIC PORTRAIT • BEKASI
+                {/* IPK Number & SKS Detail */}
+                <div className="space-y-1">
+                  <div className="flex items-baseline space-x-2">
+                    <span className="text-3xl sm:text-4xl font-mono font-bold text-[#F2EEE5]">
+                      {animatedIpk}
+                    </span>
+                    <span className="text-xs sm:text-sm font-mono text-[#A7A39A]">/ 4.00 ipk</span>
+                  </div>
+                  <p className="text-xs font-mono text-[#A7A39A]">
+                    total sks kumulatif: <span className="text-[#F2EEE5] font-semibold">{activeSmt.totalSks} sks</span>
+                  </p>
+                </div>
+              </div>
+
+              {/* Metric 3: Fokus Mata Kuliah */}
+              <div className="pt-4 border-t border-white/[0.06] space-y-2.5">
+                <span className="text-[11px] font-mono text-[#A7A39A] uppercase tracking-widest block">
+                  FOKUS MATA KULIAH
                 </span>
-                <p className="text-lg font-bebas text-[#F2EEE5] uppercase tracking-wide">
-                  UNIVERSITAS BANI SALEH
-                </p>
-                <p className="text-xs font-mono text-[#A7A39A]">
-                  Sarjana Sistem Informasi (S.Kom) • 2023—2027
-                </p>
+                <div className="space-y-2">
+                  {activeSmt.featuredSubjects &&
+                    activeSmt.featuredSubjects.map((sub, idx) => (
+                      <div
+                        key={idx}
+                        className="flex items-center space-x-2.5 text-sm sm:text-base text-[#F2EEE5] font-light"
+                      >
+                        <span className="w-1.5 h-1.5 rounded-full bg-[#D8D0BF]/70 shrink-0" />
+                        <span>{sub}</span>
+                      </div>
+                    ))}
+                </div>
+              </div>
+
+            </div>
+
+            {/* Right Column: Academic Portrait Photo Card (STRICT: Zero Image Hover Scale) */}
+            <div className="lg:col-span-5 w-full">
+              <div
+                ref={photoCardRef}
+                className="relative h-[340px] sm:h-[380px] lg:h-[420px] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.08] bg-[#141411] group flex flex-col justify-end transition-transform duration-300 ease-out"
+              >
+                <img
+                  src={portfolioData.education.image}
+                  alt="Potret Akademik Abdila Asy Syafiq"
+                  className="absolute inset-0 w-full h-full object-cover grayscale opacity-75 contrast-110 pointer-events-none"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B09] via-[#0B0B09]/40 to-transparent" />
+                
+                {/* Caption Overlay */}
+                <div className="relative z-10 p-5 sm:p-6 space-y-1">
+                  <span className="text-[10px] font-mono text-[#A7A39A] uppercase tracking-widest block">
+                    POTRET AKADEMIK • BEKASI
+                  </span>
+                  <p className="text-xl sm:text-2xl font-bebas text-[#F2EEE5] uppercase tracking-wide">
+                    {portfolioData.personal.name}
+                  </p>
+                  <p className="text-xs font-mono text-[#D8D0BF]">
+                    {portfolioData.education.university} • {portfolioData.education.degree}
+                  </p>
+                </div>
               </div>
             </div>
+
           </div>
 
         </div>
