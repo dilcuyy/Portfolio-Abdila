@@ -234,12 +234,13 @@ export default function Education() {
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        '.edu-master-card',
+        '.edu-master-card, .edu-desktop-col',
         { opacity: 0, y: 30 },
         {
           opacity: 1,
           y: 0,
           duration: 0.9,
+          stagger: 0.1,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -335,6 +336,7 @@ export default function Education() {
   const strokeDashoffset = circumference - circumference * (isInView ? ipkRatio : 0);
 
   const horizontalProgressPercent = (activeSmtIndex / (semesters.length - 1)) * 100;
+  const verticalProgressPercent = (activeSmtIndex / (semesters.length - 1)) * 100;
   const currentSliderPercent = dragPercent !== null ? dragPercent : horizontalProgressPercent;
 
   return (
@@ -367,8 +369,8 @@ export default function Education() {
           </div>
         </div>
 
-        {/* Master Unified Editorial Card */}
-        <div className="edu-master-card ios-glass-card rounded-3xl p-6 sm:p-8 md:p-10 border border-white/[0.08] shadow-[0_24px_50px_rgba(0,0,0,0.6)] space-y-6">
+        {/* Master Unified Editorial Card (Mobile & Tablet Only) */}
+        <div className="edu-master-card lg:hidden ios-glass-card rounded-3xl p-6 sm:p-8 md:p-10 border border-white/[0.08] shadow-[0_24px_50px_rgba(0,0,0,0.6)] space-y-6">
           
           {/* Card Top Header: Active Semester Overview & Live Status Pill (Zero Wrapping on Mobile) */}
           <div className="flex items-center justify-between gap-2 border-b border-white/[0.08] pb-3">
@@ -472,44 +474,7 @@ export default function Education() {
             </div>
           </div>
 
-          {/* Desktop Minimalist Typographic Tabs (hidden on mobile, visible on lg) */}
-          <div className="hidden lg:block select-none">
-            <div className="grid grid-cols-7 border-b border-white/[0.08]">
-              {semesters.map((item, idx) => {
-                const isActive = idx === activeSmtIndex;
-                const year = item.period.split(' ')[0];
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setActiveSmtIndex(idx)}
-                    className={`relative pb-3 pt-1 flex flex-col items-center justify-center transition-colors cursor-pointer group ${
-                      isActive ? 'text-[#F2EEE5]' : 'text-[#A7A39A] hover:text-[#D8D0BF]'
-                    }`}
-                    aria-label={`Semester ${item.smt}`}
-                  >
-                    <span
-                      className={`text-sm font-mono tracking-wider transition-colors ${
-                        isActive ? 'font-bold text-[#F2EEE5]' : 'group-hover:text-[#F2EEE5]'
-                      }`}
-                    >
-                      0{item.smt}
-                    </span>
-                    <span className="text-[10px] font-mono opacity-60 mt-0.5">
-                      {year}
-                    </span>
 
-                    {/* Active Underline Indicator */}
-                    {isActive ? (
-                      <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#D8D0BF] shadow-[0_0_8px_rgba(216,208,191,0.6)]" />
-                    ) : (
-                      <span className="absolute bottom-0 left-0 right-0 h-[1px] bg-transparent group-hover:bg-white/20 transition-colors" />
-                    )}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
 
           {/* Unified 2-Column Body: Left Metrics + Right Portrait (Locked Equal Heights) */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch pt-6 border-t border-white/[0.08]">
@@ -612,11 +577,10 @@ export default function Education() {
 
             </div>
 
-            {/* Right Column: Academic Portrait Photo Card (Equal Height) */}
-            <div className="lg:col-span-5 w-full">
+            {/* Right Column: Academic Portrait Photo Card (Mobile) */}
+            <div className="w-full">
               <div
-                ref={photoCardRef}
-                className="relative h-[280px] sm:h-[320px] lg:h-[360px] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.08] bg-[#141411] group flex flex-col justify-end transition-transform duration-300 ease-out"
+                className="relative h-[280px] sm:h-[320px] rounded-2xl sm:rounded-3xl overflow-hidden border border-white/[0.08] bg-[#141411] group flex flex-col justify-end transition-transform duration-300 ease-out"
               >
                 <img
                   src={portfolioData.education.image}
@@ -641,6 +605,220 @@ export default function Education() {
               </div>
             </div>
 
+          </div>
+
+        </div>
+
+        {/* Desktop 3-Column Layout: Left Journey Timeline + Center Stats + Right Photo */}
+        <div className="hidden lg:grid grid-cols-12 gap-8 items-stretch">
+          
+          {/* Column 1 (Left): Interactive Vertical Journey Timeline */}
+          <div className="edu-desktop-col lg:col-span-3 ios-glass-card rounded-3xl p-6 relative h-[520px] flex flex-col justify-between shadow-2xl overflow-hidden">
+            <div className="flex items-center justify-between text-xs font-mono text-[#A7A39A] pb-3 border-b border-white/[0.08]">
+              <span className="uppercase tracking-widest text-[#D8D0BF]">TIMELINE NODES</span>
+              <span className="text-[#F2EEE5] font-semibold">0{activeSmt.smt} / 07</span>
+            </div>
+
+            {/* Vertical Timeline Track & Nodes */}
+            <div className="relative py-2 px-1 flex-1 flex flex-col justify-between">
+              {/* Vertical Track Rail */}
+              <div className="absolute left-[19px] top-3 bottom-3 w-0.5 bg-white/[0.08] rounded-full" />
+              {/* Vertical Progress Fill */}
+              <div
+                className="absolute left-[19px] top-3 w-0.5 bg-[#D8D0BF] rounded-full transition-all duration-300 ease-out"
+                style={{ height: `calc(${verticalProgressPercent}% * 0.94)` }}
+              />
+
+              {/* Stacked Vertical Semester Nodes */}
+              <div className="flex flex-col justify-between h-full relative z-10">
+                {semesters.map((item, idx) => {
+                  const isActive = idx === activeSmtIndex;
+
+                  return (
+                    <div
+                      key={item.id}
+                      className="relative flex items-center space-x-3.5 group cursor-pointer"
+                      onClick={() => setActiveSmtIndex(idx)}
+                    >
+                      {/* Node Circle Button */}
+                      <button
+                        type="button"
+                        className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-mono transition-all duration-200 cursor-pointer ${
+                          isActive
+                            ? 'bg-[#F2EEE5] text-[#0B0B09] font-bold shadow-[0_0_16px_rgba(242,238,229,0.4)] ring-2 ring-white scale-105'
+                            : 'bg-white/[0.03] text-[#A7A39A] border border-white/[0.08] hover:border-[#D8D0BF]/60 hover:text-[#F2EEE5]'
+                        }`}
+                        aria-label={`Select Semester ${item.smt}`}
+                      >
+                        0{item.smt}
+                      </button>
+
+                      {/* Node Title & Period */}
+                      <div className="flex flex-col text-left">
+                        <span
+                          className={`text-xs font-mono uppercase tracking-wider transition-colors ${
+                            isActive
+                              ? 'text-[#F2EEE5] font-bold'
+                              : 'text-[#A7A39A] group-hover:text-[#F2EEE5]'
+                          }`}
+                        >
+                          Semester 0{item.smt}
+                        </span>
+                        <span className="text-[10px] font-mono text-[#A7A39A]/70">
+                          {item.period}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Column 2 (Center): Active Semester Academic Performance Stats */}
+          <div className="edu-desktop-col lg:col-span-5 ios-glass-card rounded-3xl p-6 sm:p-8 relative h-[520px] flex flex-col justify-between shadow-2xl overflow-hidden">
+            {/* Header info of active semester */}
+            <div className="space-y-4">
+              <div className="flex items-center justify-between gap-2 border-b border-white/[0.08] pb-3 text-xs font-mono">
+                <span className="text-[#D8D0BF] uppercase tracking-wider font-bold text-xs">
+                  SEMESTER 0{activeSmt.smt} OVERVIEW
+                </span>
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full ios-glass border border-white/[0.09] text-[11px] font-mono text-[#F2EEE5] shrink-0 whitespace-nowrap">
+                  <span
+                    className={`w-1.5 h-1.5 rounded-full ${
+                      activeSmt.status === 'Aktif Berjalan'
+                        ? 'bg-emerald-400 animate-pulse'
+                        : 'bg-[#D8D0BF]'
+                    }`}
+                  />
+                  <span className="capitalize">{activeSmt.status}</span>
+                </div>
+              </div>
+
+              {/* Main IPS Metric Display */}
+              <div className="space-y-1 pt-1">
+                <span className="text-[11px] font-mono text-[#A7A39A] uppercase tracking-widest block">
+                  SEMESTER IPS
+                </span>
+
+                <div className="h-12 flex items-center">
+                  {activeSmt.ips === 'Ongoing' || activeSmt.ips === '—' ? (
+                    <div className="flex items-center space-x-2 text-base font-medium text-[#F2EEE5] whitespace-nowrap">
+                      <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                      <span>Sedang berjalan • {activeSmt.sksSmt} SKS</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-baseline space-x-2.5 whitespace-nowrap">
+                      <span className="text-3xl sm:text-4xl font-mono font-bold text-[#F2EEE5] tracking-tight">
+                        {animatedIps} IPS
+                      </span>
+                      <span className="text-xs font-mono text-[#A7A39A]">
+                        • {activeSmt.sksSmt} SKS
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Radial Progress Ring & Cumulative IPK Box */}
+            <div className="pt-5 border-t border-white/[0.08] flex items-center justify-between gap-4">
+              <div className="space-y-1">
+                <span className="text-[11px] font-mono text-[#A7A39A] uppercase tracking-widest block">
+                  CUMULATIVE IPK
+                </span>
+                <div className="flex items-baseline space-x-2 whitespace-nowrap">
+                  <span className="text-3xl sm:text-4xl font-mono font-bold text-[#F2EEE5]">
+                    {animatedIpk}
+                  </span>
+                  <span className="text-xs font-mono text-[#A7A39A]">/ 4.00 IPK</span>
+                </div>
+                <p className="text-xs font-mono text-[#A7A39A] pt-1">
+                  Total Kumulatif: <span className="text-[#F2EEE5] font-semibold">{activeSmt.totalSks} SKS</span>
+                </p>
+              </div>
+
+              {/* SVG Radial Progress Ring */}
+              <div className="relative w-20 h-20 sm:w-24 sm:h-24 shrink-0 flex items-center justify-center bg-transparent">
+                <svg
+                  className="w-full h-full transform -rotate-90 bg-transparent overflow-visible"
+                  viewBox="0 0 100 100"
+                >
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r={radius}
+                    className="stroke-white/[0.08]"
+                    strokeWidth="8"
+                    fill="transparent"
+                  />
+                  <circle
+                    cx="50"
+                    cy="50"
+                    r={radius}
+                    className="stroke-[#D8D0BF] transition-all duration-700 ease-out"
+                    strokeWidth="8"
+                    strokeDasharray={circumference}
+                    strokeDashoffset={strokeDashoffset}
+                    strokeLinecap="round"
+                    fill="transparent"
+                  />
+                </svg>
+                <div className="absolute flex flex-col items-center justify-center text-center pointer-events-none select-none">
+                  <span className="text-xs sm:text-sm font-mono font-bold text-[#F2EEE5]">
+                    {Math.round(ipkRatio * 100)}%
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Featured Focus Subjects */}
+            <div className="pt-4 border-t border-white/[0.08] space-y-2">
+              <span className="text-[10px] font-mono text-[#A7A39A] uppercase tracking-widest block">
+                FOKUS MATA KULIAH
+              </span>
+              <div className="space-y-1.5 h-[56px] flex flex-col justify-center">
+                {activeSmt.featuredSubjects &&
+                  activeSmt.featuredSubjects.map((sub, idx) => (
+                    <div
+                      key={idx}
+                      className="flex items-center space-x-2 text-xs sm:text-sm text-[#F2EEE5] font-light truncate"
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#D8D0BF]/70 shrink-0" />
+                      <span className="truncate">{sub}</span>
+                    </div>
+                  ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Column 3 (Right): Academic Portrait Photo Card */}
+          <div className="edu-desktop-col lg:col-span-4 w-full h-full">
+            <div
+              ref={photoCardRef}
+              className="relative h-[520px] rounded-3xl overflow-hidden border border-white/[0.08] bg-[#141411] shadow-2xl group flex flex-col justify-end transition-transform duration-300 ease-out"
+            >
+              <img
+                src={portfolioData.education.image}
+                alt="Potret Akademik Abdila Asy Syafiq"
+                className="absolute inset-0 w-full h-full object-cover grayscale opacity-75 contrast-110 pointer-events-none"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0B0B09] via-[#0B0B09]/40 to-transparent" />
+              
+              {/* Caption Overlay */}
+              <div className="relative z-10 p-6 space-y-1.5 m-4 rounded-2xl ios-glass">
+                <span className="text-[10px] font-mono text-[#D8D0BF] uppercase tracking-widest block font-semibold">
+                  POTRET AKADEMIK • BEKASI
+                </span>
+                <p className="text-xl font-bebas text-[#F2EEE5] uppercase tracking-wide">
+                  {portfolioData.personal.name}
+                </p>
+                <p className="text-xs font-mono text-[#A7A39A]">
+                  {portfolioData.education.university} • {portfolioData.education.degree}
+                </p>
+              </div>
+            </div>
           </div>
 
         </div>
