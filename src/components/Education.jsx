@@ -162,10 +162,10 @@ export default function Education() {
         </div>
 
         {/* Main Grid: Interactive Vertical Timeline + Stats Panel + Floating Photo */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch">
           
           {/* Left Column: Interactive Vertical Timeline (Node 01 - 07) */}
-          <div className="edu-el lg:col-span-3 space-y-4 relative z-30">
+          <div className="edu-el lg:col-span-3 space-y-4 relative z-30 flex flex-col justify-between">
             <div className="flex items-center justify-between text-xs font-mono text-[#A7A39A] pb-2 border-b border-[#2B2A26]">
               <span className="uppercase tracking-widest">TIMELINE NODES</span>
               <span className="text-[#D8D0BF] font-semibold">0{activeSmt.smt} / 07</span>
@@ -294,8 +294,8 @@ export default function Education() {
             </div>
           </div>
 
-          {/* Middle Column: Active Semester Performance Stats (iOS 17 Widget Card) */}
-          <div className="edu-el lg:col-span-5 space-y-6 ios-glass-card rounded-3xl p-6 sm:p-8 relative min-h-[380px] flex flex-col justify-between shadow-2xl">
+          {/* Middle Column: Active Semester Performance Stats (iOS 17 Widget Card - Uniform Locked Height) */}
+          <div className="edu-el lg:col-span-5 ios-glass-card rounded-3xl p-6 sm:p-8 relative h-[480px] sm:h-[500px] lg:h-[520px] flex flex-col justify-between shadow-2xl overflow-hidden">
             {/* Header info of active semester */}
             <div key={activeSmt.id} className="space-y-4 animate-fadeIn">
               <div className="flex items-center justify-between gap-2 border-b border-white/[0.08] pb-3 text-xs font-mono">
@@ -308,32 +308,34 @@ export default function Education() {
                 </div>
               </div>
 
-              {/* Main IPS Metric Display */}
-              <div className="space-y-1 pt-2">
+              {/* Main IPS Metric Display (Pixel-Perfect Fixed Height Across Semesters) */}
+              <div className="space-y-1 pt-1">
                 <span className="text-[11px] font-mono text-[#A7A39A] uppercase tracking-widest block">
                   SEMESTER IPS
                 </span>
 
-                {activeSmt.ips === 'Ongoing' || activeSmt.ips === '—' ? (
-                  <div className="h-16 flex items-center space-x-3 text-xl sm:text-2xl font-bebas text-[#D8D0BF] tracking-wide">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#D8D0BF] animate-pulse shrink-0" />
-                    <span>IN PROGRESS ({activeSmt.sksSmt} SKS TAKEN)</span>
-                  </div>
-                ) : (
-                  <div className="flex items-baseline space-x-3">
-                    <span className="text-5xl sm:text-6xl font-mono font-bold text-[#F2EEE5] tracking-tight leading-none">
-                      {animatedIps}
-                    </span>
-                    <span className="text-xs font-mono text-[#A7A39A]">
-                      {activeSmt.sksSmt ? `${activeSmt.sksSmt} SKS TAKEN` : ''}
-                    </span>
-                  </div>
-                )}
+                <div className="h-14 sm:h-16 flex items-center">
+                  {activeSmt.ips === 'Ongoing' || activeSmt.ips === '—' ? (
+                    <div className="flex items-center space-x-3 text-xl sm:text-2xl font-bebas text-[#D8D0BF] tracking-wide">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#D8D0BF] animate-pulse shrink-0" />
+                      <span>IN PROGRESS ({activeSmt.sksSmt} SKS TAKEN)</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-baseline space-x-3">
+                      <span className="text-5xl sm:text-6xl font-mono font-bold text-[#F2EEE5] tracking-tight leading-none">
+                        {animatedIps}
+                      </span>
+                      <span className="text-xs font-mono text-[#A7A39A]">
+                        {activeSmt.sksSmt ? `${activeSmt.sksSmt} SKS TAKEN` : ''}
+                      </span>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
 
             {/* Radial Progress Ring & Cumulative IPK Box */}
-            <div className="pt-6 border-t border-white/[0.08] flex items-center justify-between gap-4">
+            <div className="pt-5 border-t border-white/[0.08] flex items-center justify-between gap-4">
               <div className="space-y-1">
                 <span className="text-[11px] font-mono text-[#A7A39A] uppercase tracking-widest block">
                   CUMULATIVE IPK
@@ -383,31 +385,29 @@ export default function Education() {
               </div>
             </div>
 
-            {/* Featured Subjects Chips for Selected Semester */}
-            {activeSmt.featuredSubjects && (
-              <div className="pt-4 border-t border-white/[0.08] space-y-2">
-                <span className="text-[10px] font-mono text-[#A7A39A] uppercase tracking-widest block">
-                  SEMESTER FOCUS SUBJECTS
-                </span>
-                <div className="flex flex-wrap gap-2">
-                  {activeSmt.featuredSubjects.map((sub, idx) => (
-                    <span
-                      key={idx}
-                      className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-[#F2EEE5] backdrop-blur-sm"
-                    >
-                      {sub}
-                    </span>
-                  ))}
-                </div>
+            {/* Featured Subjects Chips for Selected Semester (Consistent Min-Height) */}
+            <div className="pt-4 border-t border-white/[0.08] space-y-2">
+              <span className="text-[10px] font-mono text-[#A7A39A] uppercase tracking-widest block">
+                SEMESTER FOCUS SUBJECTS
+              </span>
+              <div className="flex flex-wrap gap-2 min-h-[64px] sm:min-h-[68px] content-start">
+                {activeSmt.featuredSubjects && activeSmt.featuredSubjects.map((sub, idx) => (
+                  <span
+                    key={idx}
+                    className="px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-xs font-mono text-[#F2EEE5] backdrop-blur-sm"
+                  >
+                    {sub}
+                  </span>
+                ))}
               </div>
-            )}
+            </div>
           </div>
 
-          {/* Right Column: Floating Academic Photo Card with Glassmorphism & Parallax */}
-          <div className="edu-el lg:col-span-4 w-full">
+          {/* Right Column: Floating Academic Photo Card with Glassmorphism & Parallax (Equal Height) */}
+          <div className="edu-el lg:col-span-4 w-full h-full">
             <div
               ref={photoCardRef}
-              className="relative min-h-[380px] lg:min-h-[460px] h-full rounded-3xl overflow-hidden border border-white/[0.08] bg-[#141411]/80 backdrop-blur-2xl shadow-2xl group flex flex-col justify-end transition-transform duration-300 ease-out"
+              className="relative h-[480px] sm:h-[500px] lg:h-[520px] rounded-3xl overflow-hidden border border-white/[0.08] bg-[#141411]/80 backdrop-blur-2xl shadow-2xl group flex flex-col justify-end transition-transform duration-300 ease-out"
             >
               <img
                 src={portfolioData.education.image}
