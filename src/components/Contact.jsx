@@ -14,7 +14,7 @@ export default function Contact({ onScrollToTop }) {
     <section
       id="contact"
       data-section-id="contact"
-      className="w-screen min-w-[100vw] h-[100dvh] shrink-0 snap-start snap-always flex flex-col justify-between pt-16 pb-16 pl-14 sm:pl-20 md:pl-28 lg:pl-32 pr-8 sm:pr-12 md:pr-16 border-r border-[#36332F] bg-[#1C1B18] relative overflow-hidden select-none"
+      className="w-full md:w-screen md:min-w-[100vw] min-h-[100dvh] md:h-[100dvh] shrink-0 md:snap-start md:snap-always flex flex-col justify-between pt-14 pb-12 sm:pb-16 md:pt-16 md:pb-16 px-5 sm:px-8 md:pl-28 md:pr-16 lg:pl-32 border-b md:border-b-0 md:border-r border-[#36332F] bg-[#1C1B18] relative select-none"
     >
       {/* Top Header Eyebrow (Identical padding & border-b as previous sections) */}
       <div className="flex justify-between items-center pb-3 border-b border-[#36332F] w-full">
@@ -31,7 +31,7 @@ export default function Contact({ onScrollToTop }) {
       </div>
 
       {/* Main Content Area */}
-      <div className="my-auto space-y-4 w-full max-w-7xl">
+      <div className="my-6 md:my-auto space-y-4 w-full max-w-7xl">
         {/* Title Header: NEXT CHAPTER */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end border-b border-[#36332F] pb-3 w-full">
           <div className="lg:col-span-8">
@@ -55,12 +55,12 @@ export default function Contact({ onScrollToTop }) {
               <button
                 type="button"
                 onClick={handleCopyEmail}
-                className="group text-left focus:outline-none cursor-pointer block"
+                className="group text-left focus:outline-none cursor-pointer block w-full"
               >
-                <span className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#ECE8E1] underline decoration-[#36332F] group-hover:decoration-[#ECE8E1] transition-colors block break-all">
+                <span className="font-serif-display text-xl sm:text-3xl md:text-4xl lg:text-5xl text-[#ECE8E1] underline decoration-[#36332F] group-hover:decoration-[#ECE8E1] transition-colors block break-all">
                   {portfolioData.contact.email}
                 </span>
-                <span className="text-[10px] font-mono text-[#8C8880] group-hover:text-[#D5CEC4] mt-1.5 block">
+                <span className="text-[10px] font-mono text-[#8C8880] group-hover:text-[#D5CEC4] mt-2 block">
                   {copied ? '✓ COPIED TO CLIPBOARD' : '(CLICK TO COPY EMAIL)'}
                 </span>
               </button>
@@ -84,7 +84,7 @@ export default function Contact({ onScrollToTop }) {
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3 py-2 border border-[#36332F] bg-[#1C1B18] text-[#ECE8E1] hover:border-[#ECE8E1] hover:bg-[#2D2B26] transition-all flex items-center justify-between group text-xs"
+                    className="px-3 py-2.5 border border-[#36332F] bg-[#1C1B18] text-[#ECE8E1] hover:border-[#ECE8E1] hover:bg-[#2D2B26] active:bg-[#2D2B26] transition-all flex items-center justify-between group text-xs"
                   >
                     <span>{social.name}</span>
                     <span className="text-[#8C8880] group-hover:text-[#ECE8E1]">↗</span>
@@ -103,9 +103,9 @@ export default function Contact({ onScrollToTop }) {
       </div>
 
       {/* Footer Bar (Identical padding & border-t as previous sections) */}
-      <div className="pt-2 border-t border-[#36332F] flex flex-wrap justify-between items-center text-[10px] font-mono text-[#8C8880] uppercase tracking-wider w-full">
+      <div className="pt-3 border-t border-[#36332F] flex flex-wrap gap-2 justify-between items-center text-[10px] font-mono text-[#8C8880] uppercase tracking-wider w-full">
         <span>WHERE CODE & DESIGN FIND THEIR FORM</span>
-        <span>© {new Date().getFullYear()} ABDILA ASY SYAFIQ • ALL RIGHTS RESERVED</span>
+        <span>© {new Date().getFullYear()} ABDILA ASY SYAFIQ</span>
       </div>
     </section>
   );

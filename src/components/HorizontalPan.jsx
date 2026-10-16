@@ -20,7 +20,10 @@ export default function HorizontalPan({
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return;
 
-    const ctx = gsap.context(() => {
+    const mm = gsap.matchMedia();
+
+    // DESKTOP: (min-width: 768px) - Editorial horizontal pan with ScrollTrigger pin & scrub
+    mm.add('(min-width: 768px)', () => {
       const getScrollDistance = () => {
         if (!trackRef.current) return 0;
         const lastChild = trackRef.current.lastElementChild;
@@ -77,16 +80,66 @@ export default function HorizontalPan({
       setTimeout(() => {
         ScrollTrigger.refresh();
       }, 200);
-    }, wrapRef);
+    });
 
-    return () => ctx.revert();
+    // MOBILE: (max-width: 767px) - Fluid natural vertical scroll
+    mm.add('(max-width: 767px)', () => {
+      gsap.set(trackRef.current, { clearProps: 'x' });
+
+      const handleMobileScroll = () => {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? window.scrollY / docHeight : 0;
+
+        if (frameOverlayRef && frameOverlayRef.current) {
+          frameOverlayRef.current.updateProgress(progress);
+        }
+
+        if (!trackRef.current) return;
+        const panels = trackRef.current.querySelectorAll('[data-section-id]');
+        const viewportCheck = window.scrollY + window.innerHeight * 0.35;
+
+        let activeId = 'home';
+        panels.forEach((panel) => {
+          const top = panel.offsetTop;
+          const height = panel.offsetHeight;
+          if (viewportCheck >= top && viewportCheck < top + height) {
+            activeId = panel.getAttribute('data-section-id');
+          }
+        });
+
+        if (activeId !== currentSectionRef.current) {
+          currentSectionRef.current = activeId;
+          if (onActiveSectionChange) {
+            onActiveSectionChange(activeId);
+          }
+        }
+      };
+
+      window.addEventListener('scroll', handleMobileScroll, { passive: true });
+      handleMobileScroll();
+
+      return () => {
+        window.removeEventListener('scroll', handleMobileScroll);
+      };
+    });
+
+    return () => mm.revert();
   }, [onActiveSectionChange, frameOverlayRef]);
 
-  // Programmatic ScrollTo Handler using native window scroll position
+  // Programmatic ScrollTo Handler: adaptive for desktop horizontal or mobile vertical
   const scrollToSection = useCallback((sectionId) => {
     if (!trackRef.current) return;
+    const isMobile = window.innerWidth < 768;
     const targetPanel = trackRef.current.querySelector(`[data-section-id="${sectionId}"]`);
-    if (targetPanel) {
+    if (!targetPanel) return;
+
+    if (isMobile) {
+      const targetTop = targetPanel.offsetTop;
+      window.scrollTo({
+        top: Math.max(0, targetTop - 56),
+        behavior: 'smooth',
+      });
+    } else {
       const targetX = targetPanel.offsetLeft;
       const lastChild = trackRef.current.lastElementChild;
       const totalDist = lastChild ? lastChild.offsetLeft : Math.max(0, trackRef.current.scrollWidth - window.innerWidth);
@@ -110,7 +163,7 @@ export default function HorizontalPan({
     <div ref={wrapRef} className="relative w-full overflow-hidden min-h-[100dvh]">
       <div
         ref={trackRef}
-        className="flex flex-row flex-nowrap h-[100dvh] w-max items-center will-change-transform"
+        className="flex flex-col md:flex-row md:flex-nowrap w-full md:w-max h-auto md:h-[100dvh] md:items-center will-change-transform"
       >
         {children}
       </div>

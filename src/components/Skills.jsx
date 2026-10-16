@@ -9,12 +9,12 @@ export default function Skills() {
     <section
       id="skills"
       data-section-id="skills"
-      className="w-screen min-w-[100vw] h-[100dvh] shrink-0 snap-start snap-always flex flex-col justify-between pt-16 pb-16 pl-14 sm:pl-20 md:pl-28 lg:pl-32 pr-8 sm:pr-12 md:pr-16 border-r border-[#36332F] bg-[#1C1B18] relative overflow-hidden"
+      className="w-full md:w-screen md:min-w-[100vw] min-h-[100dvh] md:h-[100dvh] shrink-0 md:snap-start md:snap-always flex flex-col justify-between pt-14 pb-12 sm:pb-16 md:pt-16 md:pb-16 px-5 sm:px-8 md:pl-28 md:pr-16 lg:pl-32 border-b md:border-b-0 md:border-r border-[#36332F] bg-[#1C1B18] relative"
     >
       {/* Top Header Eyebrow */}
-      <div className="flex justify-between items-center pb-3 border-b border-[#36332F]">
+      <div className="flex justify-between items-center pb-3 border-b border-[#36332F] w-full">
         <span className="text-xs font-mono tracking-widest text-[#D5CEC4] uppercase">
-          05 — COMPETENCIES & STACK
+          04 — COMPETENCIES & STACK
         </span>
         <span className="text-xs font-mono tracking-widest text-[#8C8880] uppercase hidden sm:inline">
           TECHNICAL & SOFT SKILLS ARCHITECTURE
@@ -22,7 +22,7 @@ export default function Skills() {
       </div>
 
       {/* Main Section Header */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end border-b border-[#36332F] pb-3">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end border-b border-[#36332F] pb-3 w-full">
         <div className="lg:col-span-8">
           <h2 className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#ECE8E1] font-normal tracking-tight uppercase leading-none">
             COMPETENCIES
@@ -34,7 +34,7 @@ export default function Skills() {
       </div>
 
       {/* Main 2-Column Editorial Grid */}
-      <div className="my-auto grid grid-cols-1 lg:grid-cols-12 gap-5 items-start w-full max-w-7xl">
+      <div className="my-6 md:my-auto grid grid-cols-1 lg:grid-cols-12 gap-5 items-start w-full max-w-7xl">
         {/* Hard Skills Panel */}
         <div className="lg:col-span-6 bg-[#23221E] border border-[#36332F] p-4 sm:p-5 space-y-3">
           <div className="flex items-center justify-between pb-2 border-b border-[#36332F]">
@@ -48,14 +48,14 @@ export default function Skills() {
 
           <div className="divide-y divide-[#36332F]">
             {hardSkills.map((item, idx) => (
-              <div key={item.id} className="py-1.5 flex items-center justify-between font-mono text-xs text-[#ECE8E1]">
+              <div key={item.id} className="py-2 sm:py-1.5 flex items-center justify-between font-mono text-xs text-[#ECE8E1]">
                 <div className="flex items-center space-x-3">
                   <span className="text-[#8C8880] font-serif-display text-sm">
                     {(idx + 1).toString().padStart(2, '0')}.
                   </span>
                   <span className="font-medium tracking-wide">{item.name}</span>
                 </div>
-                <span className="text-[9px] text-[#D5CEC4] uppercase tracking-wider px-2 py-0.5 bg-[#1C1B18] border border-[#36332F]">
+                <span className="text-[9px] text-[#D5CEC4] uppercase tracking-wider px-2 py-0.5 bg-[#1C1B18] border border-[#36332F] shrink-0 ml-2">
                   ✦ ACTIVE
                 </span>
               </div>
@@ -76,14 +76,14 @@ export default function Skills() {
 
           <div className="divide-y divide-[#36332F]">
             {softSkills.map((item, idx) => (
-              <div key={item.id} className="py-1.5 flex items-center justify-between font-mono text-xs text-[#ECE8E1]">
+              <div key={item.id} className="py-2 sm:py-1.5 flex items-center justify-between font-mono text-xs text-[#ECE8E1]">
                 <div className="flex items-center space-x-3">
                   <span className="text-[#8C8880] font-serif-display text-sm">
                     {(idx + 1).toString().padStart(2, '0')}.
                   </span>
                   <span className="font-medium tracking-wide">{item.name}</span>
                 </div>
-                <span className="text-[9px] text-[#D5CEC4] uppercase tracking-wider px-2 py-0.5 bg-[#1C1B18] border border-[#36332F]">
+                <span className="text-[9px] text-[#D5CEC4] uppercase tracking-wider px-2 py-0.5 bg-[#1C1B18] border border-[#36332F] shrink-0 ml-2">
                   ✦ VERIFIED
                 </span>
               </div>
@@ -93,7 +93,7 @@ export default function Skills() {
       </div>
 
       {/* Footer Quote Bar */}
-      <div className="pt-2 border-t border-[#36332F] flex justify-between items-center text-[10px] font-mono text-[#8C8880] uppercase tracking-wider">
+      <div className="pt-3 border-t border-[#36332F] flex flex-wrap gap-2 justify-between items-center text-[10px] font-mono text-[#8C8880] uppercase tracking-wider w-full">
         <span>ENGINEERING EFFICIENCY & ARCHITECTURAL DISCIPLINE</span>
         <span>ABDILA ASY SYAFIQ</span>
       </div>

@@ -22,22 +22,22 @@ export default function Preloader({ onComplete }) {
 
   return (
     <div
-      className={`fixed inset-0 z-[9990] bg-[#0B0B09] text-[#F2EEE5] flex flex-col justify-between p-8 md:p-16 transition-opacity duration-700 ease-in-out ${
+      className={`fixed inset-0 z-[9990] bg-[#0B0B09] text-[#F2EEE5] flex flex-col justify-between p-6 sm:p-8 md:p-16 transition-opacity duration-700 ease-in-out select-none ${
         isFadingOut ? 'opacity-0 pointer-events-none' : 'opacity-100'
       }`}
     >
       {/* Top Header */}
-      <div className="flex justify-between items-center text-xs tracking-widest text-[#A7A39A] uppercase font-mono">
+      <div className="flex justify-between items-center text-[10px] sm:text-xs tracking-widest text-[#A7A39A] uppercase font-mono">
         <span>ABDILA ASY SYAFIQ</span>
         <span>PORTFOLIO 2026</span>
       </div>
 
       {/* Center Big Typography */}
       <div className="my-auto max-w-5xl">
-        <h1 className="text-hero-giant font-bebas leading-none tracking-tight text-[#F2EEE5] uppercase mb-4">
+        <h1 className="font-serif-display text-3xl sm:text-5xl md:text-7xl lg:text-8xl leading-none tracking-tight text-[#F2EEE5] uppercase mb-4">
           EDITORIAL PORTFOLIO
         </h1>
-        <p className="text-sm md:text-base text-[#A7A39A] font-sans tracking-wide">
+        <p className="text-xs sm:text-sm md:text-base text-[#A7A39A] font-sans tracking-wide">
           INFORMATION SYSTEMS • WEB DEVELOPMENT • UI/UX DESIGN
         </p>
       </div>

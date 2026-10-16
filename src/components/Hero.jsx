@@ -27,29 +27,32 @@ export default function Hero({ onOpenResume, onExploreWork }) {
       id="home"
       data-section-id="home"
       ref={containerRef}
-      className="w-screen min-w-[100vw] h-[100dvh] shrink-0 snap-start snap-always flex flex-col justify-between pt-8 sm:pt-12 md:pt-14 pb-6 sm:pb-8 md:pb-10 pl-14 sm:pl-20 md:pl-28 lg:pl-32 pr-8 sm:pr-12 md:pr-16 border-r border-[#36332F] bg-[#1C1B18] relative overflow-hidden"
+      className="w-full md:w-screen md:min-w-[100vw] min-h-[100dvh] md:h-[100dvh] shrink-0 md:snap-start md:snap-always flex flex-col justify-between pt-16 sm:pt-20 md:pt-14 pb-8 sm:pb-10 md:pb-10 px-5 sm:px-8 md:pl-28 md:pr-16 lg:pl-32 border-b md:border-b-0 md:border-r border-[#36332F] bg-[#1C1B18] relative overflow-hidden"
     >
       {/* Top Tagline */}
-      <div className="hero-el pt-2 flex items-center justify-end font-mono text-[11px] sm:text-xs text-[#A29D93] shrink-0">
-        <span className="hidden sm:inline uppercase tracking-widest">
+      <div className="hero-el pt-2 flex items-center justify-between sm:justify-end font-mono text-[11px] sm:text-xs text-[#A29D93] shrink-0">
+        <span className="sm:hidden uppercase tracking-widest text-[#F4F1EA]">
+          01 / FOLIO
+        </span>
+        <span className="uppercase tracking-widest">
           UNIVERSITAS BANI SALEH
         </span>
       </div>
 
       {/* Main Giant Editorial Headline & Right Description Layout (Matching Image 1 khanhnguyen.design) */}
-      <div className="my-auto py-2 sm:py-3 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end">
+      <div className="my-auto py-4 sm:py-6 md:py-3 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end">
         {/* Left Column: Giant 2-Line Serif Display Name */}
         <div className="lg:col-span-8 space-y-0">
-          <h1 className="hero-el font-serif-display text-[clamp(64px,13vw,200px)] text-[#F4F1EA] tracking-tight uppercase leading-[0.82] select-none">
+          <h1 className="hero-el font-serif-display text-[clamp(52px,13vw,200px)] text-[#F4F1EA] tracking-tight uppercase leading-[0.82] select-none">
             ABDILA
           </h1>
-          <h1 className="hero-el font-serif-display text-[clamp(64px,13vw,200px)] text-[#F4F1EA] tracking-tight uppercase leading-[0.82] select-none">
+          <h1 className="hero-el font-serif-display text-[clamp(52px,13vw,200px)] text-[#F4F1EA] tracking-tight uppercase leading-[0.82] select-none">
             ASY SYAFIQ
           </h1>
         </div>
 
         {/* Right Column: Top-Right Subtext & Action Buttons */}
-        <div className="lg:col-span-4 flex flex-col justify-end space-y-3 sm:space-y-4 pb-1">
+        <div className="lg:col-span-4 flex flex-col justify-end space-y-4 pb-1">
           {/* Top-Right Row: Left Meta/Icon Badge + Right-Aligned Portrait Photo */}
           <div className="hero-el flex items-end justify-between gap-4 w-full">
             {/* Left Accent: Editorial Typographic Notation (No Slop Badges) */}
@@ -88,7 +91,7 @@ export default function Hero({ onOpenResume, onExploreWork }) {
             <button
               type="button"
               onClick={onExploreWork}
-              className="px-6 py-3 border border-[#36332F] bg-[#1C1B18] text-[#ECE8E1] font-mono text-xs uppercase tracking-widest hover:border-[#ECE8E1] hover:text-white transition-all inline-flex items-center space-x-2 cursor-pointer"
+              className="flex-1 sm:flex-none justify-center px-6 py-3 border border-[#36332F] bg-[#1C1B18] text-[#ECE8E1] font-mono text-xs uppercase tracking-widest hover:border-[#ECE8E1] hover:text-white transition-all inline-flex items-center space-x-2 cursor-pointer active:bg-[#23221E]"
             >
               <span>EXPLORE WORK</span>
               <ArrowUpRight size={14} />
@@ -97,7 +100,7 @@ export default function Hero({ onOpenResume, onExploreWork }) {
             <button
               type="button"
               onClick={onOpenResume}
-              className="px-6 py-3 bg-[#23221E] border border-[#36332F] text-[#ECE8E1] font-mono text-xs uppercase tracking-widest hover:border-[#ECE8E1] hover:bg-[#2D2B26] transition-all font-semibold inline-flex items-center space-x-2 cursor-pointer"
+              className="flex-1 sm:flex-none justify-center px-6 py-3 bg-[#23221E] border border-[#36332F] text-[#ECE8E1] font-mono text-xs uppercase tracking-widest hover:border-[#ECE8E1] hover:bg-[#2D2B26] transition-all font-semibold inline-flex items-center space-x-2 cursor-pointer active:bg-[#2D2B26]"
             >
               <FileText size={14} />
               <span>RESUME</span>
