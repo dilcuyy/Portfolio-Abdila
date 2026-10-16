@@ -1,44 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Mail, Check, Send, Loader } from './Icons';
+import React, { useState } from 'react';
 import { portfolioData } from '../data/portfolio';
 
-gsap.registerPlugin(ScrollTrigger);
-
-export default function Contact() {
-  const sectionRef = useRef(null);
+export default function Contact({ onScrollToTop }) {
   const [copied, setCopied] = useState(false);
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
-  const [loading, setLoading] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [isMailFallback, setIsMailFallback] = useState(false);
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.contact-reveal',
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(portfolioData.contact.email);
@@ -46,227 +10,102 @@ export default function Contact() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
-
-    setLoading(true);
-    setIsMailFallback(false);
-
-    const apiKey = portfolioData.contact.web3formsKey;
-    const isKeyValid = apiKey && apiKey !== 'YOUR_ACCESS_KEY_HERE';
-
-    if (isKeyValid) {
-      try {
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify({
-            access_key: apiKey,
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-            subject: `New Portfolio Inquiry from ${formData.name}`,
-            from_name: 'Portfolio Contact Form',
-          }),
-        });
-
-        const result = await response.json();
-        if (result.success) {
-          setLoading(false);
-          setSubmitted(true);
-          setFormData({ name: '', email: '', message: '' });
-          return;
-        }
-      } catch (err) {
-        console.warn('Web3Forms API call failed, switching to mailto fallback:', err);
-      }
-    }
-
-    // Fallback: Open mailto link if key is not configured or API fails
-    setLoading(false);
-    setIsMailFallback(true);
-    setSubmitted(true);
-
-    const mailtoSubject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
-    const mailtoBody = encodeURIComponent(
-      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-    );
-    window.location.href = `mailto:${portfolioData.contact.email}?subject=${mailtoSubject}&body=${mailtoBody}`;
-  };
-
   return (
     <section
       id="contact"
-      ref={sectionRef}
-      className="py-20 md:py-32 border-b border-[#2B2A26] relative overflow-hidden"
+      data-section-id="contact"
+      className="w-screen min-w-[100vw] h-[100dvh] shrink-0 snap-start snap-always flex flex-col justify-between pt-16 pb-16 pl-14 sm:pl-20 md:pl-28 lg:pl-32 pr-8 sm:pr-12 md:pr-16 border-r border-[#36332F] bg-[#1C1B18] relative overflow-hidden select-none"
     >
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
-        {/* Section Header */}
-        <div className="contact-reveal flex justify-between items-center mb-10 pb-4 border-b border-[#2B2A26]">
-          <span className="text-xs font-mono tracking-widest text-[#A7A39A] uppercase">
-            06 — CONTACT
-          </span>
-          <span className="text-xs font-mono tracking-widest text-[#A7A39A] uppercase hidden sm:inline">
-            GET IN TOUCH
-          </span>
+      {/* Top Header Eyebrow (Identical padding & border-b as previous sections) */}
+      <div className="flex justify-between items-center pb-3 border-b border-[#36332F] w-full">
+        <span className="text-xs font-mono tracking-widest text-[#D5CEC4] uppercase">
+          06 — GET IN TOUCH
+        </span>
+        <button
+          type="button"
+          onClick={onScrollToTop}
+          className="text-xs font-mono tracking-widest text-[#8C8880] hover:text-[#ECE8E1] uppercase cursor-pointer transition-colors"
+        >
+          BACK TO START ↑
+        </button>
+      </div>
+
+      {/* Main Content Area */}
+      <div className="my-auto space-y-4 w-full max-w-7xl">
+        {/* Title Header: NEXT CHAPTER */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end border-b border-[#36332F] pb-3 w-full">
+          <div className="lg:col-span-8">
+            <h2 className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#ECE8E1] font-normal tracking-tight uppercase leading-none">
+              NEXT CHAPTER
+            </h2>
+          </div>
+          <div className="lg:col-span-4 text-[11px] font-mono text-[#8C8880] uppercase leading-relaxed tracking-wider">
+            ✦ OPEN FOR FREELANCE INQUIRIES, FULL-TIME POSITIONS & CREATIVE COLLABORATIONS.
+          </div>
         </div>
 
-        {/* 2-Column Contact Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-          {/* Left Column - Statement Display Heading */}
-          <div className="contact-reveal lg:col-span-6 space-y-8">
-            <h2 className="text-hero-giant font-bebas text-[#F2EEE5] uppercase tracking-tight leading-[0.85] select-none">
-              LET'S<br />
-              WORK<br />
-              <span className="text-[#D8D0BF]">TOGETHER.</span>
-            </h2>
-
-            <p className="text-base sm:text-lg text-[#A7A39A] font-light max-w-lg leading-relaxed">
-              {portfolioData.contact.subhead}
-            </p>
-
-            {/* Quick Email Pill */}
-            <div className="pt-2 flex flex-wrap items-center gap-3">
+        {/* Editorial Contact Cards Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+          {/* Left Column: Email & Direct Contact Statement */}
+          <div className="lg:col-span-7 bg-[#23221E] border border-[#36332F] p-4 sm:p-5 space-y-4 flex flex-col justify-between">
+            <div className="space-y-2">
+              <span className="text-[10px] font-mono text-[#8C8880] uppercase tracking-widest block">
+                DIRECT EMAIL INQUIRY
+              </span>
               <button
+                type="button"
                 onClick={handleCopyEmail}
-                className="ios-glass ios-press flex items-center space-x-3 px-5 sm:px-6 py-3 sm:py-3.5 rounded-full border border-white/[0.08] hover:border-[#D8D0BF] text-xs sm:text-sm font-mono text-[#F2EEE5] transition-all group cursor-pointer max-w-full truncate shadow-lg"
+                className="group text-left focus:outline-none cursor-pointer block"
               >
-                <Mail size={16} className="text-[#D8D0BF] flex-shrink-0" />
-                <span className="truncate">{portfolioData.contact.email}</span>
-                {copied ? (
-                  <Check size={16} className="text-emerald-400 flex-shrink-0" />
-                ) : (
-                  <span className="text-xs text-[#A7A39A] group-hover:text-[#F2EEE5] transition-colors flex-shrink-0">
-                    (COPY)
-                  </span>
-                )}
+                <span className="font-serif-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#ECE8E1] underline decoration-[#36332F] group-hover:decoration-[#ECE8E1] transition-colors block break-all">
+                  {portfolioData.contact.email}
+                </span>
+                <span className="text-[10px] font-mono text-[#8C8880] group-hover:text-[#D5CEC4] mt-1.5 block">
+                  {copied ? '✓ COPIED TO CLIPBOARD' : '(CLICK TO COPY EMAIL)'}
+                </span>
               </button>
             </div>
 
-            {/* Social Links List */}
-            <div className="pt-6 border-t border-[#2B2A26] space-y-4">
-              <span className="text-xs font-mono uppercase tracking-widest text-[#A7A39A] block">
-                CONNECT & SOCIALS
+            <p className="text-xs font-mono text-[#D5CEC4] leading-relaxed border-t border-[#36332F] pt-3 uppercase tracking-wider">
+              {portfolioData.contact.subhead}
+            </p>
+          </div>
+
+          {/* Right Column: Social Networks & Location Availability Box */}
+          <div className="lg:col-span-5 bg-[#23221E] border border-[#36332F] p-4 sm:p-5 space-y-4 flex flex-col justify-between font-mono text-xs">
+            <div className="space-y-2">
+              <span className="text-[10px] text-[#8C8880] uppercase tracking-widest block border-b border-[#36332F] pb-1.5">
+                SOCIAL CHANNELS & NETWORKS
               </span>
-              <div className="flex flex-wrap gap-3">
+              <div className="grid grid-cols-2 gap-2">
                 {portfolioData.contact.socials.map((social) => (
                   <a
                     key={social.name}
                     href={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="ios-glass ios-press px-4 py-2 rounded-full border border-white/[0.08] text-xs font-mono uppercase tracking-wider text-[#F2EEE5] hover:text-[#D8D0BF] hover:border-[#D8D0BF]/40 transition-all"
+                    className="px-3 py-2 border border-[#36332F] bg-[#1C1B18] text-[#ECE8E1] hover:border-[#ECE8E1] hover:bg-[#2D2B26] transition-all flex items-center justify-between group text-xs"
                   >
-                    {social.name} ↗
+                    <span>{social.name}</span>
+                    <span className="text-[#8C8880] group-hover:text-[#ECE8E1]">↗</span>
                   </a>
                 ))}
               </div>
             </div>
-          </div>
 
-          {/* Right Column - Contact Form with Web3Forms & Mail Fallback */}
-          <div className="contact-reveal lg:col-span-6">
-            <div className="ios-glass-card border border-white/[0.08] p-6 sm:p-10 rounded-3xl space-y-6 relative shadow-[0_20px_48px_rgba(0,0,0,0.5)]">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0">
-                <span className="text-xs font-mono text-[#D8D0BF] uppercase tracking-widest block">
-                  DIRECT INQUIRY
-                </span>
-                <span className="inline-flex items-center space-x-2 text-[10px] font-mono uppercase tracking-widest text-[#A7A39A] ios-glass px-3 py-1 rounded-full border border-white/[0.08] w-fit">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span>WEB3FORMS / DIRECT MAIL</span>
-                </span>
-              </div>
-
-              {submitted ? (
-                <div className="py-12 text-center space-y-4 animate-fadeIn">
-                  <div className="w-12 h-12 rounded-full ios-glass text-[#D8D0BF] flex items-center justify-center mx-auto border border-white/[0.1]">
-                    <Check size={24} />
-                  </div>
-                  <h3 className="text-2xl font-bebas text-[#F2EEE5] uppercase tracking-wide">
-                    {isMailFallback ? 'OPENING EMAIL CLIENT' : 'MESSAGE SENT SUCCESSFULLY'}
-                  </h3>
-                  <p className="text-sm text-[#A7A39A] max-w-sm mx-auto">
-                    {isMailFallback
-                      ? 'Your default mail application has been opened with your pre-filled inquiry. Click send to complete!'
-                      : 'Thank you for reaching out! Your message was delivered via Web3Forms and Abdila will get back to you shortly.'}
-                  </p>
-                  <button
-                    onClick={() => setSubmitted(false)}
-                    className="ios-press mt-4 px-6 py-2.5 rounded-full ios-glass border border-white/[0.1] text-xs font-mono uppercase text-[#F2EEE5] hover:border-[#D8D0BF] transition-colors cursor-pointer"
-                  >
-                    SEND ANOTHER MESSAGE
-                  </button>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono text-[#A7A39A] uppercase tracking-wider block">
-                      YOUR NAME
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      placeholder="e.g. Alex Morgan"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full ios-input rounded-2xl px-4 py-3.5 text-sm text-[#F2EEE5] placeholder-[#A7A39A]/40 focus:outline-none"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono text-[#A7A39A] uppercase tracking-wider block">
-                      YOUR EMAIL ADDRESS
-                    </label>
-                    <input
-                      type="email"
-                      required
-                      placeholder="e.g. alex@company.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full ios-input rounded-2xl px-4 py-3.5 text-sm text-[#F2EEE5] placeholder-[#A7A39A]/40 focus:outline-none"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono text-[#A7A39A] uppercase tracking-wider block">
-                      YOUR MESSAGE
-                    </label>
-                    <textarea
-                      required
-                      rows={4}
-                      placeholder="Tell me about your project, role, or collaboration idea..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full ios-input rounded-2xl px-4 py-3.5 text-sm text-[#F2EEE5] placeholder-[#A7A39A]/40 focus:outline-none resize-none"
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={loading}
-                    className="ios-press w-full py-4 rounded-2xl bg-[#F2EEE5] text-[#0B0B09] font-bebas text-xl tracking-wider uppercase hover:bg-white transition-all flex items-center justify-center space-x-2 whitespace-nowrap cursor-pointer disabled:opacity-60 shadow-[0_8px_24px_rgba(242,238,229,0.15)]"
-                  >
-                    {loading ? (
-                      <>
-                        <span>SENDING...</span>
-                        <Loader size={18} />
-                      </>
-                    ) : (
-                      <>
-                        <span>SEND MESSAGE</span>
-                        <Send size={18} />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
+            <div className="p-3 bg-[#1C1B18] border border-[#36332F] text-[#D5CEC4] space-y-0.5">
+              <span className="text-[#8C8880] uppercase text-[9px] block">LOCATION & AVAILABILITY</span>
+              <p className="font-semibold text-xs text-[#ECE8E1]">BEKASI, INDONESIA (GMT+7)</p>
+              <p className="text-[10px] text-[#8C8880]">AVAILABLE FOR FREELANCE & FULL-TIME ROLES</p>
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Footer Bar (Identical padding & border-t as previous sections) */}
+      <div className="pt-2 border-t border-[#36332F] flex flex-wrap justify-between items-center text-[10px] font-mono text-[#8C8880] uppercase tracking-wider w-full">
+        <span>WHERE CODE & DESIGN FIND THEIR FORM</span>
+        <span>© {new Date().getFullYear()} ABDILA ASY SYAFIQ • ALL RIGHTS RESERVED</span>
       </div>
     </section>
   );

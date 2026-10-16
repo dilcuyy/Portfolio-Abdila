@@ -1,15 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 
 export default function CustomCursor() {
+  const containerRef = useRef(null);
   const dotRef = useRef(null);
   const ringRef = useRef(null);
+
   const [isHovered, setIsHovered] = useState(false);
   const [isMouseDown, setIsMouseDown] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
   const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    // Check if touch device or reduced motion preference
     if (
       window.matchMedia('(pointer: coarse)').matches ||
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -25,47 +25,92 @@ export default function CustomCursor() {
     let mouseY = -100;
     let ringX = -100;
     let ringY = -100;
+    let hasMoved = false;
 
     const render = () => {
-      // Silky spring lerp following for outer ring
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
+      ringX += (mouseX - ringX) * 0.35;
+      ringY += (mouseY - ringY) * 0.35;
 
       if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
+        dotRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;
       }
       if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+        ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
       }
 
       const dx = Math.abs(mouseX - ringX);
       const dy = Math.abs(mouseY - ringY);
-      if (dx > 0.1 || dy > 0.1) {
+
+      if (dx > 0.05 || dy > 0.05) {
         rafId = requestAnimationFrame(render);
       } else {
+        ringX = mouseX;
+        ringY = mouseY;
+        if (ringRef.current) {
+          ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+        }
         rafId = null;
+      }
+    };
+
+    const startRaf = () => {
+      if (!rafId) {
+        rafId = requestAnimationFrame(render);
       }
     };
 
     const handleMouseMove = (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      setIsVisible(true);
 
-      if (!rafId) {
-        rafId = requestAnimationFrame(render);
+      if (!hasMoved) {
+        hasMoved = true;
+        ringX = mouseX;
+        ringY = mouseY;
+        if (containerRef.current) {
+          containerRef.current.style.opacity = '1';
+        }
       }
+
+      startRaf();
+    };
+
+    const handleMouseDown = () => {
+      setIsMouseDown(true);
+      ringX += (mouseX - ringX) * 0.7;
+      ringY += (mouseY - ringY) * 0.7;
+      if (ringRef.current) {
+        ringRef.current.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
+      }
+      startRaf();
+    };
+
+    const handleMouseUp = () => {
+      setIsMouseDown(false);
+      startRaf();
     };
 
     const handleMouseOver = (e) => {
-      const target = e.target.closest('a, button, [data-cursor], input, textarea, select, [role="button"]');
+      const target = e.target.closest('a, button, [data-cursor], input, textarea, select, [role="button"], label');
       setIsHovered(!!target);
     };
 
-    const handleMouseDown = () => setIsMouseDown(true);
-    const handleMouseUp = () => setIsMouseDown(false);
-    const handleMouseLeave = () => setIsVisible(false);
-    const handleMouseEnter = () => setIsVisible(true);
+    const handleMouseLeave = () => {
+      if (containerRef.current) {
+        containerRef.current.style.opacity = '0';
+      }
+    };
+
+    const handleMouseEnter = (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      ringX = e.clientX;
+      ringY = e.clientY;
+      if (containerRef.current) {
+        containerRef.current.style.opacity = '1';
+      }
+      startRaf();
+    };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
     window.addEventListener('mouseover', handleMouseOver, { passive: true });
@@ -90,31 +135,38 @@ export default function CustomCursor() {
 
   return (
     <div
-      className={`fixed top-0 left-0 pointer-events-none z-[100000] hidden lg:block transition-opacity duration-300 ${
-        isVisible ? 'opacity-100' : 'opacity-0'
-      }`}
+      ref={containerRef}
+      className="fixed inset-0 pointer-events-none z-[100000] hidden lg:block transition-opacity duration-300 opacity-0"
     >
-      {/* 1. Instant Precision Pinpoint Dot */}
       <div
         ref={dotRef}
-        className={`absolute top-0 left-0 rounded-full transition-[width,height,background-color] duration-150 ${
-          isHovered ? 'w-1.5 h-1.5 bg-[#D8D0BF]' : 'w-2 h-2 bg-[#F2EEE5]'
-        }`}
-        style={{ transform: 'translate3d(-100px, -100px, 0) translate(-50%, -50%)' }}
-      />
+        className="absolute top-0 left-0 pointer-events-none will-change-transform"
+      >
+        <div
+          className={`-translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-150 ease-out ${
+            isMouseDown
+              ? 'w-1.5 h-1.5 bg-[#F2EEE5]'
+              : isHovered
+              ? 'w-1.5 h-1.5 bg-[#D8D0BF]'
+              : 'w-2 h-2 bg-[#F2EEE5]'
+          }`}
+        />
+      </div>
 
-      {/* 2. Fluid Smooth Trailing Ring */}
       <div
         ref={ringRef}
-        className={`absolute top-0 left-0 rounded-full border transition-[width,height,border-color,background-color,transform] duration-200 ease-out flex items-center justify-center ${
-          isMouseDown
-            ? 'w-6 h-6 border-[#F2EEE5] bg-white/[0.12] scale-90'
-            : isHovered
-            ? 'w-11 h-11 border-[#D8D0BF]/70 bg-[#D8D0BF]/10 backdrop-blur-[1px] shadow-[0_0_15px_rgba(216,208,191,0.2)]'
-            : 'w-7 h-7 border-white/30 bg-transparent'
-        }`}
-        style={{ transform: 'translate3d(-100px, -100px, 0) translate(-50%, -50%)' }}
-      />
+        className="absolute top-0 left-0 pointer-events-none will-change-transform"
+      >
+        <div
+          className={`-translate-x-1/2 -translate-y-1/2 rounded-full border flex items-center justify-center transition-all duration-150 ease-out ${
+            isMouseDown
+              ? 'w-5 h-5 border-[#F2EEE5] bg-white/20 scale-75'
+              : isHovered
+              ? 'w-12 h-12 border-[#D8D0BF]/80 bg-[#D8D0BF]/10 shadow-[0_0_16px_rgba(216,208,191,0.25)] scale-100'
+              : 'w-8 h-8 border-[#F2EEE5]/40 bg-transparent scale-100'
+          }`}
+        />
+      </div>
     </div>
   );
 }

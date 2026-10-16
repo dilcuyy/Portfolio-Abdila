@@ -1,33 +1,61 @@
 @import "tailwindcss";
 
+/* Local Font-Face Definitions for khanhnguyen.design Fonts */
+@font-face {
+  font-family: 'PP Editorial Old';
+  src: url('/fonts/PPEditorialOld-Light.woff2') format('woff2');
+  font-weight: 300 400 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/fonts/PPNeueMontreal-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'PP Neue Montreal';
+  src: url('/fonts/PPNeueMontreal-Medium.woff2') format('woff2');
+  font-weight: 500 600 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   :root {
-    --bg: #0B0B09;
-    --bg-card: #12120F;
-    --text: #F2EEE5;
-    --muted: #A7A39A;
-    --line: #2B2A26;
-    --accent: #D8D0BF;
+    --bg-dark: #1C1B18;
+    --bg-cream: #ECE8E1;
+    --text-light: #F4F1EA;
+    --text-dark: #1C1B18;
+    --muted-dark: #A29D93;
+    --muted-cream: #63605A;
+    --line-dark: #36332F;
+    --line-cream: #D5CEC4;
+    --accent: #F4F1EA;
   }
 
   body {
-    background-color: var(--bg);
-    color: var(--text);
-    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'PP Neue Montreal', 'Plus Jakarta Sans', -apple-system, sans-serif;
     overflow-x: hidden;
   }
 
-  h1, h2, h3, .font-bebas {
-    font-family: 'Bebas Neue', display, sans-serif;
-    letter-spacing: -0.02em;
+  h1, h2, h3, .font-serif-display {
+    font-family: 'PP Editorial Old', 'Instrument Serif', 'Playfair Display', Georgia, serif;
+    letter-spacing: -0.01em;
     line-height: 0.88;
   }
 }
 
 /* Completely Hide Browser Scrollbars while preserving full scrolling functionality */
 html, body {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 html::-webkit-scrollbar,
@@ -38,68 +66,26 @@ body::-webkit-scrollbar,
   height: 0 !important;
 }
 
-/* Noise overlay */
-.editorial-grain {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+/* Responsive Editorial Serif Display Clamps */
+.text-serif-giant {
+  font-family: 'PP Editorial Old', 'Instrument Serif', 'Playfair Display', serif;
+  font-size: clamp(64px, 14vw, 210px);
+  line-height: 0.84;
 }
 
-/* Responsive Editorial Typography Clamps */
-.text-hero-giant {
-  font-size: clamp(52px, 12vw, 175px);
+.text-serif-heading {
+  font-family: 'PP Editorial Old', 'Instrument Serif', 'Playfair Display', serif;
+  font-size: clamp(48px, 9vw, 130px);
+  line-height: 0.86;
 }
 
-.text-section-heading {
-  font-size: clamp(32px, 7.5vw, 120px);
+/* Hairline dividers matching khanhnguyen.design */
+.border-editorial-dark {
+  border-color: #36332F;
 }
 
-.text-display-medium {
-  font-size: clamp(26px, 5vw, 84px);
-}
-
-/* Link underline animation from left to right */
-.link-editorial {
-  position: relative;
-  display: inline-block;
-}
-
-.link-editorial::after {
-  content: '';
-  position: absolute;
-  width: 100%;
-  transform: scaleX(0);
-  height: 1px;
-  bottom: -2px;
-  left: 0;
-  background-color: var(--text);
-  transform-origin: bottom right;
-  transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-.link-editorial:hover::after {
-  transform: scaleX(1);
-  transform-origin: bottom left;
-}
-
-/* Hairline dividers */
-.border-editorial {
-  border-color: var(--line);
-}
-
-/* Hide default cursor on desktop when custom cursor active */
-@media (min-width: 1024px) {
-  body.custom-cursor-active,
-  body.custom-cursor-active a,
-  body.custom-cursor-active button {
-    cursor: none !important;
-  }
+.border-editorial-cream {
+  border-color: #D5CEC4;
 }
 
 /* Reduced motion preference */
@@ -110,155 +96,6 @@ body::-webkit-scrollbar,
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .animate-arc-card {
-    animation: none !important;
-  }
-}
-
-/* Glassmorphism card subtle edge refraction */
-.glass-tech-card {
-  background: rgba(18, 18, 15, 0.88);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(216, 208, 191, 0.15);
-  box-shadow: 0 12px 36px 0 rgba(0, 0, 0, 0.45);
-  transition: border-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-tech-card:hover {
-  border-color: rgba(216, 208, 191, 0.6);
-  background: rgba(24, 24, 20, 0.96);
-  box-shadow: 0 16px 44px 0 rgba(216, 208, 191, 0.12);
-}
-
-/* Kinetic Typographic Odometer Y-Roll (No Fade) */
-@keyframes odometerRoll {
-  0% {
-    transform: translateY(70%);
-  }
-  100% {
-    transform: translateY(0%);
-  }
-}
-
-.animate-odometer-roll {
-  animation: odometerRoll 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-}
-
-/* iOS 17 Tactile Glassmorphism & Materials */
-.ios-glass {
-  background: rgba(20, 20, 16, 0.75);
-  backdrop-filter: blur(28px) saturate(180%);
-  -webkit-backdrop-filter: blur(28px) saturate(180%);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.7), inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
-}
-
-.ios-glass-card {
-  background: rgba(18, 18, 15, 0.7);
-  backdrop-filter: blur(32px) saturate(160%);
-  -webkit-backdrop-filter: blur(32px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.75), inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
-}
-
-/* iOS 17 Tactile Micro-Press Haptic Feedback */
-.ios-press {
-  transition: transform 0.18s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.18s ease;
-}
-
-.ios-press:active {
-  transform: scale(0.96);
-  opacity: 0.88;
-}
-
-/* iOS 17 Translucent Input Fields */
-.ios-input {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.ios-input:focus {
-  background: rgba(255, 255, 255, 0.06);
-  border-color: rgba(216, 208, 191, 0.45);
-  box-shadow: 0 0 0 3px rgba(216, 208, 191, 0.1), inset 0 1px 0 0 rgba(255, 255, 255, 0.09);
-}
-
-/* Dynamic Lightweight Anime Wind & Flame Aura */
-@keyframes animeAuraFlutter {
-  0%, 100% {
-    transform: scaleY(1) translateY(0);
-    opacity: 0.92;
-  }
-  25% {
-    transform: scaleY(1.09) translateY(-1px);
-    opacity: 0.85;
-  }
-  50% {
-    transform: scaleY(0.93) translateY(1px);
-    opacity: 1;
-  }
-  75% {
-    transform: scaleY(1.05) translateY(-0.6px);
-    opacity: 0.88;
-  }
-}
-
-@keyframes animeEmberDrift1 {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.9;
-  }
-  50% {
-    transform: translate(-4px, -2.5px) scale(1.2);
-    opacity: 0.45;
-  }
-}
-
-@keyframes animeEmberDrift2 {
-  0%, 100% {
-    transform: translate(0, 0) scale(1);
-    opacity: 0.85;
-  }
-  50% {
-    transform: translate(-3px, 2px) scale(0.8);
-    opacity: 1;
-  }
-}
-
-@keyframes animeWindFlow {
-  0% {
-    stroke-dashoffset: 40;
-    opacity: 0.2;
-  }
-  50% {
-    opacity: 0.9;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    opacity: 0.2;
-  }
-}
-
-.animate-aura-flutter {
-  animation: animeAuraFlutter 0.3s ease-in-out infinite;
-}
-
-.animate-ember-1 {
-  animation: animeEmberDrift1 0.4s ease-in-out infinite;
-}
-
-.animate-ember-2 {
-  animation: animeEmberDrift2 0.35s ease-in-out infinite alternate;
-}
-
-.animate-wind-flow {
-  stroke-dasharray: 20 10;
-  animation: animeWindFlow 0.6s linear infinite;
 }
 
 

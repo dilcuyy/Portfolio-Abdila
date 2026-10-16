@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { X, FileText } from './Icons';
 
 export default function ResumeModal({ isOpen, onClose }) {
@@ -18,7 +19,7 @@ export default function ResumeModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  return (
+  return createPortal(
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-[#0B0B09]/90 backdrop-blur-xl animate-fadeIn">
       {/* Backdrop Overlay Click */}
       <div className="absolute inset-0 cursor-pointer" onClick={onClose} />
@@ -71,6 +72,7 @@ export default function ResumeModal({ isOpen, onClose }) {
           </a>
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

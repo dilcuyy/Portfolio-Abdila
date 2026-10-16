@@ -1,130 +1,104 @@
-import React, { useEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import React from 'react';
 import { portfolioData } from '../data/portfolio';
 
-gsap.registerPlugin(ScrollTrigger);
-
 export default function Skills() {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      return;
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        '.skills-reveal',
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-          },
-        }
-      );
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  const softSkills = portfolioData.skills.soft || [];
+  const hardSkills = portfolioData.skills.hard || [];
 
   return (
     <section
       id="skills"
-      ref={sectionRef}
-      className="py-20 md:py-32 border-b border-[#2B2A26] relative"
+      data-section-id="skills"
+      className="w-screen min-w-[100vw] h-[100dvh] shrink-0 snap-start snap-always flex flex-col justify-between pt-16 pb-16 pl-14 sm:pl-20 md:pl-28 lg:pl-32 pr-8 sm:pr-12 md:pr-16 border-r border-[#36332F] bg-[#1C1B18] relative overflow-hidden"
     >
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12">
-        {/* Section Header */}
-        <div className="skills-reveal flex justify-between items-center mb-10 pb-4 border-b border-[#2B2A26]">
-          <span className="text-xs font-mono tracking-widest text-[#A7A39A] uppercase">
-            03 — SKILLS
-          </span>
-          <span className="text-xs font-mono tracking-widest text-[#A7A39A] uppercase hidden sm:inline">
-            COMPETENCIES & CAPABILITIES
-          </span>
+      {/* Top Header Eyebrow */}
+      <div className="flex justify-between items-center pb-3 border-b border-[#36332F]">
+        <span className="text-xs font-mono tracking-widest text-[#D5CEC4] uppercase">
+          05 — COMPETENCIES & STACK
+        </span>
+        <span className="text-xs font-mono tracking-widest text-[#8C8880] uppercase hidden sm:inline">
+          TECHNICAL & SOFT SKILLS ARCHITECTURE
+        </span>
+      </div>
+
+      {/* Main Section Header */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end border-b border-[#36332F] pb-3">
+        <div className="lg:col-span-8">
+          <h2 className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#ECE8E1] font-normal tracking-tight uppercase leading-none">
+            COMPETENCIES
+          </h2>
         </div>
+        <div className="lg:col-span-4 text-[11px] font-mono text-[#8C8880] uppercase leading-relaxed tracking-wider">
+          ✦ CORE TECHNICAL STACK, ARCHITECTURAL FRAMEWORKS, AND INTERPERSONAL SKILLS.
+        </div>
+      </div>
 
-        {/* Section Heading */}
-        <h2 className="skills-reveal text-section-heading font-bebas text-[#F2EEE5] uppercase tracking-tight leading-none mb-14">
-          SKILLS
-        </h2>
-
-        {/* iOS 17 Inset Grouped Editorial Lists */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
-          {/* Column 1: Soft Skills (Col-span-6) */}
-          <div className="skills-reveal lg:col-span-6 ios-glass-card rounded-3xl p-6 sm:p-8 border border-white/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.4)] space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-4 border-b border-white/[0.08] gap-1 sm:gap-0">
-              <h3 className="text-3xl sm:text-4xl font-bebas text-[#F2EEE5] uppercase tracking-wider">
-                SOFT SKILLS
-              </h3>
-              <span className="text-xs font-mono text-[#D8D0BF] uppercase tracking-widest">
-                INTERPERSONAL & LEADERSHIP
-              </span>
-            </div>
-
-            <div className="divide-y divide-white/[0.06]">
-              {portfolioData.skills.soft.map((item) => (
-                <div
-                  key={item.id}
-                  className="py-3 px-3 -mx-1.5 rounded-2xl flex items-center justify-between group cursor-default transition-all duration-200 hover:bg-white/[0.04] ios-press"
-                >
-                  <div className="flex items-center space-x-3.5">
-                    <span className="text-xs font-mono text-[#D8D0BF] font-semibold w-5">
-                      {item.id}.
-                    </span>
-                    <span className="text-sm sm:text-base text-[#F2EEE5] font-light group-hover:text-[#D8D0BF] transition-colors">
-                      {item.name}
-                    </span>
-                  </div>
-                  <span className="text-xs font-mono text-[#A7A39A] opacity-0 group-hover:opacity-100 transition-opacity">
-                    →
-                  </span>
-                </div>
-              ))}
-            </div>
+      {/* Main 2-Column Editorial Grid */}
+      <div className="my-auto grid grid-cols-1 lg:grid-cols-12 gap-5 items-start w-full max-w-7xl">
+        {/* Hard Skills Panel */}
+        <div className="lg:col-span-6 bg-[#23221E] border border-[#36332F] p-4 sm:p-5 space-y-3">
+          <div className="flex items-center justify-between pb-2 border-b border-[#36332F]">
+            <h3 className="font-serif-display text-2xl sm:text-3xl text-[#ECE8E1] font-normal">
+              Technical Stack
+            </h3>
+            <span className="text-[9px] font-mono text-[#8C8880] uppercase tracking-widest">
+              HARD SKILLS ({hardSkills.length})
+            </span>
           </div>
 
-          {/* Column 2: Hard Skills (Col-span-6) */}
-          <div className="skills-reveal lg:col-span-6 ios-glass-card rounded-3xl p-6 sm:p-8 border border-white/[0.08] shadow-[0_16px_40px_rgba(0,0,0,0.4)] space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between pb-4 border-b border-white/[0.08] gap-1 sm:gap-0">
-              <h3 className="text-3xl sm:text-4xl font-bebas text-[#F2EEE5] uppercase tracking-wider">
-                HARD SKILLS
-              </h3>
-              <span className="text-xs font-mono text-[#D8D0BF] uppercase tracking-widest">
-                TECHNICAL & STACK
-              </span>
-            </div>
-
-            <div className="divide-y divide-white/[0.06]">
-              {portfolioData.skills.hard.map((item) => (
-                <div
-                  key={item.id}
-                  className="py-3 px-3 -mx-1.5 rounded-2xl flex items-center justify-between group cursor-default transition-all duration-200 hover:bg-white/[0.04] ios-press"
-                >
-                  <div className="flex items-center space-x-3.5">
-                    <span className="text-xs font-mono text-[#D8D0BF] font-semibold w-5">
-                      {item.id}.
-                    </span>
-                    <span className="text-sm sm:text-base text-[#F2EEE5] font-light group-hover:text-[#D8D0BF] transition-colors">
-                      {item.name}
-                    </span>
-                  </div>
-                  <span className="text-xs font-mono text-[#A7A39A] opacity-0 group-hover:opacity-100 transition-opacity">
-                    →
+          <div className="divide-y divide-[#36332F]">
+            {hardSkills.map((item, idx) => (
+              <div key={item.id} className="py-1.5 flex items-center justify-between font-mono text-xs text-[#ECE8E1]">
+                <div className="flex items-center space-x-3">
+                  <span className="text-[#8C8880] font-serif-display text-sm">
+                    {(idx + 1).toString().padStart(2, '0')}.
                   </span>
+                  <span className="font-medium tracking-wide">{item.name}</span>
                 </div>
-              ))}
-            </div>
+                <span className="text-[9px] text-[#D5CEC4] uppercase tracking-wider px-2 py-0.5 bg-[#1C1B18] border border-[#36332F]">
+                  ✦ ACTIVE
+                </span>
+              </div>
+            ))}
           </div>
         </div>
+
+        {/* Soft Skills Panel */}
+        <div className="lg:col-span-6 bg-[#23221E] border border-[#36332F] p-4 sm:p-5 space-y-3">
+          <div className="flex items-center justify-between pb-2 border-b border-[#36332F]">
+            <h3 className="font-serif-display text-2xl sm:text-3xl text-[#ECE8E1] font-normal">
+              Interpersonal
+            </h3>
+            <span className="text-[9px] font-mono text-[#8C8880] uppercase tracking-widest">
+              SOFT SKILLS ({softSkills.length})
+            </span>
+          </div>
+
+          <div className="divide-y divide-[#36332F]">
+            {softSkills.map((item, idx) => (
+              <div key={item.id} className="py-1.5 flex items-center justify-between font-mono text-xs text-[#ECE8E1]">
+                <div className="flex items-center space-x-3">
+                  <span className="text-[#8C8880] font-serif-display text-sm">
+                    {(idx + 1).toString().padStart(2, '0')}.
+                  </span>
+                  <span className="font-medium tracking-wide">{item.name}</span>
+                </div>
+                <span className="text-[9px] text-[#D5CEC4] uppercase tracking-wider px-2 py-0.5 bg-[#1C1B18] border border-[#36332F]">
+                  ✦ VERIFIED
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Footer Quote Bar */}
+      <div className="pt-2 border-t border-[#36332F] flex justify-between items-center text-[10px] font-mono text-[#8C8880] uppercase tracking-wider">
+        <span>ENGINEERING EFFICIENCY & ARCHITECTURAL DISCIPLINE</span>
+        <span>ABDILA ASY SYAFIQ</span>
       </div>
     </section>
   );
 }
+
+

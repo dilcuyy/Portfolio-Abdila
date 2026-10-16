@@ -1,9 +1,9 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
-import { FileText } from './Icons';
+import { FileText, ArrowUpRight } from './Icons';
 import { portfolioData } from '../data/portfolio';
 
-export default function Hero({ onOpenResume }) {
+export default function Hero({ onOpenResume, onExploreWork }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -12,12 +12,10 @@ export default function Hero({ onOpenResume }) {
     }
 
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 1 } });
-
-      tl.fromTo(
-        '.hero-content-el',
-        { y: 30, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.12 }
+      gsap.fromTo(
+        '.hero-el',
+        { y: 35, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: 'power3.out' }
       );
     }, containerRef);
 
@@ -27,65 +25,84 @@ export default function Hero({ onOpenResume }) {
   return (
     <section
       id="home"
+      data-section-id="home"
       ref={containerRef}
-      className="relative min-h-[100dvh] pt-20 sm:pt-24 md:pt-28 pb-8 sm:pb-12 flex flex-col justify-between overflow-hidden border-b border-[#2B2A26] bg-[#0B0B09]"
+      className="w-screen min-w-[100vw] h-[100dvh] shrink-0 snap-start snap-always flex flex-col justify-between pt-8 sm:pt-12 md:pt-14 pb-6 sm:pb-8 md:pb-10 pl-14 sm:pl-20 md:pl-28 lg:pl-32 pr-8 sm:pr-12 md:pr-16 border-r border-[#36332F] bg-[#1C1B18] relative overflow-hidden"
     >
-      <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-12 w-full flex-1 flex flex-col justify-between">
-        {/* Main Minimalist Hero */}
-        <div className="my-auto py-4 sm:py-8 max-w-4xl space-y-5 sm:space-y-7">
-          <div className="space-y-3 sm:space-y-4">
-            <div className="hero-content-el inline-flex items-center space-x-2.5 px-4 py-1.5 rounded-full ios-glass text-xs font-mono text-[#D8D0BF] border border-white/[0.08] shadow-[0_4px_20px_rgba(0,0,0,0.4)]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#D8D0BF] animate-pulse" />
-              <span className="tracking-wide">SARJANA SISTEM INFORMASI (S.KOM)</span>
+      {/* Top Tagline */}
+      <div className="hero-el pt-2 flex items-center justify-end font-mono text-[11px] sm:text-xs text-[#A29D93] shrink-0">
+        <span className="hidden sm:inline uppercase tracking-widest">
+          UNIVERSITAS BANI SALEH
+        </span>
+      </div>
+
+      {/* Main Giant Editorial Headline & Right Description Layout (Matching Image 1 khanhnguyen.design) */}
+      <div className="my-auto py-2 sm:py-3 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end">
+        {/* Left Column: Giant 2-Line Serif Display Name */}
+        <div className="lg:col-span-8 space-y-0">
+          <h1 className="hero-el font-serif-display text-[clamp(64px,13vw,200px)] text-[#F4F1EA] tracking-tight uppercase leading-[0.82] select-none">
+            ABDILA
+          </h1>
+          <h1 className="hero-el font-serif-display text-[clamp(64px,13vw,200px)] text-[#F4F1EA] tracking-tight uppercase leading-[0.82] select-none">
+            ASY SYAFIQ
+          </h1>
+        </div>
+
+        {/* Right Column: Top-Right Subtext & Action Buttons */}
+        <div className="lg:col-span-4 flex flex-col justify-end space-y-3 sm:space-y-4 pb-1">
+          {/* Top-Right Row: Left Meta/Icon Badge + Right-Aligned Portrait Photo */}
+          <div className="hero-el flex items-end justify-between gap-4 w-full">
+            {/* Left Accent: Editorial Typographic Notation (No Slop Badges) */}
+            <div className="space-y-1.5 pb-1 font-mono select-none">
+              <div className="flex items-center space-x-2 text-[10px] text-[#A29D93] uppercase tracking-[0.2em]">
+                <span className="text-[#F4F1EA]">01</span>
+                <span>/</span>
+                <span>BEKASI, ID</span>
+              </div>
+              <div className="text-xs text-[#F4F1EA] uppercase tracking-wider font-medium">
+                S1 SISTEM INFORMASI
+              </div>
+              <div className="text-[10px] text-[#A29D93] uppercase tracking-widest">
+                STUDY PERIOD 2023 — 2027
+              </div>
             </div>
 
-            <h1 className="hero-content-el text-hero-giant font-bebas text-[#F2EEE5] tracking-tight uppercase leading-[0.88] select-none">
-              ABDILA ASY SYAFIQ
-            </h1>
+            {/* Right: Portrait Photo flush right, aligned with text below */}
+            <div className="relative w-20 sm:w-24 md:w-28 aspect-[3/4] shrink-0 overflow-hidden border border-[#36332F] bg-[#23221E] shadow-xl group">
+              <img
+                src="/images/education-photo.jpg"
+                alt="Abdila Asy Syafiq"
+                className="w-full h-full object-cover filter grayscale contrast-105 group-hover:grayscale-0 transition-all duration-500 ease-out"
+              />
+              <div className="absolute bottom-1 right-1.5 px-1 bg-[#1C1B18]/80 font-mono text-[9px] uppercase tracking-wider text-[#A29D93]">
+                FOLIO
+              </div>
+            </div>
           </div>
 
-          <p className="hero-content-el text-lg sm:text-2xl text-[#A7A39A] font-light leading-relaxed max-w-2xl">
-            Information Systems undergraduate at Universitas Bani Saleh. Crafting full-stack web applications, relational database schemas, and clean digital interfaces.
+          <p className="hero-el text-sm sm:text-base text-[#F4F1EA] font-light leading-relaxed">
+            Information Systems undergraduate based in Bekasi — focused on thoughtful, considered web development, relational database schemas, and digital experiences.
           </p>
 
-          {/* Dual Pill CTAs (iOS 17 Tactile Micro-Press & Frosted Glass) */}
-          <div className="hero-content-el flex flex-wrap items-center gap-4 pt-2">
-            <a
-              href="#projects"
-              onClick={(e) => {
-                e.preventDefault();
-                const el = document.getElementById('projects');
-                if (el) {
-                  const topOffset = 80;
-                  const elementPosition = el.getBoundingClientRect().top;
-                  const offsetPosition = elementPosition + window.pageYOffset - topOffset;
-                  window.scrollTo({
-                    top: offsetPosition,
-                    behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-                  });
-                }
-              }}
-              className="ios-glass ios-press px-8 py-4 rounded-full text-[#F2EEE5] font-bebas text-lg tracking-wider uppercase border border-white/[0.1] hover:border-[#D8D0BF] hover:bg-white/[0.06] transition-all shadow-xl inline-flex items-center space-x-3 whitespace-nowrap group cursor-pointer"
+          <div className="hero-el flex flex-wrap items-center gap-3 pt-1">
+            <button
+              type="button"
+              onClick={onExploreWork}
+              className="px-6 py-3 border border-[#36332F] bg-[#1C1B18] text-[#ECE8E1] font-mono text-xs uppercase tracking-widest hover:border-[#ECE8E1] hover:text-white transition-all inline-flex items-center space-x-2 cursor-pointer"
             >
-              <span>Explore Selected Work</span>
-              <span className="text-base group-hover:translate-x-1 transition-transform">→</span>
-            </a>
+              <span>EXPLORE WORK</span>
+              <ArrowUpRight size={14} />
+            </button>
 
             <button
               type="button"
               onClick={onOpenResume}
-              className="ios-press px-8 py-4 rounded-full bg-[#F2EEE5] text-[#0B0B09] font-bebas text-lg tracking-wider uppercase hover:bg-white transition-all shadow-[0_8px_24px_rgba(242,238,229,0.15)] inline-flex items-center space-x-2.5 whitespace-nowrap cursor-pointer"
+              className="px-6 py-3 bg-[#23221E] border border-[#36332F] text-[#ECE8E1] font-mono text-xs uppercase tracking-widest hover:border-[#ECE8E1] hover:bg-[#2D2B26] transition-all font-semibold inline-flex items-center space-x-2 cursor-pointer"
             >
-              <FileText size={18} />
-              <span>Resume</span>
+              <FileText size={14} />
+              <span>RESUME</span>
             </button>
           </div>
-        </div>
-
-        {/* Minimalist iOS 17 Bottom Status Footer */}
-        <div className="hero-content-el pt-6 border-t border-[#2B2A26] flex justify-between items-center text-xs font-mono text-[#A7A39A]">
-          <span className="uppercase tracking-wider">BEKASI, INDONESIA</span>
-          <span className="uppercase tracking-wider text-[#D8D0BF]">AVAILABLE FOR FULL-TIME & FREELANCE</span>
         </div>
       </div>
     </section>
