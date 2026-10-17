@@ -1,4 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none">
-  <rect width="100" height="100" rx="20" fill="#0B0B09"/>
-  <text x="50" y="65" font-family="'Bebas Neue', sans-serif" font-size="55" font-weight="bold" fill="#F2EEE5" text-anchor="middle">A</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="none">
+  <defs>
+    <!-- Editorial dark obsidian background -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#141411"/>
+      <stop offset="100%" stop-color="#080807"/>
+    </linearGradient>
+
+    <!-- Refined hairline border highlight -->
+    <linearGradient id="border" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#3B3830"/>
+      <stop offset="100%" stop-color="#1B1A16"/>
+    </linearGradient>
+
+    <!-- Warm cream architectural glyph gradient -->
+    <linearGradient id="glyph" x1="25%" y1="0%" x2="75%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="50%" stop-color="#F4F1EA"/>
+      <stop offset="100%" stop-color="#D5CEC4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Dark Squircle Frame -->
+  <rect width="512" height="512" rx="116" fill="url(#bg)"/>
+  <rect x="2" y="2" width="508" height="508" rx="114" stroke="url(#border)" stroke-width="4"/>
+
+  <!-- Bespoke Architectural Monogram "A" -->
+  <path
+    d="M234 108 H278 L404 404 H334 L308 344 H204 L178 404 H108 L234 108 Z M256 182 L224 286 H288 L256 182 Z"
+    fill="url(#glyph)"
+  />
 </svg>
