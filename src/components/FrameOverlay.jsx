@@ -1,7 +1,7 @@
 import React, { useRef, useImperativeHandle, forwardRef } from 'react';
 import { Menu } from './Icons';
 
-const FrameOverlay = forwardRef(function FrameOverlay({ activeSection, onOpenMenu }, ref) {
+const FrameOverlay = forwardRef(function FrameOverlay({ activeSection, onOpenMenu, onNextSection }, ref) {
   const fillRef = useRef(null);
   const mobileProgressRef = useRef(null);
 
@@ -104,13 +104,31 @@ const FrameOverlay = forwardRef(function FrameOverlay({ activeSection, onOpenMen
           <div />
         </div>
 
-        {/* Bottom Floating Bar: Vertical SCROLL Text on Bottom Right */}
-        <div className="w-full flex items-end justify-end pointer-events-none">
+        {/* Bottom Floating Bar: Shortcut Hint on Left & Vertical SCROLL Text on Bottom Right */}
+        <div className="w-full flex items-end justify-between pointer-events-none">
+          <div className="flex items-center space-x-3 pointer-events-auto">
+            <button
+              type="button"
+              onClick={onNextSection}
+              className="group flex items-center space-x-2 px-3 py-1.5 border border-[#36332F] bg-[#1C1B18]/90 text-[#ECE8E1] hover:border-[#ECE8E1] hover:bg-[#23221E] active:bg-[#2D2B26] transition-all cursor-pointer text-[10px] font-mono uppercase tracking-wider"
+              aria-label="Next Section"
+              title="Next Section (Press Enter or Arrow Right)"
+            >
+              <span>NEXT SECTION</span>
+              <kbd className="px-1.5 py-0.5 rounded bg-[#23221E] border border-[#36332F] text-[9px] text-[#ECE8E1] font-mono group-hover:border-[#ECE8E1]/40">
+                ENTER ↵
+              </kbd>
+            </button>
+            <span className="hidden lg:inline text-[10px] font-mono uppercase tracking-widest text-[#8C8880]">
+              PAN: DRAG ↔ / WHEEL
+            </span>
+          </div>
+
           <div
             className="font-serif-display italic text-xl sm:text-2xl text-[#F4F1EA] tracking-widest uppercase opacity-80 pb-2 select-none"
             style={{ writingMode: 'vertical-rl', transform: 'rotate(180deg)' }}
           >
-            SCROLL ↓
+            SCROLL ↔
           </div>
         </div>
       </div>

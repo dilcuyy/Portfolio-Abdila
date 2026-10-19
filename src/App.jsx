@@ -19,14 +19,24 @@ export default function App() {
 
   const frameOverlayRef = useRef(null);
   const scrollToSectionRef = useRef(null);
+  const nextSectionRef = useRef(null);
+  const prevSectionRef = useRef(null);
 
-  const handleRegisterScrollTo = useCallback((fn) => {
+  const handleRegisterScrollTo = useCallback((fn, nextFn, prevFn) => {
     scrollToSectionRef.current = fn;
+    if (nextFn) nextSectionRef.current = nextFn;
+    if (prevFn) prevSectionRef.current = prevFn;
   }, []);
 
   const handleSelectSection = useCallback((sectionId) => {
     if (scrollToSectionRef.current) {
       scrollToSectionRef.current(sectionId);
+    }
+  }, []);
+
+  const handleNextSection = useCallback(() => {
+    if (nextSectionRef.current) {
+      nextSectionRef.current();
     }
   }, []);
 
@@ -43,6 +53,7 @@ export default function App() {
           ref={frameOverlayRef}
           activeSection={activeSection}
           onOpenMenu={() => setIsMenuOpen(true)}
+          onNextSection={handleNextSection}
         />
 
         {/* Fullscreen Editorial Navigation Menu */}
@@ -58,6 +69,7 @@ export default function App() {
           onActiveSectionChange={setActiveSection}
           frameOverlayRef={frameOverlayRef}
           registerScrollTo={handleRegisterScrollTo}
+          isPaused={isMenuOpen || isResumeOpen}
         >
           <Hero
             onOpenResume={() => setIsResumeOpen(true)}

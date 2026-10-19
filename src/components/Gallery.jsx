@@ -136,6 +136,7 @@ export default function Gallery() {
 
       {/* Main Project Grid Stream */}
       <div
+        data-no-pan="true"
         className="my-6 md:my-auto py-2 w-full max-w-7xl overflow-hidden"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
