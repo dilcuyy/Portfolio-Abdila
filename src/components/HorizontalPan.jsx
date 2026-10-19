@@ -21,15 +21,12 @@ export default function HorizontalPan({
     if (!trackRef.current) return [];
     const isMobile = window.innerWidth < 768;
     const panels = Array.from(trackRef.current.querySelectorAll('[data-section-id]'));
-    const lastChild = trackRef.current.lastElementChild;
-    const totalDist = lastChild ? lastChild.offsetLeft : Math.max(0, trackRef.current.scrollWidth - window.innerWidth);
-    const totalScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
 
     return panels.map((panel) => {
       const id = panel.getAttribute('data-section-id');
       const targetScroll = isMobile
         ? Math.max(0, panel.offsetTop - 56)
-        : (totalDist > 0 ? (panel.offsetLeft / totalDist) * totalScrollHeight : 0);
+        : panel.offsetLeft;
       return { id, scroll: targetScroll };
     });
   }, []);
@@ -41,65 +38,45 @@ export default function HorizontalPan({
     const targetPanel = trackRef.current.querySelector(`[data-section-id="${sectionId}"]`);
     if (!targetPanel) return;
 
+    currentSectionRef.current = sectionId;
+    if (onActiveSectionChange) {
+      onActiveSectionChange(sectionId);
+    }
+
     if (isMobile) {
       const targetTop = Math.max(0, targetPanel.offsetTop - 56);
-      pendingTargetScrollRef.current = targetTop;
       window.scrollTo({
         top: targetTop,
         behavior: 'smooth',
       });
     } else {
-      const targetX = targetPanel.offsetLeft;
-      const lastChild = trackRef.current.lastElementChild;
-      const totalDist = lastChild ? lastChild.offsetLeft : Math.max(0, trackRef.current.scrollWidth - window.innerWidth);
-      const progress = totalDist > 0 ? targetX / totalDist : 0;
-      const totalScrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const targetScroll = progress * totalScrollHeight;
-
-      pendingTargetScrollRef.current = targetScroll;
+      const targetScroll = targetPanel.offsetLeft;
       window.scrollTo({
         top: targetScroll,
         behavior: 'smooth',
       });
     }
-
-    if (pendingTimerRef.current) clearTimeout(pendingTimerRef.current);
-    pendingTimerRef.current = setTimeout(() => {
-      pendingTargetScrollRef.current = null;
-    }, 600);
-  }, []);
+  }, [onActiveSectionChange]);
 
   const goToNext = useCallback(() => {
-    const offsets = getSectionOffsets();
-    if (!offsets.length) return;
+    if (!trackRef.current) return;
+    const panels = Array.from(trackRef.current.querySelectorAll('[data-section-id]'));
+    if (!panels.length) return;
 
-    const baseScroll = pendingTargetScrollRef.current !== null
-      ? pendingTargetScrollRef.current
-      : window.scrollY;
-
-    const next = offsets.find((sec) => sec.scroll > baseScroll + 30);
-    if (next) {
-      scrollToSection(next.id);
-    } else {
-      scrollToSection(offsets[0].id);
-    }
-  }, [getSectionOffsets, scrollToSection]);
+    const currentIndex = panels.findIndex((p) => p.getAttribute('data-section-id') === currentSectionRef.current);
+    const nextIndex = currentIndex >= 0 && currentIndex < panels.length - 1 ? currentIndex + 1 : 0;
+    scrollToSection(panels[nextIndex].getAttribute('data-section-id'));
+  }, [scrollToSection]);
 
   const goToPrev = useCallback(() => {
-    const offsets = getSectionOffsets();
-    if (!offsets.length) return;
+    if (!trackRef.current) return;
+    const panels = Array.from(trackRef.current.querySelectorAll('[data-section-id]'));
+    if (!panels.length) return;
 
-    const baseScroll = pendingTargetScrollRef.current !== null
-      ? pendingTargetScrollRef.current
-      : window.scrollY;
-
-    const prev = [...offsets].reverse().find((sec) => sec.scroll < baseScroll - 30);
-    if (prev) {
-      scrollToSection(prev.id);
-    } else {
-      scrollToSection(offsets[0].id);
-    }
-  }, [getSectionOffsets, scrollToSection]);
+    const currentIndex = panels.findIndex((p) => p.getAttribute('data-section-id') === currentSectionRef.current);
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : panels.length - 1;
+    scrollToSection(panels[prevIndex].getAttribute('data-section-id'));
+  }, [scrollToSection]);
 
   useEffect(() => {
     if (!wrapRef.current || !trackRef.current) return;
@@ -128,7 +105,7 @@ export default function HorizontalPan({
           start: 'top top',
           end: () => `+=${getScrollDistance()}`,
           pin: true,
-          scrub: 1, // Ultra smooth 1s scrub interpolation
+          scrub: 0.1, // Responsif instan tanpa delay inersia berat
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             // 1. Direct DOM update for vertical progress bar in FrameOverlay
@@ -287,7 +264,7 @@ export default function HorizontalPan({
         didMoveSignificantly = true;
         lastX = e.clientX;
         if (window.innerWidth >= 768) {
-          window.scrollBy({ top: -stepDx * 1.25 });
+          window.scrollBy({ top: -stepDx * 2 });
           if (trackRef.current) {
             trackRef.current.style.cursor = 'grabbing';
           }
@@ -306,13 +283,11 @@ export default function HorizontalPan({
         trackRef.current.style.cursor = '';
       }
 
-      if (window.innerWidth < 768) {
-        if (Math.abs(totalDx) > 45 && Math.abs(totalDx) > Math.abs(totalDy)) {
-          if (totalDx < 0) {
-            goToNext();
-          } else {
-            goToPrev();
-          }
+      if (Math.abs(totalDx) > 60 && Math.abs(totalDx) > Math.abs(totalDy)) {
+        if (totalDx < 0) {
+          goToNext();
+        } else {
+          goToPrev();
         }
       } else if (didMoveSignificantly) {
         const captureClick = (ev) => {
