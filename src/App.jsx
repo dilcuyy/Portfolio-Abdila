@@ -6,7 +6,7 @@ import HorizontalPan from './components/HorizontalPan';
 import Hero from './components/Hero';
 import About from './components/About';
 import Education from './components/Education';
-import Skills from './components/Skills';
+import Certificates from './components/Certificates';
 import Gallery from './components/Gallery';
 import Contact from './components/Contact';
 import ResumeModal from './components/ResumeModal';
@@ -77,7 +77,7 @@ export default function App() {
           />
           <About />
           <Education />
-          <Skills />
+          <Certificates />
           <Gallery />
           <Contact onScrollToTop={() => handleSelectSection('home')} />
         </HorizontalPan>

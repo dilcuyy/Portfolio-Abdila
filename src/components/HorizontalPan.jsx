@@ -51,9 +51,16 @@ export default function HorizontalPan({
       });
     } else {
       const targetScroll = targetPanel.offsetLeft;
-      window.scrollTo({
-        top: targetScroll,
-        behavior: 'smooth',
+      const scrollObj = { y: window.scrollY };
+      gsap.killTweensOf(scrollObj);
+      gsap.to(scrollObj, {
+        y: targetScroll,
+        duration: 0.45,
+        ease: 'power2.out',
+        onUpdate: () => {
+          window.scrollTo(0, scrollObj.y);
+        },
+        overwrite: 'auto',
       });
     }
   }, [onActiveSectionChange]);
@@ -63,9 +70,19 @@ export default function HorizontalPan({
     const panels = Array.from(trackRef.current.querySelectorAll('[data-section-id]'));
     if (!panels.length) return;
 
-    const currentIndex = panels.findIndex((p) => p.getAttribute('data-section-id') === currentSectionRef.current);
-    const nextIndex = currentIndex >= 0 && currentIndex < panels.length - 1 ? currentIndex + 1 : 0;
-    scrollToSection(panels[nextIndex].getAttribute('data-section-id'));
+    const isMobile = window.innerWidth < 768;
+    const currentPos = isMobile ? window.scrollY + 60 : window.scrollY;
+
+    const nextPanel = panels.find((p) => {
+      const pos = isMobile ? p.offsetTop - 56 : p.offsetLeft;
+      return pos > currentPos + 25;
+    });
+
+    if (nextPanel) {
+      scrollToSection(nextPanel.getAttribute('data-section-id'));
+    } else {
+      scrollToSection(panels[0].getAttribute('data-section-id'));
+    }
   }, [scrollToSection]);
 
   const goToPrev = useCallback(() => {
@@ -73,9 +90,19 @@ export default function HorizontalPan({
     const panels = Array.from(trackRef.current.querySelectorAll('[data-section-id]'));
     if (!panels.length) return;
 
-    const currentIndex = panels.findIndex((p) => p.getAttribute('data-section-id') === currentSectionRef.current);
-    const prevIndex = currentIndex > 0 ? currentIndex - 1 : panels.length - 1;
-    scrollToSection(panels[prevIndex].getAttribute('data-section-id'));
+    const isMobile = window.innerWidth < 768;
+    const currentPos = isMobile ? window.scrollY : window.scrollY;
+
+    const prevPanel = [...panels].reverse().find((p) => {
+      const pos = isMobile ? p.offsetTop - 56 : p.offsetLeft;
+      return pos < currentPos - 25;
+    });
+
+    if (prevPanel) {
+      scrollToSection(prevPanel.getAttribute('data-section-id'));
+    } else {
+      scrollToSection(panels[0].getAttribute('data-section-id'));
+    }
   }, [scrollToSection]);
 
   useEffect(() => {
@@ -105,7 +132,7 @@ export default function HorizontalPan({
           start: 'top top',
           end: () => `+=${getScrollDistance()}`,
           pin: true,
-          scrub: 0.1, // Responsif instan tanpa delay inersia berat
+          scrub: 0.05, // Ultra-responsif instan tanpa lag
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             // 1. Direct DOM update for vertical progress bar in FrameOverlay
@@ -212,19 +239,15 @@ export default function HorizontalPan({
       }
     };
 
-    // HORIZONTAL WHEEL / TRACKPAD: Pan horizontally with deltaX
+    // HORIZONTAL WHEEL / TRACKPAD: Pan horizontally with mouse wheel or trackpad
     const handleWheel = (e) => {
       if (isPaused) return;
-      const isHorizontal = Math.abs(e.deltaX) > Math.abs(e.deltaY) || e.shiftKey;
-      if (!isHorizontal) return;
+      if (window.innerWidth < 768) return;
 
-      const delta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
-      if (delta === 0) return;
-
-      if (window.innerWidth >= 768) {
-        e.preventDefault();
-        window.scrollBy({ top: delta });
-      }
+      e.preventDefault();
+      const rawDelta = Math.abs(e.deltaX) > Math.abs(e.deltaY) ? e.deltaX : e.deltaY;
+      const delta = rawDelta * 2.2;
+      window.scrollBy({ top: delta, behavior: 'auto' });
     };
 
     // POINTER DRAG & TOUCH SWIPE: Horizontal drag-to-scroll & mobile swipe

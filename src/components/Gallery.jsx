@@ -74,41 +74,41 @@ export default function Gallery() {
     <section
       id="projects"
       data-section-id="projects"
-      className="w-full md:w-screen md:min-w-[100vw] min-h-[100dvh] md:h-[100dvh] shrink-0 md:snap-start md:snap-always flex flex-col justify-between pt-14 pb-12 sm:pb-16 md:pt-16 md:pb-16 px-5 sm:px-8 md:pl-28 md:pr-16 lg:pl-32 border-b md:border-b-0 md:border-r border-[#36332F] bg-[#1C1B18] relative select-none"
+      className="w-full md:w-screen md:min-w-[100vw] min-h-[100dvh] md:h-[100dvh] shrink-0 md:snap-start md:snap-always flex flex-col justify-between pt-16 pb-6 md:pt-14 md:pb-8 px-4 sm:px-6 md:pl-28 md:pr-16 lg:pl-32 border-b md:border-b-0 md:border-r border-[#36332F] bg-[#1C1B18] relative select-none overflow-hidden"
     >
       {/* Top Header Eyebrow */}
-      <div className="flex justify-between items-center pb-3 border-b border-[#36332F] w-full">
-        <span className="text-xs font-mono tracking-widest text-[#D5CEC4] uppercase">
+      <div className="flex justify-between items-center pb-1.5 border-b border-[#36332F] w-full shrink-0">
+        <span className="text-[10px] sm:text-xs font-mono tracking-widest text-[#D5CEC4] uppercase">
           05 — FEATURED PROJECTS
         </span>
-        <span className="text-xs font-mono tracking-widest text-[#8C8880] uppercase hidden sm:inline">
+        <span className="text-[10px] sm:text-xs font-mono tracking-widest text-[#8C8880] uppercase hidden sm:inline">
           SYSTEM ARCHITECTURE & FULL-STACK DEVELOPMENT
         </span>
       </div>
 
       {/* Main Section Header with NEXT / PREV Controls */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 items-end border-b border-[#36332F] pb-3 w-full">
-        <div className="lg:col-span-6 flex items-baseline space-x-3">
-          <h2 className="font-serif-display text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#ECE8E1] font-normal tracking-tight uppercase leading-none">
+      <div className="grid grid-cols-1 sm:grid-cols-12 gap-2 items-end border-b border-[#36332F] pb-1.5 w-full shrink-0">
+        <div className="sm:col-span-6 flex items-baseline space-x-2.5">
+          <h2 className="font-serif-display text-2xl sm:text-3xl md:text-5xl lg:text-6xl text-[#ECE8E1] font-normal tracking-tight uppercase leading-none">
             ALL WORK
           </h2>
-          <span className="font-serif-display text-2xl sm:text-3xl text-[#8C8880]">
+          <span className="font-serif-display text-base sm:text-xl md:text-2xl text-[#8C8880]">
             ({projects.length})
           </span>
         </div>
 
         {/* Next / Prev Editorial Pagination Controls */}
-        <div className="lg:col-span-6 flex items-center justify-between sm:justify-end space-x-4">
-          <div className="font-mono text-xs text-[#8C8880] uppercase tracking-widest">
+        <div className="sm:col-span-6 flex items-center justify-between sm:justify-end space-x-3">
+          <div className="font-mono text-[10px] sm:text-xs text-[#8C8880] uppercase tracking-widest">
             SHOWING <span className="text-[#ECE8E1] font-semibold">{safePage * itemsPerPage + 1}{itemsPerPage > 1 ? `—${Math.min((safePage + 1) * itemsPerPage, projects.length)}` : ''}</span> OF {projects.length}
           </div>
 
-          <div className="flex items-center space-x-2 font-mono text-xs">
+          <div className="flex items-center space-x-1.5 font-mono text-xs">
             <button
               type="button"
               onClick={() => handlePageChange(safePage - 1)}
               disabled={safePage === 0}
-              className={`px-3 py-1.5 border border-[#36332F] uppercase tracking-wider transition-all flex items-center space-x-1 ${
+              className={`px-2.5 sm:px-3 py-1 border border-[#36332F] uppercase tracking-wider transition-all flex items-center space-x-1 text-[10px] sm:text-xs ${
                 safePage === 0
                   ? 'opacity-30 cursor-not-allowed text-[#8C8880]'
                   : 'bg-[#23221E] text-[#ECE8E1] hover:border-[#ECE8E1] hover:bg-[#2D2B26] active:bg-[#2D2B26] cursor-pointer'
@@ -121,14 +121,13 @@ export default function Gallery() {
               type="button"
               onClick={() => handlePageChange(safePage + 1)}
               disabled={safePage >= totalPages - 1}
-              className={`px-3.5 py-1.5 border border-[#36332F] uppercase tracking-wider transition-all flex items-center space-x-1.5 ${
+              className={`px-2.5 sm:px-3.5 py-1 border border-[#36332F] uppercase tracking-wider transition-all flex items-center space-x-1 text-[10px] sm:text-xs ${
                 safePage >= totalPages - 1
                   ? 'opacity-30 cursor-not-allowed text-[#8C8880]'
                   : 'bg-[#23221E] text-[#ECE8E1] hover:border-[#ECE8E1] hover:bg-[#2D2B26] active:bg-[#2D2B26] cursor-pointer'
               }`}
             >
-              <span>NEXT</span>
-              <span>→</span>
+              <span>NEXT →</span>
             </button>
           </div>
         </div>
@@ -137,20 +136,20 @@ export default function Gallery() {
       {/* Main Project Grid Stream */}
       <div
         data-no-pan="true"
-        className="my-6 md:my-auto py-2 w-full max-w-7xl overflow-hidden"
+        className="my-auto py-1 w-full max-w-7xl overflow-hidden"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
       >
         <div
           ref={cardsContainerRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-start w-full"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-5 lg:gap-6 items-start w-full"
         >
           {visibleProjects.map((project, idx) => {
             const globalIdx = safePage * itemsPerPage + idx;
             return (
               <div
                 key={project.id}
-                className="w-full flex flex-col space-y-3"
+                className="w-full flex flex-col space-y-2 sm:space-y-2.5"
               >
                 {/* Sleek Device Mockup Frame */}
                 <div className="w-full aspect-[16/10] bg-[#121210] rounded-md p-1 flex flex-col border border-[#36332F] shadow-lg">
@@ -174,18 +173,18 @@ export default function Gallery() {
                 </div>
 
                 {/* Index Number & Title Stack */}
-                <div className="flex items-start space-x-3 pt-1">
+                <div className="flex items-start space-x-2 pt-0.5">
                   {/* Large Serif Index Number */}
-                  <span className="font-serif-display text-3xl sm:text-4xl text-[#ECE8E1] font-normal leading-none shrink-0">
+                  <span className="font-serif-display text-xl sm:text-2xl md:text-3xl text-[#ECE8E1] font-normal leading-none shrink-0">
                     {(globalIdx + 1).toString().padStart(2, '0')}.
                   </span>
 
                   {/* Subtitle / Category & Project Title */}
-                  <div className="space-y-0.5 text-left flex-1">
-                    <div className="text-[10px] font-mono text-[#8C8880] uppercase tracking-wider">
+                  <div className="space-y-0.5 text-left flex-1 min-w-0">
+                    <div className="text-[9px] sm:text-[10px] font-mono text-[#8C8880] uppercase tracking-wider truncate">
                       {project.category} — 2026
                     </div>
-                    <h3 className="font-serif-display text-lg sm:text-xl text-[#ECE8E1] font-normal leading-tight">
+                    <h3 className="font-serif-display text-sm sm:text-base md:text-lg text-[#ECE8E1] font-normal leading-tight truncate">
                       {project.title}
                     </h3>
                   </div>
@@ -193,11 +192,11 @@ export default function Gallery() {
 
                 {/* Mobile Tech Tags */}
                 {project.tech && (
-                  <div className="flex flex-wrap gap-1.5 pt-1">
-                    {project.tech.map((t) => (
+                  <div className="flex flex-wrap gap-1 pt-0.5">
+                    {project.tech.slice(0, 3).map((t) => (
                       <span
                         key={t}
-                        className="px-2 py-0.5 bg-[#23221E] border border-[#36332F] text-[10px] font-mono text-[#A29D93] uppercase tracking-wider"
+                        className="px-1.5 py-0.5 bg-[#23221E] border border-[#36332F] text-[8px] sm:text-[9px] font-mono text-[#A29D93] uppercase tracking-wider"
                       >
                         {t}
                       </span>
@@ -211,7 +210,7 @@ export default function Gallery() {
       </div>
 
       {/* Footer Bar */}
-      <div className="pt-3 border-t border-[#36332F] flex flex-wrap gap-2 justify-between items-center text-[10px] font-mono text-[#8C8880] uppercase tracking-wider w-full">
+      <div className="pt-1.5 border-t border-[#36332F] flex flex-wrap gap-2 justify-between items-center text-[9px] sm:text-[10px] font-mono text-[#8C8880] uppercase tracking-wider w-full shrink-0">
         <span>FULL-STACK WEB DEVELOPMENT & SYSTEM ARCHITECTURE</span>
         <span>ABDILA ASY SYAFIQ</span>
       </div>

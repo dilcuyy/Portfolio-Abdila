@@ -17,8 +17,8 @@ export default function EditorialMenuModal({ isOpen, onClose, activeSection, onS
   const menuItems = [
     { id: 'home', num: '01.', label: 'HOME' },
     { id: 'about', num: '02.', label: 'ABOUT' },
-    { id: 'experience', num: '03.', label: 'CAREER JOURNEY' },
-    { id: 'skills', num: '04.', label: 'COMPETENCIES' },
+    { id: 'academic', num: '03.', label: 'JOURNEY ROADMAP' },
+    { id: 'certificates', num: '04.', label: 'CERTIFICATES' },
     { id: 'projects', num: '05.', label: 'ALL WORK' },
     { id: 'contact', num: '06.', label: 'CONTACT' },
   ];

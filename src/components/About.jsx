@@ -28,7 +28,7 @@ export default function About() {
       className="w-full md:w-screen md:min-w-[100vw] min-h-[100dvh] md:h-[100dvh] shrink-0 md:snap-start md:snap-always grid grid-cols-1 lg:grid-cols-12 border-b md:border-b-0 md:border-r border-[#36332F] overflow-hidden"
     >
       {/* Left Half: Dark Charcoal Panel (#1C1B18) matching editorial theme */}
-      <div className="lg:col-span-6 bg-[#1C1B18] text-[#F4F1EA] pt-14 sm:pt-16 md:pt-14 pb-10 sm:pb-12 md:pb-12 px-5 sm:px-8 md:pl-28 md:pr-14 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#36332F]">
+      <div className="lg:col-span-6 bg-[#1C1B18] text-[#F4F1EA] pt-16 sm:pt-16 md:pt-14 pb-8 sm:pb-10 md:pb-12 px-4 sm:px-6 md:pl-28 md:pr-14 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-[#36332F]">
         {/* Top Eyebrow */}
         <div className="about-el flex items-center justify-between font-mono text-[11px] sm:text-xs text-[#D5CEC4] uppercase tracking-widest pb-3 border-b border-[#36332F] shrink-0">
           <span>02 — ABOUT & APPROACH</span>
@@ -45,7 +45,7 @@ export default function About() {
         {/* Bottom 2-Column Explanation Paragraphs */}
         <div className="about-el grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 pt-4 border-t border-[#36332F] font-sans text-xs text-[#8C8880] leading-relaxed shrink-0">
           <p>
-            From direct customer communication during retail work at Levi's Store to building academic web systems and database schemas, each experience taught me patience, humility, and the importance of listening first.
+            From hands-on IT operations and network troubleshooting as an IT Division Intern at FMM Head Office Bekasi to building academic web systems and database schemas, each experience taught me patience, humility, and the importance of listening first.
           </p>
           <p>
             I don't claim to know everything. What matters most to me is staying curious, owning mistakes, and maintaining the work ethic to keep improving across development, UI/UX, and data systems.

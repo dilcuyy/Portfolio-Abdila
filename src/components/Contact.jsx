@@ -14,7 +14,7 @@ export default function Contact({ onScrollToTop }) {
     <section
       id="contact"
       data-section-id="contact"
-      className="w-full md:w-screen md:min-w-[100vw] min-h-[100dvh] md:h-[100dvh] shrink-0 md:snap-start md:snap-always flex flex-col justify-between pt-14 pb-12 sm:pb-16 md:pt-16 md:pb-16 px-5 sm:px-8 md:pl-28 md:pr-16 lg:pl-32 border-b md:border-b-0 md:border-r border-[#36332F] bg-[#1C1B18] relative select-none"
+      className="w-full md:w-screen md:min-w-[100vw] min-h-[100dvh] md:h-[100dvh] shrink-0 md:snap-start md:snap-always flex flex-col justify-between pt-16 pb-6 md:pt-16 md:pb-16 px-4 sm:px-6 md:pl-28 md:pr-16 lg:pl-32 border-b md:border-b-0 md:border-r border-[#36332F] bg-[#1C1B18] relative select-none overflow-hidden"
     >
       {/* Top Header Eyebrow (Identical padding & border-b as previous sections) */}
       <div className="flex justify-between items-center pb-3 border-b border-[#36332F] w-full">

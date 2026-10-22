@@ -60,15 +60,15 @@ export const portfolioData = {
   workExperience: [
     {
       id: "work-01",
-      company: "Levi's Store Duta Mall",
-      role: "Sales Promotion Girl (SPG) / Customer Representative",
-      period: "2024",
-      location: "Duta Mall, Indonesia",
-      description: "Responsible for providing exceptional customer service, presenting high-end visual product merchandising, explaining denim features and sizing guides, supporting daily POS sales operations, and maintaining brand standards.",
+      company: "FMM Head Office Bekasi",
+      role: "IT Division Intern",
+      period: "2024 — Present",
+      location: "Bekasi, Jawa Barat",
+      description: "Supporting enterprise IT infrastructure, internal system maintenance, network troubleshooting, and internal digital services at FMM Head Office Bekasi.",
       highlights: [
-        "Delivered personalized consultations to 50+ customers daily.",
-        "Maintained premium visual merchandising standards across key product displays.",
-        "Supported inventory tracking and stock synchronization during peak retail campaigns."
+        "IT division operational support and system troubleshooting.",
+        "Internal digital database and application support.",
+        "Network infrastructure maintenance and end-user technical solutions."
       ],
       bannerImage: "/images/work-banner.jpg",
       portraitImage: "/images/work-portrait.jpg"

@@ -22,9 +22,9 @@ const FrameOverlay = forwardRef(function FrameOverlay({ activeSection, onOpenMen
       {/* Mobile Fixed Top Header with Slim Progress Indicator (md:hidden) */}
       <header className="fixed top-0 left-0 right-0 h-14 bg-[#1C1B18]/95 backdrop-blur-md border-b border-[#36332F] z-50 flex items-center justify-between px-4 sm:px-6 md:hidden select-none">
         {/* Left: Monogram / Name */}
-        <div className="flex items-center space-x-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#F4F1EA]" />
-          <span className="font-serif-display text-lg tracking-wider text-[#F4F1EA] uppercase leading-none">
+        <div className="flex items-center space-x-2 min-w-0">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#F4F1EA] shrink-0" />
+          <span className="font-serif-display text-base sm:text-lg tracking-wider text-[#F4F1EA] uppercase leading-none truncate">
             ABDILA ASY SYAFIQ
           </span>
         </div>
@@ -32,7 +32,7 @@ const FrameOverlay = forwardRef(function FrameOverlay({ activeSection, onOpenMen
         {/* Right: Menu Trigger */}
         <button
           onClick={onOpenMenu}
-          className="flex items-center space-x-1.5 px-3 py-1.5 border border-[#36332F] bg-[#23221E] text-[#F4F1EA] active:bg-[#2D2B26] transition-colors cursor-pointer text-xs font-mono tracking-wider"
+          className="flex items-center space-x-1.5 px-2.5 py-1.5 border border-[#36332F] bg-[#23221E] text-[#F4F1EA] active:bg-[#2D2B26] transition-colors cursor-pointer text-xs font-mono tracking-wider shrink-0 ml-2"
           aria-label="Open Navigation Menu"
         >
           <Menu size={15} />
